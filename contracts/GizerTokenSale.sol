@@ -2,10 +2,10 @@ pragma solidity ^0.4.15;
 
 // ----------------------------------------------------------------------------
 //
-// GZR 'Gizer Gaming' token public sale contract
+// GZR 'GIZER' token public sale contract
 //
-// For details, please visit: http://www.gizer.io
-//
+// For details, please visit: https://tokensale.gizer.io
+// https://www.gizer.io
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
