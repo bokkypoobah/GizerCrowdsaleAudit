@@ -7,9 +7,6 @@ For more information, visit https://gizer.io/
 
 ## Documentation
 
-The following document contains a description of the Gizer ICO contract parameters and details about smart contract variables and functions:
-
-https://docs.google.com/document/d/1ThhmohH8Raka6-dxEDz_05PkEoVs_JqQimHJPXK_B7s/edit?usp=sharing
-
+(work in progress)
 
 ## Testing
