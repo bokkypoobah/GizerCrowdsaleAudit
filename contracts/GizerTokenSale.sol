@@ -2,10 +2,10 @@ pragma solidity ^0.4.16;
 
 // ----------------------------------------------------------------------------
 //
-// GZR 'GIZER' token public sale contract
+// GZR 'Gizer Gaming' token public sale contract
 //
-// For details, please visit: https://tokensale.gizer.io
-// https://www.gizer.io
+// For details, please visit: http://www.gizer.io
+//
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
@@ -93,19 +93,19 @@ contract ERC20Interface {
     returns (uint);
   
   function balanceOf(address _owner) constant 
-    returns (uint);
+    returns (uint balance);
   
   function transfer(address _to, uint _value)
-    returns (bool);
+    returns (bool success);
   
   function transferFrom(address _from, address _to, uint _value) 
-    returns (bool);
+    returns (bool success);
   
   function approve(address _spender, uint _value) 
-    returns (bool);
+    returns (bool success);
   
   function allowance(address _owner, address _spender) constant 
-    returns (uint);
+    returns (uint remaining);
 
 }
 
@@ -125,8 +125,10 @@ contract ERC20Token is ERC20Interface, Owned {
 
   // Functions ------------------------
 
+  /* Get the account balance for an address */
+
   function balanceOf(address _owner) constant 
-    returns (uint)
+    returns (uint balance)
   {
     return balances[_owner];
   }
@@ -134,7 +136,7 @@ contract ERC20Token is ERC20Interface, Owned {
   /* Transfer the balance from owner's account to another account */
 
   function transfer(address _to, uint _amount) 
-    returns (bool)
+    returns (bool success)
   {
     require( _amount > 0 );                              // Non-zero transfer
     require( balances[msg.sender] >= _amount );          // User has balance
@@ -149,7 +151,7 @@ contract ERC20Token is ERC20Interface, Owned {
   /* Allow _spender to withdraw from your account up to_amount */
 
   function approve(address _spender, uint _amount) 
-    returns (bool)
+    returns (bool success)
   {
     // before changing the approve amount for an address, its allowance
     // must be reset to 0 to mitigate the race condition described here:
@@ -168,7 +170,7 @@ contract ERC20Token is ERC20Interface, Owned {
   /* Must be pre-approved by owner */
 
   function transferFrom(address _from, address _to, uint _amount) 
-    returns (bool) 
+    returns (bool success) 
   {
     require( _amount > 0 );                              // Non-zero transfer
     require( balances[_from] >= _amount );               // Sufficient balance
@@ -186,7 +188,7 @@ contract ERC20Token is ERC20Interface, Owned {
   /* that can be transferred by spender */
 
   function allowance(address _owner, address _spender) constant 
-    returns (uint)
+    returns (uint remaining)
   {
     return allowed[_owner][_spender];
   }
@@ -207,8 +209,7 @@ contract GizerToken is ERC20Token {
   uint constant E6  = 10**6;
   uint constant E18 = 10**18;
 
-  uint constant NYCTHEMERON  = 24 * 60 * 60; // 24 hours, a night and a day...
-                                             // alt. spelling nychthemeron
+  uint constant NYCTHEMERON  = 24 * 60 * 60; // 24 hours, a night and a day
 
   /* Basic token data */
 
@@ -249,7 +250,7 @@ contract GizerToken is ERC20Token {
   
   uint public constant TOKETH_PRESALE_ONE   = 1150 * E6; // presale wave 1 (1-100)
   uint public constant TOKETH_PRESALE_TWO   = 1100 * E6; // presale wave 2 (101-500)
-  uint public constant TOKETH_PRESALE_THREE = 1050 * E6; // presale - others
+  uint public constant TOKETH_PRESALE_THREE = 1075 * E6; // presale - others
   
   uint public constant CUTOFF_PRESALE_ONE = 100; // last contributor wave 1
   uint public constant CUTOFF_PRESALE_TWO = 500; // last contributor wave 2
@@ -262,8 +263,8 @@ contract GizerToken is ERC20Token {
   uint public DATE_ICO_START = 1510754400; // 15-Nov-2017 14:00 UTC
   uint public DATE_ICO_END   = 1513346400; // 15-Dec-2017 14:00 UTC
 
-  uint public constant TOKETH_ICO_ONE = 1000 * E6; // ICO wave 1 (1-500)
-  uint public constant TOKETH_ICO_TWO =  950 * E6; // ICO - others
+  uint public constant TOKETH_ICO_ONE = 1050 * E6; // ICO wave 1 (1-500)
+  uint public constant TOKETH_ICO_TWO = 1000 * E6; // ICO - others
   
   uint public constant CUTOFF_ICO_ONE = 500; // last contributor wave 1
 
@@ -296,6 +297,11 @@ contract GizerToken is ERC20Token {
   /* Addresses subject to lockup period */
   
   mapping(address => bool) locked;
+
+  /* Whitelist */
+
+  address public whitelistWallet;
+  mapping(address => bool) whitelist;
   
   /* Variables for pre-deployment testing */
   
@@ -340,7 +346,17 @@ contract GizerToken is ERC20Token {
     uint _balance,
     uint _tokensIssuedTeam
   );
+  
+  event WhitelistModify(
+    address indexed _particpant,
+    bool _status
+  );
 
+  event WhitelistWalletChanged(
+    address _newWhitelistWallet
+  );
+
+  
   // Basic Functions ------------------
 
   /* Initialize */
@@ -354,6 +370,7 @@ contract GizerToken is ERC20Token {
   
   function () payable
   {
+    require( whitelist[msg.sender] == true );
     buyTokens();
   }
 
@@ -364,7 +381,7 @@ contract GizerToken is ERC20Token {
   function atNow() constant
     returns (uint)
   {
-    if ( TEST_MODE ) return testTime;
+    if (TEST_MODE) return testTime;
     return now;
   }
 
@@ -373,10 +390,37 @@ contract GizerToken is ERC20Token {
   function isUnlocked(address _participant) constant 
     returns (bool unlocked)
   {
-    if ( locked[_participant] != true || atNow() > lockupEndDate ) return true;
+    if (locked[_participant] != true || atNow() > lockupEndDate) return true;
     return false;
   }
- 
+
+  /* Public function to verify if an account is whitelisted */
+
+  function isWhitelisted(address _participant) constant 
+    returns (bool whitelisted)
+  {
+    if (whitelist[_participant] == true) return true;
+    return false;
+  }
+  
+  // Whitelist manager functions ------
+
+  /* Manage whitelist */
+
+  function addToWhitelist(address _participant)
+  {
+    require( msg.sender == whitelistWallet );
+    whitelist[_participant] = true;
+    WhitelistModify(_participant, true);
+  }  
+
+  function removeFromWhitelist(address _participant)
+  {
+    require( msg.sender == whitelistWallet );
+    whitelist[_participant] = false;
+    WhitelistModify(_participant, false);
+  }
+  
   // Owner Functions ------------------
   
   /* Set the time (only useful in test mode) */
@@ -391,6 +435,7 @@ contract GizerToken is ERC20Token {
 
   function setWallet(address _wallet) onlyOwner
   {
+    require( _wallet != address(0x0) );
     wallet = _wallet;
     WalletUpdated(wallet);
   }
@@ -401,6 +446,14 @@ contract GizerToken is ERC20Token {
   {
     redemptionWallet = _wallet;
     RedemptionWalletUpdated(wallet);
+  }
+  
+  /* Change the whitelist owner address */
+
+  function setWhitelistWallet(address _wallet) onlyOwner
+  {
+    whitelistWallet = _wallet;
+    WhitelistWalletChanged(wallet);
   }
   
   /* Change ICO dates before ICO start */
