@@ -1,11 +1,11 @@
-pragma solidity ^0.4.15;
+pragma solidity ^0.4.16;
 
 // ----------------------------------------------------------------------------
 //
-// GZR 'GIZER' token public sale contract
+// GZR 'Gizer Gaming' token public sale contract
 //
-// For details, please visit: https://tokensale.gizer.io
-// https://www.gizer.io
+// For details, please visit: http://www.gizer.io
+//
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
@@ -19,42 +19,45 @@ contract Owned {
   address public owner;
   address public newOwner;
 
-  // events -------------------------
+  // Events ---------------------------
 
-  event LogOwnershipTransferProposed(
+  event OwnershipTransferProposed(
     address indexed _from,
     address indexed _to
   );
 
-  event LogOwnershipTransferred(
+  event OwnershipTransferred(
     address indexed _from,
     address indexed _to
   );
 
-  // functions ----------------------
+  // Modifier -------------------------
+
+  modifier onlyOwner
+  {
+    require( msg.sender == owner );
+    _;
+  }
+
+  // Functions ------------------------
 
   function Owned()
   {
     owner = msg.sender;
   }
 
-  modifier onlyOwner
-  {
-    require(msg.sender == owner);
-    _;
-  }
-
   function transferOwnership(address _newOwner) onlyOwner
   {
-    require(_newOwner != address(0x0));
-    LogOwnershipTransferProposed(owner, _newOwner);
+    require( _newOwner != owner );
+    require( _newOwner != address(0x0) );
+    OwnershipTransferProposed(owner, _newOwner);
     newOwner = _newOwner;
   }
 
   function acceptOwnership()
   {
     require(msg.sender == newOwner);
-    LogOwnershipTransferred(owner, newOwner);
+    OwnershipTransferred(owner, newOwner);
     owner = newOwner;
   }
 
@@ -70,7 +73,7 @@ contract Owned {
 
 contract ERC20Interface {
 
-  // events -------------------------
+  // Events ---------------------------
 
   event Transfer(
     address indexed _from,
@@ -84,7 +87,7 @@ contract ERC20Interface {
     uint _value
   );
 
-  // functions ----------------------
+  // Functions ------------------------
 
   function totalSupply() constant
     returns (uint);
@@ -106,6 +109,7 @@ contract ERC20Interface {
 
 }
 
+
 // ----------------------------------------------------------------------------
 //
 // ERC Token Standard #20
@@ -116,23 +120,21 @@ contract ERC20Interface {
 
 contract ERC20Token is ERC20Interface, Owned {
 
-  // variables ----------------------
-
   mapping(address => uint) balances;
   mapping(address => mapping (address => uint)) allowed;
 
-  // functions ---------------------
+  // Functions ------------------------
 
-  // Get the account balance for an address
-  //
+  /* Get the account balance for an address */
+
   function balanceOf(address _owner) constant 
     returns (uint balance)
   {
     return balances[_owner];
   }
 
-  // Transfer the balance from owner's account to another account
-  //
+  /* Transfer the balance from owner's account to another account */
+
   function transfer(address _to, uint _amount) 
     returns (bool success)
   {
@@ -146,8 +148,8 @@ contract ERC20Token is ERC20Interface, Owned {
     return true;
   }
 
-  // Allow _spender to withdraw from your account up to_amount.
-  //
+  /* Allow _spender to withdraw from your account up to_amount */
+
   function approve(address _spender, uint _amount) 
     returns (bool success)
   {
@@ -157,16 +159,16 @@ contract ERC20Token is ERC20Interface, Owned {
     require( _amount == 0 || allowed[msg.sender][_spender] == 0 );
       
     // the approval amount cannot exceed the balance
-    require (balances[msg.sender] >= _amount);
+    require ( balances[msg.sender] >= _amount );
       
     allowed[msg.sender][_spender] = _amount;
     Approval(msg.sender, _spender, _amount);
     return true;
   }
 
-  // Spender of tokens transfer an amount of tokens from the owner's balance
-  // Must be pre-approved by owner
-  //
+  /* Spender of tokens transfers tokens from the owner's balance */
+  /* Must be pre-approved by owner */
+
   function transferFrom(address _from, address _to, uint _amount) 
     returns (bool success) 
   {
@@ -182,9 +184,9 @@ contract ERC20Token is ERC20Interface, Owned {
     return true;
   }
 
-  // Returns the amount of tokens approved by the owner that can be
-  // transferred by _spender
-  //
+  /* Returns the amount of tokens approved by the owner */
+  /* that can be transferred by spender */
+
   function allowance(address _owner, address _spender) constant 
     returns (uint remaining)
   {
@@ -192,6 +194,7 @@ contract ERC20Token is ERC20Interface, Owned {
   }
 
 }
+
 
 // ----------------------------------------------------------------------------
 //
@@ -201,318 +204,499 @@ contract ERC20Token is ERC20Interface, Owned {
 
 contract GizerToken is ERC20Token {
 
-
-  // VARIABLES ================================
-
-
-  // utility variable
+  /* Utility variables */
   
+  uint constant E6  = 10**6;
   uint constant E18 = 10**18;
 
-  // basic token data
+  uint constant NYCTHEMERON  = 24 * 60 * 60; // 24 hours, a night and a day
+
+  /* Basic token data */
 
   string public constant name = "Gizer Gaming Token";
   string public constant symbol = "GZR";
-  uint8 public constant decimals = 18;
+  uint8  public constant decimals = 6;
 
-  // wallet address (can be reset at any time during ICO)
+  /* Wallet address - initially set to owner at deployment */
   
   address public wallet;
 
-  // ICO variables that can be reset before ICO starts
+  /* Gizer redemption wallet - to redeem GZR tokens for Gizer gaming items */
+  
+  address public redemptionWallet;
 
-  uint public tokensPerEth = 1103 * E18;
-  uint public icoTokenSupply = 44000000 * E18;
+  /* Token volumes */
 
-  // ICO constants #1
+  uint public constant TOKEN_SUPPLY_TOTAL   = 100 * E6 * E6; // 100 mm tokens
+  uint public constant TOKEN_SUPPLY_TEAM    =  15 * E6 * E6; //  15 mm tokens
+  uint public constant TOKEN_SUPPLY_RESERVE =  15 * E6 * E6; //  15 mm tokens
+  uint public constant TOKEN_SUPPLY_CROWD   =  70 * E6 * E6; //  70 mm tokens
 
-  uint public constant TOTAL_TOKEN_SUPPLY = 100000000 * E18; // 100 million
-  uint public constant ICO_TRIGGER = 100000 * E18; // 100,000
+  /* General crowdsale parameters */  
+  
   uint public constant MIN_CONTRIBUTION = E18 / 100; // 0.01 Ether
+  uint public constant MAX_CONTRIBUTION = 3333 * E18; // 3,333 Ether
+  uint public constant LOCKUP_PERIOD = 180 * NYCTHEMERON;
+  uint public constant CLAWBACK_PERIOD = 180 * NYCTHEMERON;
+
+  /* Private sale */
+
+  uint public constant PRIVATE_SALE_MAX_ETHER = 1000 * E18; // 1,000 Ether
   
-  // ICO constants #2 : dates
-
-  // Start - 20-Oct-2017 12:00 UTC (noon)
-  // End - 20-Nov-2017 12:00 UTC (noon)
-  // as per http://www.unixtimestamp.com
+  /* Presale parameters */
   
-  uint public constant START_DATE = 1508500800;
-  uint public constant END_DATE = 1511179200;
-  uint public constant LOCKUP_PERIOD = 180 * 24 * 3600; // 180 days
-  uint public lockupEndDate = END_DATE + LOCKUP_PERIOD; // changes if ICO ends early
+  uint public constant DATE_PRESALE_START = 1508504400; // 20-Oct-2017 13:00 UTC
+  uint public constant DATE_PRESALE_END   = 1509368400; // 30-Oct-2017 13:00 UTC
+  
+  uint public constant TOKETH_PRESALE_ONE   = 1150 * E6; // presale wave 1 (1-100)
+  uint public constant TOKETH_PRESALE_TWO   = 1100 * E6; // presale wave 2 (101-500)
+  uint public constant TOKETH_PRESALE_THREE = 1075 * E6; // presale - others
+  
+  uint public constant CUTOFF_PRESALE_ONE = 100; // last contributor wave 1
+  uint public constant CUTOFF_PRESALE_TWO = 500; // last contributor wave 2
+  
+  uint public constant FUNDING_PRESALE_MIN =  333 * E18; //   333 Ether
+  uint public constant FUNDING_PRESALE_MAX = 3333 * E18; // 3,333 Ether
 
-  // ICO variables
+  /* ICO parameters (ICO dates can be modified by owner after deployment) */
 
-  uint public icoTokensIssued = 0;
-  uint public icoEtherReceived = 0;
+  uint public DATE_ICO_START = 1510754400; // 15-Nov-2017 14:00 UTC
+  uint public DATE_ICO_END   = 1513346400; // 15-Dec-2017 14:00 UTC
+
+  uint public constant TOKETH_ICO_ONE = 1050 * E6; // ICO wave 1 (1-500)
+  uint public constant TOKETH_ICO_TWO = 1000 * E6; // ICO - others
+  
+  uint public constant CUTOFF_ICO_ONE = 500; // last contributor wave 1
+
+  uint public constant ICO_TRIGGER = 100000 * E6; // 100,000 (for declaring ICO end)
+
+  /* Crowdsale variables */
+
+  uint public privateEtherReceived = 0; // private sale Ether received by Gizer
+                                        // (this is not sent to the contract)
+
+  uint public icoEtherReceived = 0; // Ether actually received by the contract
+                                    // presale + ICO combined
+
+  bool public icoThresholdReached = false;
+  
+  uint public tokensIssuedTotal = 0;
+  uint public tokensIssuedCrowd = 0;
+  uint public tokensIssuedTeam = 0;
+  uint public tokensIssuedReserve = 0;
+
+  uint public lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // changes if ICO ends early
+                                                   // and resets if DATE_ICO_END changes
+
   bool public icoFinished = false;
   bool public tradeable = false;
+  
+  uint public presaleContributorCount = 0;
+  uint public icoContributorCount = 0;
 
-  // Minting
-  
-  uint public ownerTokensMinted = 0;
-  
-  // Addresses subject to lockup period
+  /* Addresses subject to lockup period */
   
   mapping(address => bool) locked;
-  
 
-  // EVENTS ===================================
+  /* Whitelist */
 
+  address public whitelistWallet;
+  mapping(address => bool) whitelist;
   
-  event LogWalletUpdated(
-    address newWallet
+  /* Variables for pre-deployment testing */
+  
+  bool public constant TEST_MODE = false; // set to true for test deployment only
+  uint public testTime = DATE_PRESALE_START - NYCTHEMERON; // only used in test mode
+
+  // Events ---------------------------
+  
+  event WalletUpdated(
+    address _newWallet
   );
   
-  event LogTokensPerEthUpdated(
-    uint newTokensPerEth
-  );
-  
-  event LogIcoTokenSupplyUpdated(
-    uint newIcoTokenSupply
-  );
-  
-  event LogTokensBought(
-    address indexed buyer,
-    uint ethers,
-    uint tokens, 
-    uint participantTokenBalance, 
-    uint newIcoTokensIssued,
-    uint newIcoEtherReceived
-  );
-  
-  event LogMinting(
-    address indexed participant,
-    uint tokens,
-    uint newOwnerTokensMinted,
-    uint8 isLocked
+  event RedemptionWalletUpdated(
+    address _newRedemptionWallet
   );
 
+  event IcoDatesUpdated(
+    uint _start,
+    uint _end
+  );
 
-  // FUNCTIONS ================================
+  event TokensIssued(
+    address indexed _owner,
+    uint _tokens, 
+    uint _balance, 
+    bool _isPrivateSale,
+    uint _ether,
+    uint _tokensIssuedCrowd,
+    uint _icoEtherReceived
+  );
   
-  // --------------------------------
-  // initialize
-  // --------------------------------
+  event TokensMintedTeam(
+    address indexed _owner,
+    uint _tokens,
+    uint _balance,
+    uint _tokensIssuedReserve
+  );
+  
+  event TokensMintedReserve(
+    address indexed _owner,
+    uint _tokens,
+    uint _balance,
+    uint _tokensIssuedTeam
+  );
+  
+  event WhitelistModify(
+    address indexed _particpant,
+    bool _status
+  );
+
+  event WhitelistWalletChanged(
+    address _newWhitelistWallet
+  );
+
+  
+  // Basic Functions ------------------
+
+  /* Initialize */
 
   function GizerToken() {
-    require(icoTokenSupply < TOTAL_TOKEN_SUPPLY);
-    owner = msg.sender;
     wallet = msg.sender;
+    redemptionWallet = wallet;
   }
 
-
-  // --------------------------------
-  // implement totalSupply() ERC20 function
-  // --------------------------------
-  
-  function totalSupply() constant
-    returns (uint)
-  {
-    return TOTAL_TOKEN_SUPPLY;
-  }
-
-
-  // --------------------------------
-  // changing ICO parameters
-  // --------------------------------
-  
-  // Owner can change the crowdsale wallet address at any time
-  //
-  function setWallet(address _wallet) onlyOwner
-  {
-    wallet = _wallet;
-    LogWalletUpdated(wallet);
-  }
-  
-  // (before ICO) Owner can change the number of tokens per ETH for ICO
-  //
-  function setTokensPerEth(uint _tokensPerEth) onlyOwner
-  {
-    require(now < START_DATE);
-    require(_tokensPerEth > 0);
-    tokensPerEth = _tokensPerEth;
-    LogTokensPerEthUpdated(tokensPerEth);
-  }
-      
-
-  // (before ICO) Owner can change the number of available tokens for the ICO
-  //
-  function setIcoTokenSupply(uint _icoTokenSupply) onlyOwner
-  {
-    require(now < START_DATE);
-    require(_icoTokenSupply < TOTAL_TOKEN_SUPPLY);
-    icoTokenSupply = _icoTokenSupply;
-    LogIcoTokenSupplyUpdated(icoTokenSupply);
-  }
-
-
-  // --------------------------------
-  // Default function
-  // --------------------------------
+  /* Default function (this is the only 'payable' function) */
   
   function () payable
   {
+    require( whitelist[msg.sender] == true );
     buyTokens();
   }
 
-  // --------------------------------
-  // Accept ETH during crowdsale
-  // --------------------------------
-
-  function buyTokens() payable
-  {
-    require(!icoFinished);
-    require(now >= START_DATE);
-    require(now <= END_DATE);
-    require(msg.value >= MIN_CONTRIBUTION);
-    
-    // get number of tokens
-    uint tokens = msg.value * tokensPerEth / E18;
-    
-    // first check if there is enough capacity
-    uint available = icoTokenSupply - icoTokensIssued;
-    require (tokens <= available); 
-
-    // ok it's possible to issue tokens
-    
-    // Add tokens purchased to account's balance and total supply
-    balances[msg.sender] += tokens;
-    icoTokensIssued += tokens;
-    icoEtherReceived += msg.value;
-
-    // Log the issuance of tokens
-    Transfer(0x0, msg.sender, tokens);
-    
-    // Log the token purchase
-    LogTokensBought(msg.sender, msg.value, tokens, balances[msg.sender], icoTokensIssued, icoEtherReceived);
-
-    // Transfer the contributed ethers to the crowdsale wallet
-    wallet.transfer(msg.value);
-  }
-
+  // Public Functions -----------------
   
-  // --------------------------------
-  // Minting of tokens by owner
-  // --------------------------------
-
-  // Tokens remaining available to mint by owner
-  //
-  function availableToMint() constant
+  /* What time is it? */
+  
+  function atNow() constant
     returns (uint)
   {
-    // note that icoTokensIssued <= icoTokenSupply 
-    if (icoFinished) {
-      return TOTAL_TOKEN_SUPPLY - icoTokensIssued - ownerTokensMinted;
-    } else {
-      return TOTAL_TOKEN_SUPPLY - icoTokenSupply - ownerTokensMinted;        
-    }
+    if (TEST_MODE) return testTime;
+    return now;
   }
 
-  // Minting of tokens by owner (no lockup period)
-  //    
-  function mint(address _participant, uint _tokens) onlyOwner 
+  /* Public function to verify if an account is unlocked */
+
+  function isUnlocked(address _participant) constant 
+    returns (bool unlocked)
   {
-    require( _tokens <= availableToMint() );
+    if (locked[_participant] != true || atNow() > lockupEndDate) return true;
+    return false;
+  }
+
+  /* Public function to verify if an account is whitelisted */
+
+  function isWhitelisted(address _participant) constant 
+    returns (bool whitelisted)
+  {
+    if (whitelist[_participant] == true) return true;
+    return false;
+  }
+  
+  // Whitelist manager functions ------
+
+  /* Manage whitelist */
+
+  function addToWhitelist(address _participant)
+  {
+    require( msg.sender == whitelistWallet );
+    whitelist[_participant] = true;
+    WhitelistModify(_participant, true);
+  }  
+
+  function removeFromWhitelist(address _participant)
+  {
+    require( msg.sender == whitelistWallet );
+    whitelist[_participant] = false;
+    WhitelistModify(_participant, false);
+  }
+  
+  // Owner Functions ------------------
+  
+  /* Set the time (only useful in test mode) */
+
+  function setTestTime(uint _t) onlyOwner
+  {
+    require( _t > testTime );
+    testTime = _t;
+  }
+
+  /* Change the crowdsale wallet address */
+
+  function setWallet(address _wallet) onlyOwner
+  {
+    require( _wallet != address(0x0) );
+    wallet = _wallet;
+    WalletUpdated(wallet);
+  }
+
+  /* Change the redemption wallet address */
+
+  function setRedemptionWallet(address _wallet) onlyOwner
+  {
+    redemptionWallet = _wallet;
+    RedemptionWalletUpdated(wallet);
+  }
+  
+  /* Change the whitelist owner address */
+
+  function setWhitelistWallet(address _wallet) onlyOwner
+  {
+    whitelistWallet = _wallet;
+    WhitelistWalletChanged(wallet);
+  }
+  
+  /* Change ICO dates before ICO start */
+  
+  function updateIcoDates(uint _start, uint _end) onlyOwner
+  {
+    require( atNow() < DATE_ICO_START );
+    require( _start < _end );
+    require( _end < DATE_PRESALE_END + 180 * NYCTHEMERON ); // just in case
+    DATE_ICO_START = _start;
+    DATE_ICO_END = _end;
+    lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // lockup is linked to ICO end date
+    IcoDatesUpdated(_start, _end);
+  }
+
+  /* Issue tokens for ETH received during private sale */
+
+  function privateSaleContribution(address _contributor, uint _amount) onlyOwner
+  {
+    require( _contributor != address(0x0) );
+    require( atNow() < DATE_PRESALE_START );
+
+    // check amount
+    require( _amount >= MIN_CONTRIBUTION );
+    require( _amount <= PRIVATE_SALE_MAX_ETHER ); // also prevents overflow
+    require( _amount + privateEtherReceived <= PRIVATE_SALE_MAX_ETHER );
+    
+    // same conditions as early presale participants
+    uint tokens = _amount * TOKETH_PRESALE_ONE / E18;
+    
+    // update privateEtherReceived
+    privateEtherReceived += _amount;
+    
+    // issue tokens
+    issueTokens(_contributor, tokens, true); // true => private sale
+  }
+
+  /* Minting of reserve tokens by owner (no lockup period) */
+
+  function mintReserve(address _participant, uint _tokens) onlyOwner 
+  {
+    // available amount
+    // after ICO ends, unsold tokens become available for the reserve account
+    uint availableTokens = TOKEN_SUPPLY_RESERVE - tokensIssuedReserve;
+    if (icoFinished) {
+      availableTokens += TOKEN_SUPPLY_CROWD - tokensIssuedCrowd;
+    }
+    require( _tokens <= availableTokens );
     
     // not possible if any *locked* tokens have already been minted for this address
     require( balances[_participant] == 0 || locked[_participant] != true);
     
+    // mint and log
     balances[_participant] += _tokens;
-    ownerTokensMinted += _tokens;
+    tokensIssuedReserve += _tokens;
+    tokensIssuedTotal += _tokens;
     Transfer(0x0, _participant, _tokens);
-    LogMinting(_participant, _tokens, ownerTokensMinted, 0);
+    TokensMintedReserve(_participant, _tokens, balances[_participant], tokensIssuedReserve);
   }
 
-  // Minting of tokens by owner (with lockup period)
-  //    
-  function mintLocked(address _participant, uint _tokens) onlyOwner 
+  /* Minting of team and advisors tokens by owner (with lockup period) */
+
+  function mintTeam(address _participant, uint _tokens) onlyOwner 
   {
-    require( _tokens <= availableToMint() );
+    // check amount
+    require( _tokens <= TOKEN_SUPPLY_TEAM - tokensIssuedTeam );
     
     // not possible if any *unlocked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] == true);
+    require( balances[_participant] == 0 || locked[_participant] == true );
     
+    // mint and log
     locked[_participant] = true;
     balances[_participant] += _tokens;
-    ownerTokensMinted += _tokens;
+    tokensIssuedTeam += _tokens;
+    tokensIssuedTotal += _tokens;
     Transfer(0x0, _participant, _tokens);
-    LogMinting(_participant, _tokens, ownerTokensMinted, 1);
+    TokensMintedTeam(_participant, _tokens, balances[_participant], tokensIssuedTeam);
   }
 
-  // Public function to verify if an account is unlocked 
-  //
-  function isUnlocked(address _participant) constant 
-    returns (bool unlocked)
-  {
-    if ( locked[_participant] != true || now > lockupEndDate ) return true;
-    return false;
-  }
-  
-  // --------------------------------
-  // Declare ICO finished
-  // --------------------------------
+  /* Declare ICO finished */
   
   function declareIcoFinished() onlyOwner
   {
-    // only after ICO end date, or when cap almost reached
-    require( now > END_DATE || icoTokenSupply - icoTokensIssued <= ICO_TRIGGER );
-
-    // ICO is declared finished
-    icoFinished = true;
+    require( !icoFinished );
     
-    // move end of lockup period back if necessary
-    if (now < END_DATE) lockupEndDate = now + LOCKUP_PERIOD;
+    // only after ICO end date, or when cap almost reached
+    require( atNow() > DATE_ICO_END || TOKEN_SUPPLY_CROWD - tokensIssuedCrowd <= ICO_TRIGGER );
+
+    // ICO is declared finished, end of lockup period moved back if necessary
+    icoFinished = true;
+    if (atNow() < DATE_ICO_END) lockupEndDate = atNow() + LOCKUP_PERIOD; // only once!
   }
 
-  // --------------------------------
-  // Make tokens tradeable
-  // --------------------------------
+  /* Make tokens tradeable */
   
   function makeTradeable() onlyOwner
   {
     // the token can only be made tradeable after ICO finishes
-    require(icoFinished);
+    require( icoFinished );
     tradeable = true;
   }
 
-  // --------------------------------
-  // Transfers
-  // --------------------------------
+  /* Owner withdrawal if threshold reached */
+  
+  function ownerWithdraw() external onlyOwner {
+     require( icoThresholdReached );
+     wallet.transfer(this.balance);
+  }  
+
+  /* Owner clawback of remaining funds after clawback period */
+  
+  function ownerClawback() external onlyOwner {
+    require( atNow() > DATE_ICO_END + CLAWBACK_PERIOD );
+    wallet.transfer(this.balance);
+  }
+
+  /* Transfer out any accidentally sent ERC20 tokens */
+
+  function transferAnyERC20Token(address tokenAddress, uint amount) onlyOwner 
+    returns (bool success) 
+  {
+      return ERC20Interface(tokenAddress).transfer(owner, amount);
+  }
+
+  // Private functions ----------------
+
+  /* Accept ETH during crowdsale (called by default function) */
+
+  function buyTokens() private
+  {
+    uint ts = atNow();
+    bool isPresale = false;
+    bool isIco = false;
+    uint tokens = 0;
+
+    // basic 
+    require( !icoFinished );
+    require( msg.value >= MIN_CONTRIBUTION && msg.value <= MAX_CONTRIBUTION );
+
+    // check dates for presale or ICO
+    if (ts > DATE_PRESALE_START && ts < DATE_PRESALE_END) {
+      isPresale = true;  
+    } else if (ts > DATE_ICO_START && ts < DATE_ICO_END) {
+      isIco = true;  
+    }
+    require( isPresale || isIco );
+    
+    // Presale - check the cap in ETH
+    if (isPresale) {
+      require( msg.value + icoEtherReceived <= FUNDING_PRESALE_MAX );
+      if (presaleContributorCount < CUTOFF_PRESALE_ONE) {
+        tokens = msg.value * TOKETH_PRESALE_ONE / E18;
+      } else if (presaleContributorCount < CUTOFF_PRESALE_TWO) {
+        tokens = msg.value * TOKETH_PRESALE_TWO / E18;
+      } else {
+        tokens = msg.value * TOKETH_PRESALE_THREE / E18;
+      }
+      presaleContributorCount += 1;
+    }
+    
+    // ICO - check the token volume cap
+    if (isIco) {
+      if (icoContributorCount < CUTOFF_ICO_ONE) {
+        tokens = msg.value * TOKETH_ICO_ONE / E18;
+      } else {
+        tokens = msg.value * TOKETH_ICO_TWO / E18;
+      }
+      require( tokensIssuedCrowd + tokens <= TOKEN_SUPPLY_CROWD );
+      icoContributorCount += 1;
+    }
+    
+    // issue tokens
+    issueTokens(msg.sender, tokens, false); // false => not private sale
+  }
+  
+  /* Issue tokens */
+  
+  function issueTokens(address _contributor, uint _tokens, bool _isPrivateSale) private
+  {
+    // Register tokens purchased and Ether received
+    balances[_contributor] += _tokens;
+    tokensIssuedCrowd += _tokens;
+    tokensIssuedTotal += _tokens;
+    icoEtherReceived += msg.value;
+    
+    // Log token issuance
+    Transfer(0x0, _contributor, _tokens);
+    TokensIssued(_contributor, _tokens, balances[_contributor], _isPrivateSale, msg.value, tokensIssuedCrowd, icoEtherReceived);
+
+    // check threshold, transfer Ether if necessary
+    if (icoEtherReceived >= FUNDING_PRESALE_MIN) {
+      icoThresholdReached = true;
+      if (msg.value > 0) wallet.transfer(msg.value);
+    }
+  }
+
+  // ERC20 functions ------------------
+
+  /* Implement totalSupply() ERC20 function */
+  
+  function totalSupply() constant
+    returns (uint)
+  {
+    return tokensIssuedTotal;
+  }
+
+  /* Override "transfer" (ERC20) */
 
   function transfer(address _to, uint _amount) 
     returns (bool success)
   {
     // cannot transfer out until tradeable, except for owner
-    require(tradeable || msg.sender == owner);
+    // or for transfers to the Gizer redemption wallet
+    require( tradeable || msg.sender == owner || _to == redemptionWallet );
     
     // not possible for a locked account before lockout period ends
     require( isUnlocked(msg.sender) );
 
     return super.transfer(_to, _amount);
   }
+  
+  /* Override "transferFrom" (ERC20) */
 
   function transferFrom(address _from, address _to, uint _amount) 
     returns (bool success)
   {
     // not possible until tradeable
-    require(tradeable);
+    require( tradeable );
     
-    // not possible for locked accounts before end of lockout period
-    require( isUnlocked(msg.sender) );
+    // not possible to transfer from locked accounts
+    require( isUnlocked(_from) );
     
     return super.transferFrom(_from, _to, _amount);
   }
 
-  // --------------------------------
-  // Varia
-  // --------------------------------
+  // External functions ---------------
+
+  /* Reclaiming of funds by contributors in case of failed crowdsale */
   
-  // Transfer out any accidentally sent ERC20 tokens
-  function transferAnyERC20Token(address tokenAddress, uint amount) onlyOwner 
-    returns (bool success) 
-  {
-      return ERC20Interface(tokenAddress).transfer(owner, amount);
+  function reclaimFunds() external {
+    require( atNow() > DATE_ICO_END && !icoThresholdReached );
+    require( balances[msg.sender] > 0 );
+    msg.sender.transfer(balances[msg.sender]);
   }
 
 }
