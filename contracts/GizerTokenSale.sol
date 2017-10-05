@@ -574,7 +574,7 @@ contract GizerToken is ERC20Token {
     tradeable = true;
   }
 
-  /* Owner withdrawal if threshold reached (may not be needed) */
+  /* Owner withdrawal if threshold reached (probably not needed) */
   
   function ownerWithdraw() external onlyOwner {
      require( icoThresholdReached );
