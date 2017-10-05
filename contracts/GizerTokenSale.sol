@@ -369,6 +369,7 @@ contract GizerToken is ERC20Token {
   function GizerToken() {
     wallet = msg.sender;
     redemptionWallet = wallet;
+    whitelistWallet = wallet;
   }
 
   /* Default function (this is the only 'payable' function) */
@@ -415,9 +416,9 @@ contract GizerToken is ERC20Token {
   {
     require( atNow() > DATE_ICO_END && !icoThresholdReached );
     require( balanceEth[msg.sender] > 0 );
+    msg.sender.transfer(balanceEth[msg.sender]);
     balanceEth[msg.sender] = 0;
     balances[msg.sender] = 0;
-    msg.sender.transfer(balanceEth[msg.sender]);
   }
   
   // Whitelist manager functions ------
