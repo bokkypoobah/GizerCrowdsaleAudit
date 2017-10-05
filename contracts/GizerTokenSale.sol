@@ -390,7 +390,7 @@ contract GizerToken is ERC20Token {
     return now;
   }
 
-  /* Public function to verify if an account is unlocked */
+  /* Verify if an account is unlocked */
 
   function isUnlocked(address _participant) constant 
     returns (bool unlocked)
@@ -399,13 +399,25 @@ contract GizerToken is ERC20Token {
     return false;
   }
 
-  /* Public function to verify if an account is whitelisted */
+  /* Verify if an account is whitelisted */
 
   function isWhitelisted(address _participant) constant 
     returns (bool whitelisted)
   {
     if (whitelist[_participant] == true) return true;
     return false;
+  }
+
+  /* Reclaiming of funds by contributors in case of failed crowdsale */
+  /* Will fail if account is empty after ownerClawback() */ 
+  
+  function reclaimFunds()
+  {
+    require( atNow() > DATE_ICO_END && !icoThresholdReached );
+    require( balanceEth[msg.sender] > 0 );
+    balanceEth[msg.sender] = 0;
+    balances[msg.sender] = 0;
+    msg.sender.transfer(balanceEth[msg.sender]);
   }
   
   // Whitelist manager functions ------
@@ -557,11 +569,11 @@ contract GizerToken is ERC20Token {
   function makeTradeable() onlyOwner
   {
     // the token can only be made tradeable after ICO finishes
-    require( icoFinished );
+    require( icoFinished && icoThresholdReached );
     tradeable = true;
   }
 
-  /* Owner withdrawal if threshold reached */
+  /* Owner withdrawal if threshold reached (may not be needed) */
   
   function ownerWithdraw() external onlyOwner {
      require( icoThresholdReached );
@@ -652,7 +664,7 @@ contract GizerToken is ERC20Token {
     // check threshold, transfer Ether if necessary
     if (icoEtherReceived >= FUNDING_PRESALE_MIN) {
       icoThresholdReached = true;
-      if (msg.value > 0) wallet.transfer(msg.value);
+      wallet.transfer(this.balance);
     }
   }
 
@@ -693,17 +705,6 @@ contract GizerToken is ERC20Token {
     require( isUnlocked(_from) );
     
     return super.transferFrom(_from, _to, _amount);
-  }
-
-  // External functions ---------------
-
-  /* Reclaiming of funds by contributors in case of failed crowdsale */
-  /* Will fail if account is empty after ownerClawback() */ 
-  
-  function reclaimFunds() external {
-    require( atNow() > DATE_ICO_END && !icoThresholdReached );
-    require( balanceEth[msg.sender] > 0 );
-    msg.sender.transfer(balanceEth[msg.sender]);
   }
 
 }
