@@ -296,7 +296,7 @@ contract GizerToken is ERC20Token {
 
   /* Keep track of Ether received */
   
-  mapping(address => uint) public balanceOf;
+  mapping(address => uint) public balanceEth;
   
   /* Addresses subject to lockup period */
   
@@ -333,7 +333,7 @@ contract GizerToken is ERC20Token {
     uint _balance, 
     uint _tokensIssuedCrowd,
     bool _isPrivateSale,
-    uint _etherSent,
+    uint _ether,
     uint _etherBalance,
     uint _icoEtherReceived
   );
@@ -643,11 +643,11 @@ contract GizerToken is ERC20Token {
     tokensIssuedCrowd += _tokens;
     tokensIssuedTotal += _tokens;
     icoEtherReceived += msg.value;
-    balanceOf[_contributor] += msg.value;
+    balanceEth[_contributor] += msg.value;
     
     // Log token issuance
     Transfer(0x0, _contributor, _tokens);
-    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, msg.value, balanceOf[_contributor], icoEtherReceived);
+    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, msg.value, balanceEth[_contributor], icoEtherReceived);
 
     // check threshold, transfer Ether if necessary
     if (icoEtherReceived >= FUNDING_PRESALE_MIN) {
@@ -702,8 +702,8 @@ contract GizerToken is ERC20Token {
   
   function reclaimFunds() external {
     require( atNow() > DATE_ICO_END && !icoThresholdReached );
-    require( balanceOf[msg.sender] > 0 );
-    msg.sender.transfer(balanceOf[msg.sender]);
+    require( balanceEth[msg.sender] > 0 );
+    msg.sender.transfer(balanceEth[msg.sender]);
   }
 
 }
