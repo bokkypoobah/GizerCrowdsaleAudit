@@ -294,6 +294,10 @@ contract GizerToken is ERC20Token {
   uint public presaleContributorCount = 0;
   uint public icoContributorCount = 0;
 
+  /* Keep track of Ether received */
+  
+  mapping(address => uint) public balanceOf;
+  
   /* Addresses subject to lockup period */
   
   mapping(address => bool) locked;
@@ -327,9 +331,10 @@ contract GizerToken is ERC20Token {
     address indexed _owner,
     uint _tokens, 
     uint _balance, 
-    bool _isPrivateSale,
-    uint _ether,
     uint _tokensIssuedCrowd,
+    bool _isPrivateSale,
+    uint _etherSent,
+    uint _etherBalance,
     uint _icoEtherReceived
   );
   
@@ -348,7 +353,7 @@ contract GizerToken is ERC20Token {
   );
   
   event WhitelistModify(
-    address indexed _particpant,
+    address indexed _participant,
     bool _status
   );
 
@@ -638,10 +643,11 @@ contract GizerToken is ERC20Token {
     tokensIssuedCrowd += _tokens;
     tokensIssuedTotal += _tokens;
     icoEtherReceived += msg.value;
+    balanceOf[_contributor] += msg.value;
     
     // Log token issuance
     Transfer(0x0, _contributor, _tokens);
-    TokensIssued(_contributor, _tokens, balances[_contributor], _isPrivateSale, msg.value, tokensIssuedCrowd, icoEtherReceived);
+    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, msg.value, balanceOf[_contributor], icoEtherReceived);
 
     // check threshold, transfer Ether if necessary
     if (icoEtherReceived >= FUNDING_PRESALE_MIN) {
@@ -692,11 +698,12 @@ contract GizerToken is ERC20Token {
   // External functions ---------------
 
   /* Reclaiming of funds by contributors in case of failed crowdsale */
+  /* Will fail if account is empty after ownerClawback() */ 
   
   function reclaimFunds() external {
     require( atNow() > DATE_ICO_END && !icoThresholdReached );
-    require( balances[msg.sender] > 0 );
-    msg.sender.transfer(balances[msg.sender]);
+    require( balanceOf[msg.sender] > 0 );
+    msg.sender.transfer(balanceOf[msg.sender]);
   }
 
 }
