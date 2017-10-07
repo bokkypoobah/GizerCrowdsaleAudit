@@ -648,7 +648,7 @@ contract GizerToken is ERC20Token {
     tradeable = true;
   }
 
-  /* In case of faield ICO: */
+  /* In case of failed ICO: */
   /* Owner clawback of remaining funds after clawback period */
   
   function ownerClawback() external onlyOwner {
