@@ -346,9 +346,9 @@ contract GizerToken is ERC20Token {
   
   mapping(address => uint) public balancesPrivate;
 
-  /* Addresses subject to lockup period */
+  /* Balances subject to lockup period */
   
-  mapping(address => bool) locked;
+  mapping(address => uint) balancesLocked;
 
   /* Whitelist */
 
@@ -437,13 +437,13 @@ contract GizerToken is ERC20Token {
     return now;
   }
 
-  /* Is an account is unlocked? */
-
-  function isUnlocked(address _participant) constant 
-    returns (bool unlocked)
+  /* Part of the balance that is locked */
+  
+  function lockedBalance(address _owner) constant 
+    returns (uint balance)
   {
-    if (locked[_participant] != true || atNow() > lockupEndDate) return true;
-    return false;
+    if (atNow() > lockupEndDate) return 0;
+    return balancesLocked[_owner];
   }
 
   /* Is an account whitelisted */
@@ -588,10 +588,7 @@ contract GizerToken is ERC20Token {
     }
     require( _tokens <= availableTokens );
     
-    // not possible if any *locked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] != true);
-    
-    // mint and log
+    // update
     balances[_participant] = balances[_participant].add(_tokens);
     tokensIssuedReserve    = tokensIssuedReserve.add(_tokens);
     tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
@@ -608,11 +605,10 @@ contract GizerToken is ERC20Token {
     // check amount
     require( _tokens <= TOKEN_SUPPLY_TEAM.sub(tokensIssuedTeam) );
     
-    // not possible if any *unlocked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] == true );
+    // these tokens are subject to lockup
+    balancesLocked[_participant] = balancesLocked[_participant].add(_tokens);
     
-    // mint
-    locked[_participant] = true;
+    // update
     balances[_participant] = balances[_participant].add(_tokens);
     tokensIssuedTeam       = tokensIssuedTeam.add(_tokens);
     tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
@@ -763,8 +759,8 @@ contract GizerToken is ERC20Token {
     // or for transfers to the Gizer redemption wallet
     require( tradeable || msg.sender == owner || _to == redemptionWallet );
     
-    // not possible for a locked account before lockout period ends
-    require( isUnlocked(msg.sender) );
+    // locked balance check
+    require( balances[msg.sender].sub(_amount) >= lockedBalance(msg.sender) );
 
     return super.transfer(_to, _amount);
   }
@@ -777,8 +773,8 @@ contract GizerToken is ERC20Token {
     // not possible until tradeable
     require( tradeable );
     
-    // not possible to transfer from locked accounts
-    require( isUnlocked(_from) );
+    // locked balance check
+    require( balances[_from].sub(_amount) >= lockedBalance(_from) );
     
     return super.transferFrom(_from, _to, _amount);
   }
