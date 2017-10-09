@@ -58,6 +58,8 @@ Commits
 * **LOW IMPORTANCE** `GizerToken.GizerToken()` does not need the statement `owner = msg.sender;` as this assignment is already
   made in `Owned.Owned()`
 
+  * [x] Fixed in [43b4d51](https://github.com/GizerInc/crowdsale/commit/43b4d51b0ca1268e72b69ad66cc3b6f612e31fdb)
+
 * **MEDIUM IMPORTANCE** Token balances for all the accounts should add up to the `totalSupply`. Currently the different
   token allocations do not add up to `TOTAL_TOKEN_SUPPLY`. At least the known allocations should be represented in this token contract
 
@@ -71,7 +73,8 @@ Commits
 ## Code Review
 
 * [ ] [code-review/GizerTokenSale.md](code-review/GizerTokenSale.md)
-  * [ ] contract Owned 
-  * [ ] contract ERC20Interface 
-  * [ ] contract ERC20Token is ERC20Interface, Owned 
+  * [x] library SafeMath3
+  * [x] contract Owned
+  * [x] contract ERC20Interface
+  * [x] contract ERC20Token is ERC20Interface, Owned
   * [ ] contract GizerToken is ERC20Token

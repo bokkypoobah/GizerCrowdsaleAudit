@@ -8,6 +8,42 @@ pragma solidity ^0.4.16;
 //
 // ----------------------------------------------------------------------------
 
+
+// ----------------------------------------------------------------------------
+//
+// SafeMath3
+//
+// Adapted from https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/math/SafeMath.sol
+// (no need to implement division)
+//
+// ----------------------------------------------------------------------------
+
+library SafeMath3 {
+
+  function mul(uint a, uint b) internal constant 
+    returns (uint c)
+  {
+    c = a * b;
+    assert( a == 0 || c / a == b );
+  }
+
+  function sub(uint a, uint b) internal constant
+    returns (uint)
+  {
+    assert( b <= a );
+    return a - b;
+  }
+
+  function add(uint a, uint b) internal constant
+    returns (uint c)
+  {
+    c = a + b;
+    assert( c >= a );
+  }
+
+}
+
+
 // ----------------------------------------------------------------------------
 //
 // Owned contract
@@ -119,6 +155,8 @@ contract ERC20Interface {
 // ----------------------------------------------------------------------------
 
 contract ERC20Token is ERC20Interface, Owned {
+  
+  using SafeMath3 for uint;
 
   mapping(address => uint) balances;
   mapping(address => mapping (address => uint)) allowed;
@@ -138,17 +176,19 @@ contract ERC20Token is ERC20Interface, Owned {
   function transfer(address _to, uint _amount) 
     returns (bool success)
   {
-    require( _amount > 0 );                              // Non-zero transfer
-    require( balances[msg.sender] >= _amount );          // User has balance
-    require( balances[_to] + _amount > balances[_to] );  // Overflow check
+    // amount sent cannot exceed balance
+    require( balances[msg.sender] >= _amount );
 
-    balances[msg.sender] -= _amount;
-    balances[_to] += _amount;
+    // update balances
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to]        = balances[_to].add(_amount);
+
+    // log event
     Transfer(msg.sender, _to, _amount);
     return true;
   }
 
-  /* Allow _spender to withdraw from your account up to_amount */
+  /* Allow _spender to withdraw from your account up to _amount */
 
   function approve(address _spender, uint _amount) 
     returns (bool success)
@@ -158,10 +198,13 @@ contract ERC20Token is ERC20Interface, Owned {
     // cf https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     require( _amount == 0 || allowed[msg.sender][_spender] == 0 );
       
-    // the approval amount cannot exceed the balance
+    // approval amount cannot exceed the balance
     require ( balances[msg.sender] >= _amount );
       
+    // update allowed amount
     allowed[msg.sender][_spender] = _amount;
+    
+    // log event
     Approval(msg.sender, _spender, _amount);
     return true;
   }
@@ -172,14 +215,16 @@ contract ERC20Token is ERC20Interface, Owned {
   function transferFrom(address _from, address _to, uint _amount) 
     returns (bool success) 
   {
-    require( _amount > 0 );                              // Non-zero transfer
-    require( balances[_from] >= _amount );               // Sufficient balance
-    require( allowed[_from][msg.sender] >= _amount );    // Transfer approved
-    require( balances[_to] + _amount > balances[_to] );  // Overflow check
+    // balance checks
+    require( balances[_from] >= _amount );
+    require( allowed[_from][msg.sender] >= _amount );
 
-    balances[_from] -= _amount;
-    allowed[_from][msg.sender] -= _amount;
-    balances[_to] += _amount;
+    // update balances and allowed amount
+    balances[_from]            = balances[_from].sub(_amount);
+    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);
+    balances[_to]              = balances[_to].add(_amount);
+
+    // log event
     Transfer(_from, _to, _amount);
     return true;
   }
@@ -209,8 +254,6 @@ contract GizerToken is ERC20Token {
   uint constant E6  = 10**6;
   uint constant E18 = 10**18;
 
-  uint constant NYCTHEMERON  = 24 * 60 * 60; // 24 hours, a night and a day
-
   /* Basic token data */
 
   string public constant name = "Gizer Gaming Token";
@@ -236,8 +279,8 @@ contract GizerToken is ERC20Token {
   
   uint public constant MIN_CONTRIBUTION = E18 / 100; // 0.01 Ether
   uint public constant MAX_CONTRIBUTION = 3333 * E18; // 3,333 Ether
-  uint public constant LOCKUP_PERIOD = 180 * NYCTHEMERON;
-  uint public constant CLAWBACK_PERIOD = 180 * NYCTHEMERON;
+  uint public constant LOCKUP_PERIOD = 180 days;
+  uint public constant CLAWBACK_PERIOD = 180 days;
 
   /* Private sale */
 
@@ -278,12 +321,12 @@ contract GizerToken is ERC20Token {
   uint public icoEtherReceived = 0; // Ether actually received by the contract
                                     // presale + ICO combined
 
-  bool public icoThresholdReached = false;
-  
   uint public tokensIssuedTotal = 0;
   uint public tokensIssuedCrowd = 0;
   uint public tokensIssuedTeam = 0;
   uint public tokensIssuedReserve = 0;
+  
+  uint public tokensIssuedPrivate = 0; // is part of tokensIssuedCrowd
 
   uint public lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // changes if ICO ends early
                                                    // and resets if DATE_ICO_END changes
@@ -297,10 +340,15 @@ contract GizerToken is ERC20Token {
   /* Keep track of Ether received */
   
   mapping(address => uint) public balanceEth;
+  mapping(address => uint) public balanceEthPrivate;
   
-  /* Addresses subject to lockup period */
+  /* Keep track of tokens issued via private sale */
   
-  mapping(address => bool) locked;
+  mapping(address => uint) public balancesPrivate;
+
+  /* Balances subject to lockup period */
+  
+  mapping(address => uint) balancesLocked;
 
   /* Whitelist */
 
@@ -310,7 +358,7 @@ contract GizerToken is ERC20Token {
   /* Variables for pre-deployment testing */
   
   bool public constant TEST_MODE = false; // set to true for test deployment only
-  uint public testTime = DATE_PRESALE_START - NYCTHEMERON; // only used in test mode
+  uint public testTime = DATE_PRESALE_START - 1 days; // only used in test mode
 
   // Events ---------------------------
   
@@ -333,9 +381,7 @@ contract GizerToken is ERC20Token {
     uint _balance, 
     uint _tokensIssuedCrowd,
     bool _isPrivateSale,
-    uint _ether,
-    uint _etherBalance,
-    uint _icoEtherReceived
+    uint _amount
   );
   
   event TokensMintedTeam(
@@ -372,7 +418,7 @@ contract GizerToken is ERC20Token {
     whitelistWallet = wallet;
   }
 
-  /* Default function (this is the only 'payable' function) */
+  /* Fallback */
   
   function () payable
   {
@@ -380,7 +426,7 @@ contract GizerToken is ERC20Token {
     buyTokens();
   }
 
-  // Public Functions -----------------
+  // Information Functions ------------
   
   /* What time is it? */
   
@@ -391,16 +437,16 @@ contract GizerToken is ERC20Token {
     return now;
   }
 
-  /* Verify if an account is unlocked */
-
-  function isUnlocked(address _participant) constant 
-    returns (bool unlocked)
+  /* Part of the balance that is locked */
+  
+  function lockedBalance(address _owner) constant 
+    returns (uint balance)
   {
-    if (locked[_participant] != true || atNow() > lockupEndDate) return true;
-    return false;
+    if (atNow() > lockupEndDate) return 0;
+    return balancesLocked[_owner];
   }
 
-  /* Verify if an account is whitelisted */
+  /* Is an account whitelisted */
 
   function isWhitelisted(address _participant) constant 
     returns (bool whitelisted)
@@ -409,16 +455,40 @@ contract GizerToken is ERC20Token {
     return false;
   }
 
+  /* Has the funding threshold been reached? */
+  
+  function icoThresholdReached() constant
+    returns (bool thresholdReached)
+  {
+    if (icoEtherReceived >= FUNDING_PRESALE_MIN) return true;
+    return false;
+  }
+  
+  /* Balance of tokens issued via private sale */
+  
+  function balancePrivate(address _owner) constant 
+    returns (uint tokensPrivate)
+  {
+    return balancesPrivate[_owner];
+  }
+  
+  // Reclaim funds --------------------
+  
   /* Reclaiming of funds by contributors in case of failed crowdsale */
   /* Will fail if account is empty after ownerClawback() */ 
   
   function reclaimFunds()
   {
-    require( atNow() > DATE_ICO_END && !icoThresholdReached );
+    require( atNow() > DATE_ICO_END && !icoThresholdReached() );
     require( balanceEth[msg.sender] > 0 );
-    msg.sender.transfer(balanceEth[msg.sender]);
+    
+    // set balances to 0 before sending, to avoid re-entrancy
+    uint amt = balanceEth[msg.sender];
     balanceEth[msg.sender] = 0;
-    balances[msg.sender] = 0;
+    balances[msg.sender] = balancesPrivate[msg.sender];
+    
+    // send Ether balance
+    msg.sender.transfer(amt);
   }
   
   // Whitelist manager functions ------
@@ -480,7 +550,7 @@ contract GizerToken is ERC20Token {
   {
     require( atNow() < DATE_ICO_START );
     require( _start < _end );
-    require( _end < DATE_PRESALE_END + 180 * NYCTHEMERON ); // just in case
+    require( _end < DATE_PRESALE_END + 180 days ); // sanity check
     DATE_ICO_START = _start;
     DATE_ICO_END = _end;
     lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // lockup is linked to ICO end date
@@ -496,17 +566,13 @@ contract GizerToken is ERC20Token {
 
     // check amount
     require( _amount >= MIN_CONTRIBUTION );
-    require( _amount <= PRIVATE_SALE_MAX_ETHER ); // also prevents overflow
-    require( _amount + privateEtherReceived <= PRIVATE_SALE_MAX_ETHER );
+    require( privateEtherReceived.add(_amount) <= PRIVATE_SALE_MAX_ETHER );
     
     // same conditions as early presale participants
-    uint tokens = _amount * TOKETH_PRESALE_ONE / E18;
-    
-    // update privateEtherReceived
-    privateEtherReceived += _amount;
+    uint tokens = TOKETH_PRESALE_ONE.mul(_amount) / E18;
     
     // issue tokens
-    issueTokens(_contributor, tokens, true); // true => private sale
+    issueTokens(_contributor, tokens, _amount, true); // true => private sale
   }
 
   /* Minting of reserve tokens by owner (no lockup period) */
@@ -515,19 +581,19 @@ contract GizerToken is ERC20Token {
   {
     // available amount
     // after ICO ends, unsold tokens become available for the reserve account
-    uint availableTokens = TOKEN_SUPPLY_RESERVE - tokensIssuedReserve;
+    uint availableTokens = TOKEN_SUPPLY_RESERVE.sub(tokensIssuedReserve);
     if (icoFinished) {
-      availableTokens += TOKEN_SUPPLY_CROWD - tokensIssuedCrowd;
+      uint unissuedTokens = TOKEN_SUPPLY_CROWD.sub(tokensIssuedCrowd);
+      availableTokens = availableTokens.add(unissuedTokens);
     }
     require( _tokens <= availableTokens );
     
-    // not possible if any *locked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] != true);
+    // update
+    balances[_participant] = balances[_participant].add(_tokens);
+    tokensIssuedReserve    = tokensIssuedReserve.add(_tokens);
+    tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
     
-    // mint and log
-    balances[_participant] += _tokens;
-    tokensIssuedReserve += _tokens;
-    tokensIssuedTotal += _tokens;
+    // log event
     Transfer(0x0, _participant, _tokens);
     TokensMintedReserve(_participant, _tokens, balances[_participant], tokensIssuedReserve);
   }
@@ -537,16 +603,17 @@ contract GizerToken is ERC20Token {
   function mintTeam(address _participant, uint _tokens) onlyOwner 
   {
     // check amount
-    require( _tokens <= TOKEN_SUPPLY_TEAM - tokensIssuedTeam );
+    require( _tokens <= TOKEN_SUPPLY_TEAM.sub(tokensIssuedTeam) );
     
-    // not possible if any *unlocked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] == true );
+    // these tokens are subject to lockup
+    balancesLocked[_participant] = balancesLocked[_participant].add(_tokens);
     
-    // mint and log
-    locked[_participant] = true;
-    balances[_participant] += _tokens;
-    tokensIssuedTeam += _tokens;
-    tokensIssuedTotal += _tokens;
+    // update
+    balances[_participant] = balances[_participant].add(_tokens);
+    tokensIssuedTeam       = tokensIssuedTeam.add(_tokens);
+    tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
+    
+    // log event
     Transfer(0x0, _participant, _tokens);
     TokensMintedTeam(_participant, _tokens, balances[_participant], tokensIssuedTeam);
   }
@@ -557,8 +624,11 @@ contract GizerToken is ERC20Token {
   {
     require( !icoFinished );
     
+    // threshold reached
+    require( icoThresholdReached() );
+    
     // only after ICO end date, or when cap almost reached
-    require( atNow() > DATE_ICO_END || TOKEN_SUPPLY_CROWD - tokensIssuedCrowd <= ICO_TRIGGER );
+    require( atNow() > DATE_ICO_END || TOKEN_SUPPLY_CROWD.sub(tokensIssuedCrowd) <= ICO_TRIGGER );
 
     // ICO is declared finished, end of lockup period moved back if necessary
     icoFinished = true;
@@ -570,17 +640,11 @@ contract GizerToken is ERC20Token {
   function makeTradeable() onlyOwner
   {
     // the token can only be made tradeable after ICO finishes
-    require( icoFinished && icoThresholdReached );
+    require( icoFinished );
     tradeable = true;
   }
 
-  /* Owner withdrawal if threshold reached (probably not needed) */
-  
-  function ownerWithdraw() external onlyOwner {
-     require( icoThresholdReached );
-     wallet.transfer(this.balance);
-  }  
-
+  /* In case of failed ICO: */
   /* Owner clawback of remaining funds after clawback period */
   
   function ownerClawback() external onlyOwner {
@@ -607,7 +671,7 @@ contract GizerToken is ERC20Token {
     bool isIco = false;
     uint tokens = 0;
 
-    // basic 
+    // basic checks
     require( !icoFinished );
     require( msg.value >= MIN_CONTRIBUTION && msg.value <= MAX_CONTRIBUTION );
 
@@ -621,13 +685,13 @@ contract GizerToken is ERC20Token {
     
     // Presale - check the cap in ETH
     if (isPresale) {
-      require( msg.value + icoEtherReceived <= FUNDING_PRESALE_MAX );
+      require( icoEtherReceived.add(msg.value) <= FUNDING_PRESALE_MAX );
       if (presaleContributorCount < CUTOFF_PRESALE_ONE) {
-        tokens = msg.value * TOKETH_PRESALE_ONE / E18;
+        tokens = TOKETH_PRESALE_ONE.mul(msg.value) / E18;
       } else if (presaleContributorCount < CUTOFF_PRESALE_TWO) {
-        tokens = msg.value * TOKETH_PRESALE_TWO / E18;
+        tokens = TOKETH_PRESALE_TWO.mul(msg.value) / E18;
       } else {
-        tokens = msg.value * TOKETH_PRESALE_THREE / E18;
+        tokens = TOKETH_PRESALE_THREE.mul(msg.value) / E18;
       }
       presaleContributorCount += 1;
     }
@@ -635,36 +699,43 @@ contract GizerToken is ERC20Token {
     // ICO - check the token volume cap
     if (isIco) {
       if (icoContributorCount < CUTOFF_ICO_ONE) {
-        tokens = msg.value * TOKETH_ICO_ONE / E18;
+        tokens = TOKETH_ICO_ONE.mul(msg.value) / E18;
       } else {
-        tokens = msg.value * TOKETH_ICO_TWO / E18;
+        tokens = TOKETH_ICO_TWO.mul(msg.value) / E18;
       }
-      require( tokensIssuedCrowd + tokens <= TOKEN_SUPPLY_CROWD );
+      require( tokensIssuedCrowd.add(tokens) <= TOKEN_SUPPLY_CROWD );
       icoContributorCount += 1;
     }
     
     // issue tokens
-    issueTokens(msg.sender, tokens, false); // false => not private sale
+    issueTokens(msg.sender, tokens, msg.value, false); // false => not private sale
   }
   
   /* Issue tokens */
   
-  function issueTokens(address _contributor, uint _tokens, bool _isPrivateSale) private
+  function issueTokens(address _contributor, uint _tokens, uint _amount, bool _isPrivateSale) private
   {
-    // Register tokens purchased and Ether received
-    balances[_contributor] += _tokens;
-    tokensIssuedCrowd += _tokens;
-    tokensIssuedTotal += _tokens;
-    icoEtherReceived += msg.value;
-    balanceEth[_contributor] += msg.value;
+    // register tokens purchased and Ether received
+    balances[_contributor] = balances[_contributor].add(_tokens);
+    tokensIssuedCrowd      = tokensIssuedCrowd.add(_tokens);
+    tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
     
-    // Log token issuance
+    if (_isPrivateSale) {
+      tokensIssuedPrivate             = tokensIssuedPrivate.add(_tokens);
+      privateEtherReceived            = privateEtherReceived.add(_amount);
+      balancesPrivate[_contributor]   = balancesPrivate[_contributor].add(_tokens);
+      balanceEthPrivate[_contributor] = balanceEthPrivate[_contributor].add(_amount);
+    } else {
+      icoEtherReceived         = icoEtherReceived.add(msg.value);
+      balanceEth[_contributor] = balanceEth[_contributor].add(msg.value);
+    }
+    
+    // log token issuance
     Transfer(0x0, _contributor, _tokens);
-    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, msg.value, balanceEth[_contributor], icoEtherReceived);
+    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, _amount);
 
-    // check threshold, transfer Ether if necessary
-    if (icoEtherReceived >= FUNDING_PRESALE_MIN) {
-      icoThresholdReached = true;
+    // check threshold, transfer Ether out if necessary
+    if (icoThresholdReached()) {
       wallet.transfer(this.balance);
     }
   }
@@ -688,8 +759,8 @@ contract GizerToken is ERC20Token {
     // or for transfers to the Gizer redemption wallet
     require( tradeable || msg.sender == owner || _to == redemptionWallet );
     
-    // not possible for a locked account before lockout period ends
-    require( isUnlocked(msg.sender) );
+    // locked balance check
+    require( balances[msg.sender].sub(_amount) >= lockedBalance(msg.sender) );
 
     return super.transfer(_to, _amount);
   }
@@ -702,8 +773,8 @@ contract GizerToken is ERC20Token {
     // not possible until tradeable
     require( tradeable );
     
-    // not possible to transfer from locked accounts
-    require( isUnlocked(_from) );
+    // locked balance check
+    require( balances[_from].sub(_amount) >= lockedBalance(_from) );
     
     return super.transferFrom(_from, _to, _amount);
   }

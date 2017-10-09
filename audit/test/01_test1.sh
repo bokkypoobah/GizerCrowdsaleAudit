@@ -77,7 +77,7 @@ var tokenAbi = JSON.parse(tokenOutput.contracts["$CROWDSALESOL:GizerToken"].abi)
 var tokenBin = "0x" + tokenOutput.contracts["$CROWDSALESOL:GizerToken"].bin;
 
 // console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
-// console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
+console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
 
 unlockAccounts("$PASSWORD");
 printBalances();

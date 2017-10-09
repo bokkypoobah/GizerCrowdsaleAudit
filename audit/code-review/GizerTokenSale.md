@@ -7,6 +7,7 @@ Source file [../../contracts/GizerTokenSale.sol](../../contracts/GizerTokenSale.
 <hr />
 
 ```javascript
+// BK Ok
 pragma solidity ^0.4.16;
 
 // ----------------------------------------------------------------------------
@@ -17,24 +18,74 @@ pragma solidity ^0.4.16;
 //
 // ----------------------------------------------------------------------------
 
+
+// ----------------------------------------------------------------------------
+//
+// SafeMath3
+//
+// Adapted from https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/math/SafeMath.sol
+// (no need to implement division)
+//
+// ----------------------------------------------------------------------------
+
+// BK Ok
+library SafeMath3 {
+
+  // BK Ok
+  function mul(uint a, uint b) internal constant 
+    returns (uint c)
+  {
+    // BK Ok
+    c = a * b;
+    // BK Ok
+    assert( a == 0 || c / a == b );
+  }
+
+  // BK Ok
+  function sub(uint a, uint b) internal constant
+    returns (uint)
+  {
+    // BK Ok
+    assert( b <= a );
+    // BK Ok
+    return a - b;
+  }
+
+  // BK Ok
+  function add(uint a, uint b) internal constant
+    returns (uint c)
+  {
+    // BK Ok
+    c = a + b;
+    // BK Ok
+    assert( c >= a );
+  }
+
+}
+
+
 // ----------------------------------------------------------------------------
 //
 // Owned contract
 //
 // ----------------------------------------------------------------------------
 
+// BK Ok
 contract Owned {
 
+  // BK Next 2 Ok
   address public owner;
   address public newOwner;
 
   // Events ---------------------------
 
+  // BK Ok - Event
   event OwnershipTransferProposed(
     address indexed _from,
     address indexed _to
   );
 
+  // BK Ok - Event
   event OwnershipTransferred(
     address indexed _from,
     address indexed _to
@@ -42,31 +93,45 @@ contract Owned {
 
   // Modifier -------------------------
 
+  // BK Ok
   modifier onlyOwner
   {
+    // BK Ok
     require( msg.sender == owner );
+    // BK Ok
     _;
   }
 
   // Functions ------------------------
 
+  // BK Ok - Constructor
   function Owned()
   {
+    // BK Ok
     owner = msg.sender;
   }
 
+  // BK Ok - Only owner can execute
   function transferOwnership(address _newOwner) onlyOwner
   {
+    // BK Ok
     require( _newOwner != owner );
+    // BK Ok
     require( _newOwner != address(0x0) );
+    // BK Ok - Log event
     OwnershipTransferProposed(owner, _newOwner);
+    // BK Ok
     newOwner = _newOwner;
   }
 
+  // BK Ok - Only newOwner can execute
   function acceptOwnership()
   {
+    // BK Ok
     require(msg.sender == newOwner);
+    // BK Ok
     OwnershipTransferred(owner, newOwner);
+    // BK Ok
     owner = newOwner;
   }
 
@@ -80,16 +145,19 @@ contract Owned {
 //
 // ----------------------------------------------------------------------------
 
+// BK Ok
 contract ERC20Interface {
 
   // Events ---------------------------
 
+  // BK Ok - Event
   event Transfer(
     address indexed _from,
     address indexed _to,
     uint _value
   );
   
+  // BK Ok - Event
   event Approval(
     address indexed _owner,
     address indexed _spender,
@@ -98,21 +166,27 @@ contract ERC20Interface {
 
   // Functions ------------------------
 
+  // BK Ok - Constant function
   function totalSupply() constant
     returns (uint);
   
+  // BK Ok - Constant function
   function balanceOf(address _owner) constant 
     returns (uint balance);
   
+  // BK Ok
   function transfer(address _to, uint _value)
     returns (bool success);
   
+  // BK Ok
   function transferFrom(address _from, address _to, uint _value) 
     returns (bool success);
   
+  // BK Ok
   function approve(address _spender, uint _value) 
     returns (bool success);
   
+  // BK Ok - Constant function
   function allowance(address _owner, address _spender) constant 
     returns (uint remaining);
 
@@ -127,8 +201,13 @@ contract ERC20Interface {
 //
 // ----------------------------------------------------------------------------
 
+// BK Ok
 contract ERC20Token is ERC20Interface, Owned {
+  
+  // BK Ok
+  using SafeMath3 for uint;
 
+  // BK Next 2 Ok
   mapping(address => uint) balances;
   mapping(address => mapping (address => uint)) allowed;
 
@@ -136,6 +215,7 @@ contract ERC20Token is ERC20Interface, Owned {
 
   /* Get the account balance for an address */
 
+  // BK Ok - Constant function
   function balanceOf(address _owner) constant 
     returns (uint balance)
   {
@@ -144,61 +224,90 @@ contract ERC20Token is ERC20Interface, Owned {
 
   /* Transfer the balance from owner's account to another account */
 
+  // BK Ok
   function transfer(address _to, uint _amount) 
     returns (bool success)
   {
-    require( _amount > 0 );                              // Non-zero transfer
-    require( balances[msg.sender] >= _amount );          // User has balance
-    require( balances[_to] + _amount > balances[_to] );  // Overflow check
+    // amount sent cannot exceed balance
+    // BK Ok
+    require( balances[msg.sender] >= _amount );
 
-    balances[msg.sender] -= _amount;
-    balances[_to] += _amount;
+    // update balances
+    // BK Ok
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    // BK Ok
+    balances[_to]        = balances[_to].add(_amount);
+
+    // log event
+    // BK Ok - Log event
     Transfer(msg.sender, _to, _amount);
+    // BK Ok
     return true;
   }
 
-  /* Allow _spender to withdraw from your account up to_amount */
+  /* Allow _spender to withdraw from your account up to _amount */
 
+  // BK Ok
   function approve(address _spender, uint _amount) 
     returns (bool success)
   {
     // before changing the approve amount for an address, its allowance
     // must be reset to 0 to mitigate the race condition described here:
     // cf https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+    // BK Ok
     require( _amount == 0 || allowed[msg.sender][_spender] == 0 );
       
-    // the approval amount cannot exceed the balance
+    // approval amount cannot exceed the balance
+    // BK Ok
     require ( balances[msg.sender] >= _amount );
       
+    // update allowed amount
+    // BK Ok
     allowed[msg.sender][_spender] = _amount;
+    
+    // log event
+    // BK Ok - Log event
     Approval(msg.sender, _spender, _amount);
+    // BK Ok
     return true;
   }
 
   /* Spender of tokens transfers tokens from the owner's balance */
   /* Must be pre-approved by owner */
 
+  // BK Ok
   function transferFrom(address _from, address _to, uint _amount) 
     returns (bool success) 
   {
-    require( _amount > 0 );                              // Non-zero transfer
-    require( balances[_from] >= _amount );               // Sufficient balance
-    require( allowed[_from][msg.sender] >= _amount );    // Transfer approved
-    require( balances[_to] + _amount > balances[_to] );  // Overflow check
+    // balance checks
+    // BK Ok
+    require( balances[_from] >= _amount );
+    // BK Ok
+    require( allowed[_from][msg.sender] >= _amount );
 
-    balances[_from] -= _amount;
-    allowed[_from][msg.sender] -= _amount;
-    balances[_to] += _amount;
+    // update balances and allowed amount
+    // BK Ok
+    balances[_from]            = balances[_from].sub(_amount);
+    // BK Ok
+    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);
+    // BK Ok
+    balances[_to]              = balances[_to].add(_amount);
+
+    // log event
+    // BK Ok - Log event
     Transfer(_from, _to, _amount);
+    // BK Ok
     return true;
   }
 
   /* Returns the amount of tokens approved by the owner */
   /* that can be transferred by spender */
 
+  // BK Ok - Constant function
   function allowance(address _owner, address _spender) constant 
     returns (uint remaining)
   {
+    // BK Ok
     return allowed[_owner][_spender];
   }
 
@@ -215,27 +324,30 @@ contract GizerToken is ERC20Token {
 
   /* Utility variables */
   
+  // BK Ok
   uint constant E6  = 10**6;
   uint constant E18 = 10**18;
 
-  uint constant NYCTHEMERON  = 24 * 60 * 60; // 24 hours, a night and a day
-
   /* Basic token data */
 
+  // BK Next 3 Ok
   string public constant name = "Gizer Gaming Token";
   string public constant symbol = "GZR";
   uint8  public constant decimals = 6;
 
   /* Wallet address - initially set to owner at deployment */
   
+  // BK Ok
   address public wallet;
 
   /* Gizer redemption wallet - to redeem GZR tokens for Gizer gaming items */
   
+  // BK Ok
   address public redemptionWallet;
 
   /* Token volumes */
 
+  // BK Next block Ok
   uint public constant TOKEN_SUPPLY_TOTAL   = 100 * E6 * E6; // 100 mm tokens
   uint public constant TOKEN_SUPPLY_TEAM    =  15 * E6 * E6; //  15 mm tokens
   uint public constant TOKEN_SUPPLY_RESERVE =  15 * E6 * E6; //  15 mm tokens
@@ -243,10 +355,11 @@ contract GizerToken is ERC20Token {
 
   /* General crowdsale parameters */  
   
+  // BK Next block Ok
   uint public constant MIN_CONTRIBUTION = E18 / 100; // 0.01 Ether
   uint public constant MAX_CONTRIBUTION = 3333 * E18; // 3,333 Ether
-  uint public constant LOCKUP_PERIOD = 180 * NYCTHEMERON;
-  uint public constant CLAWBACK_PERIOD = 180 * NYCTHEMERON;
+  uint public constant LOCKUP_PERIOD = 180 days;
+  uint public constant CLAWBACK_PERIOD = 180 days;
 
   /* Private sale */
 
@@ -287,12 +400,12 @@ contract GizerToken is ERC20Token {
   uint public icoEtherReceived = 0; // Ether actually received by the contract
                                     // presale + ICO combined
 
-  bool public icoThresholdReached = false;
-  
   uint public tokensIssuedTotal = 0;
   uint public tokensIssuedCrowd = 0;
   uint public tokensIssuedTeam = 0;
   uint public tokensIssuedReserve = 0;
+  
+  uint public tokensIssuedPrivate = 0; // is part of tokensIssuedCrowd
 
   uint public lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // changes if ICO ends early
                                                    // and resets if DATE_ICO_END changes
@@ -306,10 +419,15 @@ contract GizerToken is ERC20Token {
   /* Keep track of Ether received */
   
   mapping(address => uint) public balanceEth;
+  mapping(address => uint) public balanceEthPrivate;
   
-  /* Addresses subject to lockup period */
+  /* Keep track of tokens issued via private sale */
   
-  mapping(address => bool) locked;
+  mapping(address => uint) public balancesPrivate;
+
+  /* Balances subject to lockup period */
+  
+  mapping(address => uint) balancesLocked;
 
   /* Whitelist */
 
@@ -319,7 +437,7 @@ contract GizerToken is ERC20Token {
   /* Variables for pre-deployment testing */
   
   bool public constant TEST_MODE = false; // set to true for test deployment only
-  uint public testTime = DATE_PRESALE_START - NYCTHEMERON; // only used in test mode
+  uint public testTime = DATE_PRESALE_START - 1 days; // only used in test mode
 
   // Events ---------------------------
   
@@ -342,9 +460,7 @@ contract GizerToken is ERC20Token {
     uint _balance, 
     uint _tokensIssuedCrowd,
     bool _isPrivateSale,
-    uint _ether,
-    uint _etherBalance,
-    uint _icoEtherReceived
+    uint _amount
   );
   
   event TokensMintedTeam(
@@ -376,12 +492,15 @@ contract GizerToken is ERC20Token {
   /* Initialize */
 
   function GizerToken() {
+    // BK NOTE - The following statement is redundant
     wallet = msg.sender;
+    // BK Ok
     redemptionWallet = wallet;
+    // BK Ok
     whitelistWallet = wallet;
   }
 
-  /* Default function (this is the only 'payable' function) */
+  /* Fallback */
   
   function () payable
   {
@@ -389,7 +508,7 @@ contract GizerToken is ERC20Token {
     buyTokens();
   }
 
-  // Public Functions -----------------
+  // Information Functions ------------
   
   /* What time is it? */
   
@@ -400,16 +519,16 @@ contract GizerToken is ERC20Token {
     return now;
   }
 
-  /* Verify if an account is unlocked */
-
-  function isUnlocked(address _participant) constant 
-    returns (bool unlocked)
+  /* Part of the balance that is locked */
+  
+  function lockedBalance(address _owner) constant 
+    returns (uint balance)
   {
-    if (locked[_participant] != true || atNow() > lockupEndDate) return true;
-    return false;
+    if (atNow() > lockupEndDate) return 0;
+    return balancesLocked[_owner];
   }
 
-  /* Verify if an account is whitelisted */
+  /* Is an account whitelisted */
 
   function isWhitelisted(address _participant) constant 
     returns (bool whitelisted)
@@ -418,16 +537,40 @@ contract GizerToken is ERC20Token {
     return false;
   }
 
+  /* Has the funding threshold been reached? */
+  
+  function icoThresholdReached() constant
+    returns (bool thresholdReached)
+  {
+    if (icoEtherReceived >= FUNDING_PRESALE_MIN) return true;
+    return false;
+  }
+  
+  /* Balance of tokens issued via private sale */
+  
+  function balancePrivate(address _owner) constant 
+    returns (uint tokensPrivate)
+  {
+    return balancesPrivate[_owner];
+  }
+  
+  // Reclaim funds --------------------
+  
   /* Reclaiming of funds by contributors in case of failed crowdsale */
   /* Will fail if account is empty after ownerClawback() */ 
   
   function reclaimFunds()
   {
-    require( atNow() > DATE_ICO_END && !icoThresholdReached );
+    require( atNow() > DATE_ICO_END && !icoThresholdReached() );
     require( balanceEth[msg.sender] > 0 );
-    msg.sender.transfer(balanceEth[msg.sender]);
+    
+    // set balances to 0 before sending, to avoid re-entrancy
+    uint amt = balanceEth[msg.sender];
     balanceEth[msg.sender] = 0;
-    balances[msg.sender] = 0;
+    balances[msg.sender] = balancesPrivate[msg.sender];
+    
+    // send Ether balance
+    msg.sender.transfer(amt);
   }
   
   // Whitelist manager functions ------
@@ -489,7 +632,7 @@ contract GizerToken is ERC20Token {
   {
     require( atNow() < DATE_ICO_START );
     require( _start < _end );
-    require( _end < DATE_PRESALE_END + 180 * NYCTHEMERON ); // just in case
+    require( _end < DATE_PRESALE_END + 180 days ); // sanity check
     DATE_ICO_START = _start;
     DATE_ICO_END = _end;
     lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // lockup is linked to ICO end date
@@ -505,17 +648,13 @@ contract GizerToken is ERC20Token {
 
     // check amount
     require( _amount >= MIN_CONTRIBUTION );
-    require( _amount <= PRIVATE_SALE_MAX_ETHER ); // also prevents overflow
-    require( _amount + privateEtherReceived <= PRIVATE_SALE_MAX_ETHER );
+    require( privateEtherReceived.add(_amount) <= PRIVATE_SALE_MAX_ETHER );
     
     // same conditions as early presale participants
-    uint tokens = _amount * TOKETH_PRESALE_ONE / E18;
-    
-    // update privateEtherReceived
-    privateEtherReceived += _amount;
+    uint tokens = TOKETH_PRESALE_ONE.mul(_amount) / E18;
     
     // issue tokens
-    issueTokens(_contributor, tokens, true); // true => private sale
+    issueTokens(_contributor, tokens, _amount, true); // true => private sale
   }
 
   /* Minting of reserve tokens by owner (no lockup period) */
@@ -524,19 +663,19 @@ contract GizerToken is ERC20Token {
   {
     // available amount
     // after ICO ends, unsold tokens become available for the reserve account
-    uint availableTokens = TOKEN_SUPPLY_RESERVE - tokensIssuedReserve;
+    uint availableTokens = TOKEN_SUPPLY_RESERVE.sub(tokensIssuedReserve);
     if (icoFinished) {
-      availableTokens += TOKEN_SUPPLY_CROWD - tokensIssuedCrowd;
+      uint unissuedTokens = TOKEN_SUPPLY_CROWD.sub(tokensIssuedCrowd);
+      availableTokens = availableTokens.add(unissuedTokens);
     }
     require( _tokens <= availableTokens );
     
-    // not possible if any *locked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] != true);
+    // update
+    balances[_participant] = balances[_participant].add(_tokens);
+    tokensIssuedReserve    = tokensIssuedReserve.add(_tokens);
+    tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
     
-    // mint and log
-    balances[_participant] += _tokens;
-    tokensIssuedReserve += _tokens;
-    tokensIssuedTotal += _tokens;
+    // log event
     Transfer(0x0, _participant, _tokens);
     TokensMintedReserve(_participant, _tokens, balances[_participant], tokensIssuedReserve);
   }
@@ -546,16 +685,17 @@ contract GizerToken is ERC20Token {
   function mintTeam(address _participant, uint _tokens) onlyOwner 
   {
     // check amount
-    require( _tokens <= TOKEN_SUPPLY_TEAM - tokensIssuedTeam );
+    require( _tokens <= TOKEN_SUPPLY_TEAM.sub(tokensIssuedTeam) );
     
-    // not possible if any *unlocked* tokens have already been minted for this address
-    require( balances[_participant] == 0 || locked[_participant] == true );
+    // these tokens are subject to lockup
+    balancesLocked[_participant] = balancesLocked[_participant].add(_tokens);
     
-    // mint and log
-    locked[_participant] = true;
-    balances[_participant] += _tokens;
-    tokensIssuedTeam += _tokens;
-    tokensIssuedTotal += _tokens;
+    // update
+    balances[_participant] = balances[_participant].add(_tokens);
+    tokensIssuedTeam       = tokensIssuedTeam.add(_tokens);
+    tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
+    
+    // log event
     Transfer(0x0, _participant, _tokens);
     TokensMintedTeam(_participant, _tokens, balances[_participant], tokensIssuedTeam);
   }
@@ -566,8 +706,11 @@ contract GizerToken is ERC20Token {
   {
     require( !icoFinished );
     
+    // threshold reached
+    require( icoThresholdReached() );
+    
     // only after ICO end date, or when cap almost reached
-    require( atNow() > DATE_ICO_END || TOKEN_SUPPLY_CROWD - tokensIssuedCrowd <= ICO_TRIGGER );
+    require( atNow() > DATE_ICO_END || TOKEN_SUPPLY_CROWD.sub(tokensIssuedCrowd) <= ICO_TRIGGER );
 
     // ICO is declared finished, end of lockup period moved back if necessary
     icoFinished = true;
@@ -579,17 +722,11 @@ contract GizerToken is ERC20Token {
   function makeTradeable() onlyOwner
   {
     // the token can only be made tradeable after ICO finishes
-    require( icoFinished && icoThresholdReached );
+    require( icoFinished );
     tradeable = true;
   }
 
-  /* Owner withdrawal if threshold reached (probably not needed) */
-  
-  function ownerWithdraw() external onlyOwner {
-     require( icoThresholdReached );
-     wallet.transfer(this.balance);
-  }  
-
+  /* In case of failed ICO: */
   /* Owner clawback of remaining funds after clawback period */
   
   function ownerClawback() external onlyOwner {
@@ -616,7 +753,7 @@ contract GizerToken is ERC20Token {
     bool isIco = false;
     uint tokens = 0;
 
-    // basic 
+    // basic checks
     require( !icoFinished );
     require( msg.value >= MIN_CONTRIBUTION && msg.value <= MAX_CONTRIBUTION );
 
@@ -630,13 +767,13 @@ contract GizerToken is ERC20Token {
     
     // Presale - check the cap in ETH
     if (isPresale) {
-      require( msg.value + icoEtherReceived <= FUNDING_PRESALE_MAX );
+      require( icoEtherReceived.add(msg.value) <= FUNDING_PRESALE_MAX );
       if (presaleContributorCount < CUTOFF_PRESALE_ONE) {
-        tokens = msg.value * TOKETH_PRESALE_ONE / E18;
+        tokens = TOKETH_PRESALE_ONE.mul(msg.value) / E18;
       } else if (presaleContributorCount < CUTOFF_PRESALE_TWO) {
-        tokens = msg.value * TOKETH_PRESALE_TWO / E18;
+        tokens = TOKETH_PRESALE_TWO.mul(msg.value) / E18;
       } else {
-        tokens = msg.value * TOKETH_PRESALE_THREE / E18;
+        tokens = TOKETH_PRESALE_THREE.mul(msg.value) / E18;
       }
       presaleContributorCount += 1;
     }
@@ -644,36 +781,43 @@ contract GizerToken is ERC20Token {
     // ICO - check the token volume cap
     if (isIco) {
       if (icoContributorCount < CUTOFF_ICO_ONE) {
-        tokens = msg.value * TOKETH_ICO_ONE / E18;
+        tokens = TOKETH_ICO_ONE.mul(msg.value) / E18;
       } else {
-        tokens = msg.value * TOKETH_ICO_TWO / E18;
+        tokens = TOKETH_ICO_TWO.mul(msg.value) / E18;
       }
-      require( tokensIssuedCrowd + tokens <= TOKEN_SUPPLY_CROWD );
+      require( tokensIssuedCrowd.add(tokens) <= TOKEN_SUPPLY_CROWD );
       icoContributorCount += 1;
     }
     
     // issue tokens
-    issueTokens(msg.sender, tokens, false); // false => not private sale
+    issueTokens(msg.sender, tokens, msg.value, false); // false => not private sale
   }
   
   /* Issue tokens */
   
-  function issueTokens(address _contributor, uint _tokens, bool _isPrivateSale) private
+  function issueTokens(address _contributor, uint _tokens, uint _amount, bool _isPrivateSale) private
   {
-    // Register tokens purchased and Ether received
-    balances[_contributor] += _tokens;
-    tokensIssuedCrowd += _tokens;
-    tokensIssuedTotal += _tokens;
-    icoEtherReceived += msg.value;
-    balanceEth[_contributor] += msg.value;
+    // register tokens purchased and Ether received
+    balances[_contributor] = balances[_contributor].add(_tokens);
+    tokensIssuedCrowd      = tokensIssuedCrowd.add(_tokens);
+    tokensIssuedTotal      = tokensIssuedTotal.add(_tokens);
     
-    // Log token issuance
+    if (_isPrivateSale) {
+      tokensIssuedPrivate             = tokensIssuedPrivate.add(_tokens);
+      privateEtherReceived            = privateEtherReceived.add(_amount);
+      balancesPrivate[_contributor]   = balancesPrivate[_contributor].add(_tokens);
+      balanceEthPrivate[_contributor] = balanceEthPrivate[_contributor].add(_amount);
+    } else {
+      icoEtherReceived         = icoEtherReceived.add(msg.value);
+      balanceEth[_contributor] = balanceEth[_contributor].add(msg.value);
+    }
+    
+    // log token issuance
     Transfer(0x0, _contributor, _tokens);
-    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, msg.value, balanceEth[_contributor], icoEtherReceived);
+    TokensIssued(_contributor, _tokens, balances[_contributor], tokensIssuedCrowd, _isPrivateSale, _amount);
 
-    // check threshold, transfer Ether if necessary
-    if (icoEtherReceived >= FUNDING_PRESALE_MIN) {
-      icoThresholdReached = true;
+    // check threshold, transfer Ether out if necessary
+    if (icoThresholdReached()) {
       wallet.transfer(this.balance);
     }
   }
@@ -697,8 +841,8 @@ contract GizerToken is ERC20Token {
     // or for transfers to the Gizer redemption wallet
     require( tradeable || msg.sender == owner || _to == redemptionWallet );
     
-    // not possible for a locked account before lockout period ends
-    require( isUnlocked(msg.sender) );
+    // locked balance check
+    require( balances[msg.sender].sub(_amount) >= lockedBalance(msg.sender) );
 
     return super.transfer(_to, _amount);
   }
@@ -711,8 +855,8 @@ contract GizerToken is ERC20Token {
     // not possible until tradeable
     require( tradeable );
     
-    // not possible to transfer from locked accounts
-    require( isUnlocked(_from) );
+    // locked balance check
+    require( balances[_from].sub(_amount) >= lockedBalance(_from) );
     
     return super.transferFrom(_from, _to, _amount);
   }
