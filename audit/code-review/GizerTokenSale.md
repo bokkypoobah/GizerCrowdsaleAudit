@@ -363,97 +363,126 @@ contract GizerToken is ERC20Token {
 
   /* Private sale */
 
+  // BK Ok
   uint public constant PRIVATE_SALE_MAX_ETHER = 1000 * E18; // 1,000 Ether
   
   /* Presale parameters */
   
+  // BK Ok - new Date(1508504400 * 1000).toUTCString() => "Fri, 20 Oct 2017 13:00:00 UTC"
   uint public constant DATE_PRESALE_START = 1508504400; // 20-Oct-2017 13:00 UTC
+  // BK Ok - new Date(1509368400 * 1000).toUTCString() => "Mon, 30 Oct 2017 13:00:00 UTC"
   uint public constant DATE_PRESALE_END   = 1509368400; // 30-Oct-2017 13:00 UTC
   
+  // BK Next block Ok
   uint public constant TOKETH_PRESALE_ONE   = 1150 * E6; // presale wave 1 (1-100)
   uint public constant TOKETH_PRESALE_TWO   = 1100 * E6; // presale wave 2 (101-500)
   uint public constant TOKETH_PRESALE_THREE = 1075 * E6; // presale - others
   
+  // BK Next block Ok
   uint public constant CUTOFF_PRESALE_ONE = 100; // last contributor wave 1
   uint public constant CUTOFF_PRESALE_TWO = 500; // last contributor wave 2
   
+  // BK Next block Ok
   uint public constant FUNDING_PRESALE_MIN =  333 * E18; //   333 Ether
   uint public constant FUNDING_PRESALE_MAX = 3333 * E18; // 3,333 Ether
 
   /* ICO parameters (ICO dates can be modified by owner after deployment) */
 
+  // BK Ok - new Date(1510754400 * 1000).toUTCString() => "Wed, 15 Nov 2017 14:00:00 UTC"
   uint public DATE_ICO_START = 1510754400; // 15-Nov-2017 14:00 UTC
+  // BK Ok - new Date(1513346400 * 1000).toUTCString() => "Fri, 15 Dec 2017 14:00:00 UTC"
   uint public DATE_ICO_END   = 1513346400; // 15-Dec-2017 14:00 UTC
 
+  // BK Next block Ok
   uint public constant TOKETH_ICO_ONE = 1050 * E6; // ICO wave 1 (1-500)
   uint public constant TOKETH_ICO_TWO = 1000 * E6; // ICO - others
   
+  // BK Ok
   uint public constant CUTOFF_ICO_ONE = 500; // last contributor wave 1
 
+  // BK Ok
   uint public constant ICO_TRIGGER = 100000 * E6; // 100,000 (for declaring ICO end)
 
   /* Crowdsale variables */
 
+  // BK Ok
   uint public privateEtherReceived = 0; // private sale Ether received by Gizer
                                         // (this is not sent to the contract)
 
+  // BK Ok
   uint public icoEtherReceived = 0; // Ether actually received by the contract
                                     // presale + ICO combined
 
+  // BK Next block Ok
   uint public tokensIssuedTotal = 0;
   uint public tokensIssuedCrowd = 0;
   uint public tokensIssuedTeam = 0;
   uint public tokensIssuedReserve = 0;
   
+  // BK Ok
   uint public tokensIssuedPrivate = 0; // is part of tokensIssuedCrowd
 
+  // BK Ok
   uint public lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // changes if ICO ends early
                                                    // and resets if DATE_ICO_END changes
 
+  // BK Next block Ok
   bool public icoFinished = false;
   bool public tradeable = false;
   
+  // BK Next block Ok
   uint public presaleContributorCount = 0;
   uint public icoContributorCount = 0;
 
   /* Keep track of Ether received */
   
+  // BK Ok
   mapping(address => uint) public balanceEth;
+  // BK Ok
   mapping(address => uint) public balanceEthPrivate;
   
   /* Keep track of tokens issued via private sale */
   
+  // BK Ok
   mapping(address => uint) public balancesPrivate;
 
   /* Balances subject to lockup period */
   
+  // BK Ok
   mapping(address => uint) balancesLocked;
 
   /* Whitelist */
 
+  // BK Ok
   address public whitelistWallet;
+  // BK Ok
   mapping(address => bool) whitelist;
   
   /* Variables for pre-deployment testing */
   
+  // BK Next block Ok
   bool public constant TEST_MODE = false; // set to true for test deployment only
   uint public testTime = DATE_PRESALE_START - 1 days; // only used in test mode
 
   // Events ---------------------------
   
+  // BK Ok - Event
   event WalletUpdated(
     address _newWallet
   );
   
+  // BK Ok - Event
   event RedemptionWalletUpdated(
     address _newRedemptionWallet
   );
 
+  // BK Ok - Event
   event IcoDatesUpdated(
     uint _start,
     uint _end
   );
 
+  // BK Ok - Event
   event TokensIssued(
     address indexed _owner,
     uint _tokens, 
@@ -463,6 +492,7 @@ contract GizerToken is ERC20Token {
     uint _amount
   );
   
+  // BK Ok - Event
   event TokensMintedTeam(
     address indexed _owner,
     uint _tokens,
@@ -470,6 +500,7 @@ contract GizerToken is ERC20Token {
     uint _tokensIssuedReserve
   );
   
+  // BK Ok - Event
   event TokensMintedReserve(
     address indexed _owner,
     uint _tokens,
@@ -477,11 +508,13 @@ contract GizerToken is ERC20Token {
     uint _tokensIssuedTeam
   );
   
+  // BK Ok - Event
   event WhitelistModify(
     address indexed _participant,
     bool _status
   );
 
+  // BK Ok - Event
   event WhitelistWalletChanged(
     address _newWhitelistWallet
   );
@@ -491,8 +524,9 @@ contract GizerToken is ERC20Token {
 
   /* Initialize */
 
+  // BK Ok - Constructor
   function GizerToken() {
-    // BK NOTE - The following statement is redundant
+    // BK Ok
     wallet = msg.sender;
     // BK Ok
     redemptionWallet = wallet;
@@ -502,9 +536,12 @@ contract GizerToken is ERC20Token {
 
   /* Fallback */
   
+  // BK Ok
   function () payable
   {
+    // BK Ok
     require( whitelist[msg.sender] == true );
+    // BK Ok
     buyTokens();
   }
 
@@ -512,10 +549,13 @@ contract GizerToken is ERC20Token {
   
   /* What time is it? */
   
+  // BK Ok - Constant function
   function atNow() constant
     returns (uint)
   {
+    // BK Ok
     if (TEST_MODE) return testTime;
+    // BK Ok
     return now;
   }
 
@@ -530,10 +570,15 @@ contract GizerToken is ERC20Token {
 
   /* Is an account whitelisted */
 
+  // BK NOTE - To simplify code, just make `whitelist` public and remove the following function
+  // BK Ok - Constant function, unused in this contract, but can be called in the blockchain explorers
   function isWhitelisted(address _participant) constant 
     returns (bool whitelisted)
   {
+    // BK NOTE - The next two statements can be simplified to just `return whitelist[_participant];`
+    // BK Ok
     if (whitelist[_participant] == true) return true;
+    // BK Ok
     return false;
   }
 
@@ -577,17 +622,25 @@ contract GizerToken is ERC20Token {
 
   /* Manage whitelist */
 
+  // BK Ok - Can only be executed by whitelistWallet
   function addToWhitelist(address _participant)
   {
+    // BK Ok
     require( msg.sender == whitelistWallet );
+    // BK Ok
     whitelist[_participant] = true;
+    // BK Ok - Log event
     WhitelistModify(_participant, true);
   }  
 
+  // BK Ok - Can only be executed by whitelistWallet
   function removeFromWhitelist(address _participant)
   {
+    // BK Ok
     require( msg.sender == whitelistWallet );
+    // BK Ok
     whitelist[_participant] = false;
+    // BK Ok
     WhitelistModify(_participant, false);
   }
   
@@ -603,26 +656,36 @@ contract GizerToken is ERC20Token {
 
   /* Change the crowdsale wallet address */
 
+  // BK Ok - Only owner can execute
   function setWallet(address _wallet) onlyOwner
   {
+    // BK Ok
     require( _wallet != address(0x0) );
+    // BK Ok
     wallet = _wallet;
+    // BK Ok - Log event
     WalletUpdated(wallet);
   }
 
   /* Change the redemption wallet address */
 
+  // BK Ok - Only owner can execute
   function setRedemptionWallet(address _wallet) onlyOwner
   {
+    // BK Ok
     redemptionWallet = _wallet;
+    // BK ERROR - Incorrect wallet
     RedemptionWalletUpdated(wallet);
   }
   
   /* Change the whitelist owner address */
 
+  // BK Ok - Only owner can execute
   function setWhitelistWallet(address _wallet) onlyOwner
   {
+    // BK Ok
     whitelistWallet = _wallet;
+    // BK ERROR - Incorrect wallet
     WhitelistWalletChanged(wallet);
   }
   

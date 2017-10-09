@@ -77,7 +77,7 @@ var tokenAbi = JSON.parse(tokenOutput.contracts["$CROWDSALESOL:GizerToken"].abi)
 var tokenBin = "0x" + tokenOutput.contracts["$CROWDSALESOL:GizerToken"].bin;
 
 // console.log("DATA: tokenAbi=" + JSON.stringify(tokenAbi));
-console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
+// console.log("DATA: tokenBin=" + JSON.stringify(tokenBin));
 
 unlockAccounts("$PASSWORD");
 printBalances();
@@ -113,7 +113,27 @@ while (txpool.status.pending > 0) {
 
 printTxData("tokenAddress=" + tokenAddress, tokenTx);
 printBalances();
-failIfGasEqualsGasUsed(tokenTx, tokenMessage);
+failIfTxStatusError(tokenTx, tokenMessage);
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var setupMessage = "Setup";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + setupMessage);
+var setup1Tx = token.setWallet(wallet, {from: contractOwnerAccount, gas: 400000});
+var setup2Tx = token.setWhitelistWallet(whitelistWallet, {from: contractOwnerAccount, gas: 400000});
+var setup3Tx = token.setRedemptionWallet(redemptionWallet, {from: contractOwnerAccount, gas: 400000});
+while (txpool.status.pending > 0) {
+}
+printTxData("setup1Tx", setup1Tx);
+printTxData("setup2Tx", setup2Tx);
+printTxData("setup3Tx", setup3Tx);
+printBalances();
+failIfGasEqualsGasUsed(setup1Tx, setupMessage + " - setWallet(...)");
+failIfGasEqualsGasUsed(setup2Tx, setupMessage + " - setWhitelistWallet(...)");
+failIfGasEqualsGasUsed(setup3Tx, setupMessage + " - setRedemptionWallet(...)");
 printTokenContractDetails();
 console.log("RESULT: ");
 

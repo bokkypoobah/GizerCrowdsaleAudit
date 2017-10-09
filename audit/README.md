@@ -66,6 +66,13 @@ Commits
 * **MEDIUM IMPORTANCE** Any changes to the `balances[...]` mapping should have a related `Transfer(...)` event. When these transfers
   are displayed in EtherScan.io or Ethplorer.io, the accounting should balance. Minted tokens should have a `Transfer(0x0, ...)` event
 
+* **LOW IMPORTANCE** The comment [https://github.com/ethereum/EIPs/issues/20](https://github.com/ethereum/EIPs/issues/20) should
+  be updated to the final standard at [https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md)
+
+* **MEDIUM IMPORTANCE** In `setRedemptionWallet(...)`, `RedemptionWalletUpdated(wallet);` should be `RedemptionWalletUpdated(redemptionWallet);`
+
+* **MEDIUM IMPORTANCE** In `setWhitelistWallet(...)`, `WhitelistWalletChanged(wallet);` should be `WhitelistWalletChanged(whitelistWallet);`
+
 <br />
 
 <hr />
