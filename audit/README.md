@@ -73,6 +73,11 @@ Commits
 
 * **MEDIUM IMPORTANCE** In `setWhitelistWallet(...)`, `WhitelistWalletChanged(wallet);` should be `WhitelistWalletChanged(whitelistWallet);`
 
+* **LOW IMPORTANCE** The logic in `isWhitelisted(...)` can be simplified, and this function can be removed and replaced by setting `whitelist` 
+  to public visibility. See the NOTEs in the code review
+
+* **LOW IMPORTANCE** `DATE_ICO_START` and `DATE_ICO_END` are not constants and should be camelCased
+
 <br />
 
 <hr />

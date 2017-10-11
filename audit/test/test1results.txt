@@ -1,11 +1,11 @@
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       24.000000000000000000           0.000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.000000000000000000           0.000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
- 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
- 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
@@ -19,15 +19,15 @@
 
 
 Deploy Crowdsale/Token Contract
-tokenAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff gas=6000000 gasUsed=2991305 costETH=0.05384349 costUSD=16.19967546234 @ ETH/USD=300.866 gasPrice=18000000000 block=503 txIx=0 txId=0xc6583e9be894f05b03254cb499dc46fd8b5a23dd0ee6355214c5ce507392c500
+tokenAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210 gas=6000000 gasUsed=2991305 costETH=0.05384349 costUSD=16.19967546234 @ ETH/USD=300.866 gasPrice=18000000000 block=1375 txIx=0 txId=0x52d05c72ec89b961efccd9a92ce0af970b427518c93a89f89e5dedc370544745
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       33.053843490000000000           0.000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       21.053843490000000000           0.000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.053843490000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
- 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
- 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
@@ -35,13 +35,13 @@ tokenAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff gas=6000000 gasUsed=2991
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Whitelist Wallet
 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
-13 0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+13 0x545b861c70089afcbee7c3e8ff00e1ab9e5be210        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                     0.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 
 PASS Deploy Crowdsale/Token Contract
-tokenContractAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
+tokenContractAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.name=Gizer Gaming Token
@@ -60,8 +60,8 @@ token.MAX_CONTRIBUTION=3333
 token.LOCKUP_PERIOD=15552000
 token.CLAWBACK_PERIOD=15552000
 token.PRIVATE_SALE_MAX_ETHER=1000
-token.DATE_PRESALE_START=1508504400 Fri, 20 Oct 2017 13:00:00 UTC
-token.DATE_PRESALE_END=1509368400 Mon, 30 Oct 2017 13:00:00 UTC
+token.DATE_PRESALE_START=1507741077 Wed, 11 Oct 2017 16:57:57 UTC
+token.DATE_PRESALE_END=1507741137 Wed, 11 Oct 2017 16:58:57 UTC
 token.TOKETH_PRESALE_ONE=1150000000
 token.TOKETH_PRESALE_TWO=1100000000
 token.TOKETH_PRESALE_THREE=1075000000
@@ -69,8 +69,8 @@ token.CUTOFF_PRESALE_ONE=100
 token.CUTOFF_PRESALE_TWO=500
 token.FUNDING_PRESALE_MIN=333
 token.FUNDING_PRESALE_MAX=3333
-token.DATE_ICO_START=1510754400 Wed, 15 Nov 2017 14:00:00 UTC
-token.DATE_ICO_END=1513346400 Fri, 15 Dec 2017 14:00:00 UTC
+token.DATE_ICO_START=1507741197 Wed, 11 Oct 2017 16:59:57 UTC
+token.DATE_ICO_END=1507741257 Wed, 11 Oct 2017 17:00:57 UTC
 token.TOKETH_ICO_ONE=1050000000
 token.TOKETH_ICO_TWO=1000000000
 token.CUTOFF_ICO_ONE=500
@@ -82,24 +82,24 @@ token.tokensIssuedCrowd=0
 token.tokensIssuedTeam=0
 token.tokensIssuedReserve=0
 token.tokensIssuedPrivate=0
-token.lockupEndDate=1528898400
+token.lockupEndDate=1523293257
 token.icoFinished=false
 token.tradeable=false
 token.presaleContributorCount=0
 token.icoContributorCount=0
 
 Setup
-setup1Tx gas=400000 gasUsed=30743 costETH=0.000553374 costUSD=0.166491421884 @ ETH/USD=300.866 gasPrice=18000000000 block=506 txIx=0 txId=0x3b3ac97ca54b2e3d2e9171d937d8f793eab0581c6c2f36f91a4608eeaae901e3
-setup2Tx gas=400000 gasUsed=29305 costETH=0.00052749 costUSD=0.15870380634 @ ETH/USD=300.866 gasPrice=18000000000 block=507 txIx=0 txId=0x883a1326d15a1ab7c1fd6c345495b56f55fdde3602017a3b0af57350860c5e3a
-setup3Tx gas=400000 gasUsed=30185 costETH=0.00054333 costUSD=0.16346952378 @ ETH/USD=300.866 gasPrice=18000000000 block=507 txIx=1 txId=0x5eda9888ff46d98b5043d4b48671b837bf036be18403b57945835803df559ca5
+setup1Tx gas=400000 gasUsed=30743 costETH=0.000553374 costUSD=0.166491421884 @ ETH/USD=300.866 gasPrice=18000000000 block=1378 txIx=0 txId=0x1531cc66944614c38a33acd1795cc388bbc67b8cf3f40f54755717f780b0060f
+setup2Tx gas=400000 gasUsed=29305 costETH=0.00052749 costUSD=0.15870380634 @ ETH/USD=300.866 gasPrice=18000000000 block=1378 txIx=1 txId=0xd1b7ad0632acf2d521f00b1c6eb975522e279077500e2173b48742c2799fbde0
+setup3Tx gas=400000 gasUsed=30185 costETH=0.00054333 costUSD=0.16346952378 @ ETH/USD=300.866 gasPrice=18000000000 block=1378 txIx=2 txId=0x755448f4779d2d97b817e39ba0849ae9d10a4295def0292a44823fbcdf244d39
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       42.324685134000000000           0.000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.324685134000000000           0.000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.055467684000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055467684000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
- 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
- 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
@@ -107,7 +107,7 @@ setup3Tx gas=400000 gasUsed=30185 costETH=0.00054333 costUSD=0.16346952378 @ ETH
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Whitelist Wallet
 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
-13 0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+13 0x545b861c70089afcbee7c3e8ff00e1ab9e5be210        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                     0.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
@@ -115,7 +115,7 @@ setup3Tx gas=400000 gasUsed=30185 costETH=0.00054333 costUSD=0.16346952378 @ ETH
 PASS Setup - setWallet(...)
 PASS Setup - setWhitelistWallet(...)
 PASS Setup - setRedemptionWallet(...)
-tokenContractAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff
+tokenContractAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.name=Gizer Gaming Token
@@ -134,8 +134,8 @@ token.MAX_CONTRIBUTION=3333
 token.LOCKUP_PERIOD=15552000
 token.CLAWBACK_PERIOD=15552000
 token.PRIVATE_SALE_MAX_ETHER=1000
-token.DATE_PRESALE_START=1508504400 Fri, 20 Oct 2017 13:00:00 UTC
-token.DATE_PRESALE_END=1509368400 Mon, 30 Oct 2017 13:00:00 UTC
+token.DATE_PRESALE_START=1507741077 Wed, 11 Oct 2017 16:57:57 UTC
+token.DATE_PRESALE_END=1507741137 Wed, 11 Oct 2017 16:58:57 UTC
 token.TOKETH_PRESALE_ONE=1150000000
 token.TOKETH_PRESALE_TWO=1100000000
 token.TOKETH_PRESALE_THREE=1075000000
@@ -143,8 +143,8 @@ token.CUTOFF_PRESALE_ONE=100
 token.CUTOFF_PRESALE_TWO=500
 token.FUNDING_PRESALE_MIN=333
 token.FUNDING_PRESALE_MAX=3333
-token.DATE_ICO_START=1510754400 Wed, 15 Nov 2017 14:00:00 UTC
-token.DATE_ICO_END=1513346400 Fri, 15 Dec 2017 14:00:00 UTC
+token.DATE_ICO_START=1507741197 Wed, 11 Oct 2017 16:59:57 UTC
+token.DATE_ICO_END=1507741257 Wed, 11 Oct 2017 17:00:57 UTC
 token.TOKETH_ICO_ONE=1050000000
 token.TOKETH_ICO_TWO=1000000000
 token.CUTOFF_ICO_ONE=500
@@ -156,12 +156,89 @@ token.tokensIssuedCrowd=0
 token.tokensIssuedTeam=0
 token.tokensIssuedReserve=0
 token.tokensIssuedPrivate=0
-token.lockupEndDate=1528898400
+token.lockupEndDate=1523293257
 token.icoFinished=false
 token.tradeable=false
 token.presaleContributorCount=0
 token.icoContributorCount=0
-WalletUpdated 0 #506 {"_newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
-RedemptionWalletUpdated 0 #507 {"_newRedemptionWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
-WhitelistWalletChanged 0 #507 {"_newWhitelistWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+WalletUpdated 0 #1378 {"_newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+RedemptionWalletUpdated 0 #1378 {"_newRedemptionWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+WhitelistWalletChanged 0 #1378 {"_newWhitelistWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+
+Whitelist
+whitelist1Tx gas=400000 gasUsed=46153 costETH=0.000830754 costUSD=0.249945632964 @ ETH/USD=300.866 gasPrice=18000000000 block=1381 txIx=0 txId=0x8530c9deb62029573f6ac399ed9a6ce4aed1f6c9d3d5bb272c30471d611006bd
+whitelist2Tx gas=400000 gasUsed=46153 costETH=0.000830754 costUSD=0.249945632964 @ ETH/USD=300.866 gasPrice=18000000000 block=1381 txIx=1 txId=0x90283188d8e266821de33f536d66807e9ae75ef504362d9b5226cd1172907ac2
+whitelist3Tx gas=400000 gasUsed=30368 costETH=0.000546624 costUSD=0.164460576384 @ ETH/USD=300.866 gasPrice=18000000000 block=1381 txIx=2 txId=0xbc7dedb8305022de4a0fa3a2a6a6e06851afd1ffa887c747bbb95a0eca08fe8f
+ # Account                                             EtherBalanceChange              Token Name
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       39.057675816000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055467684000000000           0.000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002208132000000000           0.000000 Account #11 - Whitelist Wallet
+12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
+13 0x545b861c70089afcbee7c3e8ff00e1ab9e5be210        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+                                                                                    0.000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+
+PASS Whitelist - ac3 Whitelist Uncapped
+PASS Whitelist - ac4 Whitelist Capped
+PASS Whitelist - ac4 Whitelist Capped
+tokenContractAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.name=Gizer Gaming Token
+token.symbol=GZR
+token.decimals=6
+token.totalSupply=0
+token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.redemptionWallet=0xacca534c9f62ab495bd986e002ddf0f054caae4f
+token.whitelistWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+token.TOKEN_SUPPLY_TOTAL=100000000
+token.TOKEN_SUPPLY_TEAM=15000000
+token.TOKEN_SUPPLY_RESERVE=15000000
+token.TOKEN_SUPPLY_CROWD=70000000
+token.MIN_CONTRIBUTION=0.01
+token.MAX_CONTRIBUTION=3333
+token.LOCKUP_PERIOD=15552000
+token.CLAWBACK_PERIOD=15552000
+token.PRIVATE_SALE_MAX_ETHER=1000
+token.DATE_PRESALE_START=1507741077 Wed, 11 Oct 2017 16:57:57 UTC
+token.DATE_PRESALE_END=1507741137 Wed, 11 Oct 2017 16:58:57 UTC
+token.TOKETH_PRESALE_ONE=1150000000
+token.TOKETH_PRESALE_TWO=1100000000
+token.TOKETH_PRESALE_THREE=1075000000
+token.CUTOFF_PRESALE_ONE=100
+token.CUTOFF_PRESALE_TWO=500
+token.FUNDING_PRESALE_MIN=333
+token.FUNDING_PRESALE_MAX=3333
+token.DATE_ICO_START=1507741197 Wed, 11 Oct 2017 16:59:57 UTC
+token.DATE_ICO_END=1507741257 Wed, 11 Oct 2017 17:00:57 UTC
+token.TOKETH_ICO_ONE=1050000000
+token.TOKETH_ICO_TWO=1000000000
+token.CUTOFF_ICO_ONE=500
+token.ICO_TRIGGER=100000000000
+token.privateEtherReceived=0
+token.icoEtherReceived=0
+token.tokensIssuedTotal=0
+token.tokensIssuedCrowd=0
+token.tokensIssuedTeam=0
+token.tokensIssuedReserve=0
+token.tokensIssuedPrivate=0
+token.lockupEndDate=1523293257
+token.icoFinished=false
+token.tradeable=false
+token.presaleContributorCount=0
+token.icoContributorCount=0
+WhitelistModify 0 #1381 {"_participant":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","_status":true}
+WhitelistModify 1 #1381 {"_participant":"0xa44a08d3f6933c69212114bb66e2df1813651844","_status":true}
+WhitelistModify 2 #1381 {"_participant":"0xa55a151eb00fded1634d27d1127b4be4627079ea","_status":false}
 

@@ -388,6 +388,7 @@ contract GizerToken is ERC20Token {
 
   /* ICO parameters (ICO dates can be modified by owner after deployment) */
 
+  // BK NOTE - The following statements are not constants and show be camelCased
   // BK Ok - new Date(1510754400 * 1000).toUTCString() => "Wed, 15 Nov 2017 14:00:00 UTC"
   uint public DATE_ICO_START = 1510754400; // 15-Nov-2017 14:00 UTC
   // BK Ok - new Date(1513346400 * 1000).toUTCString() => "Fri, 15 Dec 2017 14:00:00 UTC"
@@ -691,14 +692,22 @@ contract GizerToken is ERC20Token {
   
   /* Change ICO dates before ICO start */
   
+  // BK Ok - Only owner can execute
   function updateIcoDates(uint _start, uint _end) onlyOwner
   {
+    // BK Ok
     require( atNow() < DATE_ICO_START );
+    // BK Ok
     require( _start < _end );
+    // BK Ok
     require( _end < DATE_PRESALE_END + 180 days ); // sanity check
+    // BK Ok - See note re variable (not constant) naming
     DATE_ICO_START = _start;
+    // BK Ok - See note re variable (not constant) naming
     DATE_ICO_END = _end;
+    // BK Ok
     lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // lockup is linked to ICO end date
+    // BK Ok
     IcoDatesUpdated(_start, _end);
   }
 
@@ -799,9 +808,11 @@ contract GizerToken is ERC20Token {
 
   /* Transfer out any accidentally sent ERC20 tokens */
 
+  // BK Ok - Only owner can execute
   function transferAnyERC20Token(address tokenAddress, uint amount) onlyOwner 
     returns (bool success) 
   {
+      // BK Ok
       return ERC20Interface(tokenAddress).transfer(owner, amount);
   }
 

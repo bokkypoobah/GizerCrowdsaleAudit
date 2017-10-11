@@ -24,44 +24,40 @@ TEST1RESULTS=`grep ^TEST1RESULTS= settings.txt | sed "s/^.*=//"`
 CURRENTTIME=`date +%s`
 CURRENTTIMES=`date -r $CURRENTTIME -u`
 
-BLOCKSINDAY=10
+DATE_PRESALE_START=`echo "$CURRENTTIME+90" | bc`
+DATE_PRESALE_START_S=`date -r $DATE_PRESALE_START -u`
+DATE_PRESALE_END=`echo "$CURRENTTIME+150" | bc`
+DATE_PRESALE_END_S=`date -r $DATE_PRESALE_END -u`
+DATE_ICO_START=`echo "$CURRENTTIME+210" | bc`
+DATE_ICO_START_S=`date -r $DATE_ICO_START -u`
+DATE_ICO_END=`echo "$CURRENTTIME+270" | bc`
+DATE_ICO_END_S=`date -r $DATE_ICO_END -u`
 
-if [ "$MODE" == "dev" ]; then
-  # Start time now
-  STARTTIME=`echo "$CURRENTTIME" | bc`
-else
-  # Start time 1m 10s in the future
-  STARTTIME=`echo "$CURRENTTIME+90" | bc`
-fi
-STARTTIME_S=`date -r $STARTTIME -u`
-ENDTIME=`echo "$CURRENTTIME+60*3" | bc`
-ENDTIME_S=`date -r $ENDTIME -u`
-
-printf "MODE            = '$MODE'\n" | tee $TEST1OUTPUT
-printf "GETHATTACHPOINT = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
-printf "PASSWORD        = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
-printf "SOURCEDIR       = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
-printf "CROWDSALESOL    = '$CROWDSALESOL'\n" | tee -a $TEST1OUTPUT
-printf "CROWDSALEJS     = '$CROWDSALEJS'\n" | tee -a $TEST1OUTPUT
-printf "DEPLOYMENTDATA  = '$DEPLOYMENTDATA'\n" | tee -a $TEST1OUTPUT
-printf "INCLUDEJS       = '$INCLUDEJS'\n" | tee -a $TEST1OUTPUT
-printf "TEST1OUTPUT     = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
-printf "TEST1RESULTS    = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
-printf "CURRENTTIME     = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
-printf "STARTTIME       = '$STARTTIME' '$STARTTIME_S'\n" | tee -a $TEST1OUTPUT
-printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n" | tee -a $TEST1OUTPUT
+printf "MODE               = '$MODE'\n" | tee $TEST1OUTPUT
+printf "GETHATTACHPOINT    = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
+printf "PASSWORD           = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
+printf "SOURCEDIR          = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
+printf "CROWDSALESOL       = '$CROWDSALESOL'\n" | tee -a $TEST1OUTPUT
+printf "CROWDSALEJS        = '$CROWDSALEJS'\n" | tee -a $TEST1OUTPUT
+printf "DEPLOYMENTDATA     = '$DEPLOYMENTDATA'\n" | tee -a $TEST1OUTPUT
+printf "INCLUDEJS          = '$INCLUDEJS'\n" | tee -a $TEST1OUTPUT
+printf "TEST1OUTPUT        = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
+printf "TEST1RESULTS       = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
+printf "CURRENTTIME        = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
+printf "DATE_PRESALE_START = '$DATE_PRESALE_START' '$DATE_PRESALE_START_S'\n" | tee -a $TEST1OUTPUT
+printf "DATE_PRESALE_END   = '$DATE_PRESALE_END' '$DATE_PRESALE_END_S'\n" | tee -a $TEST1OUTPUT
+printf "DATE_ICO_START     = '$DATE_ICO_START' '$DATE_ICO_START_S'\n" | tee -a $TEST1OUTPUT
+printf "DATE_ICO_END       = '$DATE_ICO_END' '$DATE_ICO_END_S'\n" | tee -a $TEST1OUTPUT
 
 # Make copy of SOL file and modify start and end times ---
 # `cp modifiedContracts/SnipCoin.sol .`
 `cp $SOURCEDIR/$CROWDSALESOL .`
 
 # --- Modify parameters ---
-# `perl -pi -e "s/bool transferable/bool public transferable/" $TOKENSOL`
-# `perl -pi -e "s/MULTISIG_WALLET_ADDRESS \= 0xc79ab28c5c03f1e7fbef056167364e6782f9ff4f;/MULTISIG_WALLET_ADDRESS \= 0xa22AB8A9D641CE77e06D98b7D7065d324D3d6976;/" GimliCrowdsale.sol`
-# `perl -pi -e "s/START_DATE = 1505736000;.*$/START_DATE \= $STARTTIME; \/\/ $STARTTIME_S/" GimliCrowdsale.sol`
-# `perl -pi -e "s/END_DATE = 1508500800;.*$/END_DATE \= $ENDTIME; \/\/ $ENDTIME_S/" GimliCrowdsale.sol`
-# `perl -pi -e "s/VESTING_1_DATE = 1537272000;.*$/VESTING_1_DATE \= $VESTING1TIME; \/\/ $VESTING1TIME_S/" GimliCrowdsale.sol`
-# `perl -pi -e "s/VESTING_2_DATE = 1568808000;.*$/VESTING_2_DATE \= $VESTING2TIME; \/\/ $VESTING2TIME_S/" GimliCrowdsale.sol`
+`perl -pi -e "s/DATE_PRESALE_START \= 1508504400;.*$/DATE_PRESALE_START \= $DATE_PRESALE_START; \/\/ $DATE_PRESALE_START_S/" $CROWDSALESOL`
+`perl -pi -e "s/DATE_PRESALE_END   \= 1509368400;.*$/DATE_PRESALE_END   \= $DATE_PRESALE_END; \/\/ $DATE_PRESALE_END_S/" $CROWDSALESOL`
+`perl -pi -e "s/DATE_ICO_START \= 1510754400;.*$/DATE_ICO_START \= $DATE_ICO_START; \/\/ $DATE_ICO_START_S/" $CROWDSALESOL`
+`perl -pi -e "s/DATE_ICO_END   \= 1513346400;.*$/DATE_ICO_END   \= $DATE_ICO_END; \/\/ $DATE_ICO_END_S/" $CROWDSALESOL`
 
 DIFFS1=`diff $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL`
 echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST1OUTPUT
@@ -131,31 +127,34 @@ printTxData("setup1Tx", setup1Tx);
 printTxData("setup2Tx", setup2Tx);
 printTxData("setup3Tx", setup3Tx);
 printBalances();
-failIfGasEqualsGasUsed(setup1Tx, setupMessage + " - setWallet(...)");
-failIfGasEqualsGasUsed(setup2Tx, setupMessage + " - setWhitelistWallet(...)");
-failIfGasEqualsGasUsed(setup3Tx, setupMessage + " - setRedemptionWallet(...)");
+failIfTxStatusError(setup1Tx, setupMessage + " - setWallet(...)");
+failIfTxStatusError(setup2Tx, setupMessage + " - setWhitelistWallet(...)");
+failIfTxStatusError(setup3Tx, setupMessage + " - setRedemptionWallet(...)");
 printTokenContractDetails();
 console.log("RESULT: ");
-
-
-exit;
 
 
 // -----------------------------------------------------------------------------
 var whitelistMessage = "Whitelist";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + whitelistMessage);
-var whitelist1Tx = token.addAddressToUncappedAddresses(account3, {from: contractOwnerAccount, gas: 400000});
-var whitelist2Tx = token.addAddressToCappedAddresses(account4, {from: contractOwnerAccount, gas: 400000});
+var whitelist1Tx = token.addToWhitelist(account3, {from: whitelistWallet, gas: 400000});
+var whitelist2Tx = token.addToWhitelist(account4, {from: whitelistWallet, gas: 400000});
+var whitelist3Tx = token.removeFromWhitelist(account5, {from: whitelistWallet, gas: 400000});
 while (txpool.status.pending > 0) {
 }
 printTxData("whitelist1Tx", whitelist1Tx);
 printTxData("whitelist2Tx", whitelist2Tx);
+printTxData("whitelist3Tx", whitelist3Tx);
 printBalances();
-failIfGasEqualsGasUsed(whitelist1Tx, whitelistMessage + " - ac3 Whitelist Uncapped");
-failIfGasEqualsGasUsed(whitelist2Tx, whitelistMessage + " - ac4 Whitelist Capped");
+failIfTxStatusError(whitelist1Tx, whitelistMessage + " - ac3 Whitelist Uncapped");
+failIfTxStatusError(whitelist2Tx, whitelistMessage + " - ac4 Whitelist Capped");
+failIfTxStatusError(whitelist2Tx, whitelistMessage + " - ac4 Whitelist Capped");
 printTokenContractDetails();
 console.log("RESULT: ");
+
+
+exit;
 
 
 // -----------------------------------------------------------------------------
