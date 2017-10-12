@@ -195,7 +195,7 @@ contract ERC20Token is ERC20Interface, Owned {
   {
     // before changing the approve amount for an address, its allowance
     // must be reset to 0 to mitigate the race condition described here:
-    // cf https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     require( _amount == 0 || allowed[msg.sender][_spender] == 0 );
       
     // approval amount cannot exceed the balance
@@ -451,8 +451,7 @@ contract GizerToken is ERC20Token {
   function isWhitelisted(address _participant) constant 
     returns (bool whitelisted)
   {
-    if (whitelist[_participant] == true) return true;
-    return false;
+    return whitelist[_participant];
   }
 
   /* Has the funding threshold been reached? */
@@ -533,7 +532,7 @@ contract GizerToken is ERC20Token {
   function setRedemptionWallet(address _wallet) onlyOwner
   {
     redemptionWallet = _wallet;
-    RedemptionWalletUpdated(wallet);
+    RedemptionWalletUpdated(redemptionWallet);
   }
   
   /* Change the whitelist owner address */
@@ -541,7 +540,7 @@ contract GizerToken is ERC20Token {
   function setWhitelistWallet(address _wallet) onlyOwner
   {
     whitelistWallet = _wallet;
-    WhitelistWalletChanged(wallet);
+    WhitelistWalletChanged(whitelistWallet);
   }
   
   /* Change ICO dates before ICO start */
