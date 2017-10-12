@@ -103,7 +103,7 @@ contract Owned {
 // ----------------------------------------------------------------------------
 //
 // ERC Token Standard #20 Interface
-// https://github.com/ethereum/EIPs/issues/20
+// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 //
 // ----------------------------------------------------------------------------
 
@@ -195,7 +195,7 @@ contract ERC20Token is ERC20Interface, Owned {
   {
     // before changing the approve amount for an address, its allowance
     // must be reset to 0 to mitigate the race condition described here:
-    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
+    // https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     require( _amount == 0 || allowed[msg.sender][_spender] == 0 );
       
     // approval amount cannot exceed the balance
