@@ -4,8 +4,9 @@
 
 Commits
 [3198d0e](https://github.com/GizerInc/crowdsale/commit/3198d0e0c38a9103554e56734c1c9e63f941dc57),
-[c1e4255](https://github.com/GizerInc/crowdsale/commit/c1e4255f8de001f5eb271a9f6598bd3f12e57fe6) and
-[43b4d51](https://github.com/GizerInc/crowdsale/commit/43b4d51b0ca1268e72b69ad66cc3b6f612e31fdb).
+[c1e4255](https://github.com/GizerInc/crowdsale/commit/c1e4255f8de001f5eb271a9f6598bd3f12e57fe6),
+[43b4d51](https://github.com/GizerInc/crowdsale/commit/43b4d51b0ca1268e72b69ad66cc3b6f612e31fdb) and
+[9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a).
 
 <br />
 
@@ -55,6 +56,8 @@ Commits
   * Don't need `LogXxx` for events as the standard convention is just to use Xxx
   * Sometimes there is one blank line before function declarations, sometimes none
 
+  * [x] Updated in [9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a)
+
 * **LOW IMPORTANCE** `GizerToken.GizerToken()` does not need the statement `owner = msg.sender;` as this assignment is already
   made in `Owned.Owned()`
 
@@ -69,14 +72,27 @@ Commits
 * **LOW IMPORTANCE** The comment [https://github.com/ethereum/EIPs/issues/20](https://github.com/ethereum/EIPs/issues/20) should
   be updated to the final standard at [https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md)
 
+  * [x] Updated in [9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a)
+
 * **MEDIUM IMPORTANCE** In `setRedemptionWallet(...)`, `RedemptionWalletUpdated(wallet);` should be `RedemptionWalletUpdated(redemptionWallet);`
 
+  * [x] Fixed in [9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a)
+
 * **MEDIUM IMPORTANCE** In `setWhitelistWallet(...)`, `WhitelistWalletChanged(wallet);` should be `WhitelistWalletChanged(whitelistWallet);`
+
+  * [x] Fixed in [9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a)
 
 * **LOW IMPORTANCE** The logic in `isWhitelisted(...)` can be simplified, and this function can be removed and replaced by setting `whitelist` 
   to public visibility. See the NOTEs in the code review
 
+  * [x] Updated in [9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a)
+
 * **LOW IMPORTANCE** `DATE_ICO_START` and `DATE_ICO_END` are not constants and should be camelCased
+
+* **LOW IMPORTANCE** In `approve(...)`, consider removing `require( _amount == 0 || allowed[msg.sender][_spender] == 0 );` as this is no
+  longer recommended in [https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md):
+
+  > THOUGH The contract itself shouldn't enforce it, ...
 
 <br />
 

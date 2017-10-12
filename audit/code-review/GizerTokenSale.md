@@ -141,7 +141,7 @@ contract Owned {
 // ----------------------------------------------------------------------------
 //
 // ERC Token Standard #20 Interface
-// https://github.com/ethereum/EIPs/issues/20
+// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 //
 // ----------------------------------------------------------------------------
 
@@ -253,8 +253,8 @@ contract ERC20Token is ERC20Interface, Owned {
   {
     // before changing the approve amount for an address, its allowance
     // must be reset to 0 to mitigate the race condition described here:
-    // cf https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-    // BK Ok
+    // https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+    // BK Ok - Not required in the new formalised ERC20 token standard
     require( _amount == 0 || allowed[msg.sender][_spender] == 0 );
       
     // approval amount cannot exceed the balance
@@ -282,7 +282,7 @@ contract ERC20Token is ERC20Interface, Owned {
     // balance checks
     // BK Ok
     require( balances[_from] >= _amount );
-    // BK Ok
+    // BK Ok 
     require( allowed[_from][msg.sender] >= _amount );
 
     // update balances and allowed amount
@@ -571,16 +571,12 @@ contract GizerToken is ERC20Token {
 
   /* Is an account whitelisted */
 
-  // BK NOTE - To simplify code, just make `whitelist` public and remove the following function
   // BK Ok - Constant function, unused in this contract, but can be called in the blockchain explorers
   function isWhitelisted(address _participant) constant 
     returns (bool whitelisted)
   {
-    // BK NOTE - The next two statements can be simplified to just `return whitelist[_participant];`
     // BK Ok
-    if (whitelist[_participant] == true) return true;
-    // BK Ok
-    return false;
+    return whitelist[_participant];
   }
 
   /* Has the funding threshold been reached? */
@@ -675,8 +671,8 @@ contract GizerToken is ERC20Token {
   {
     // BK Ok
     redemptionWallet = _wallet;
-    // BK ERROR - Incorrect wallet
-    RedemptionWalletUpdated(wallet);
+    // BK Ok
+    RedemptionWalletUpdated(redemptionWallet);
   }
   
   /* Change the whitelist owner address */
@@ -686,8 +682,8 @@ contract GizerToken is ERC20Token {
   {
     // BK Ok
     whitelistWallet = _wallet;
-    // BK ERROR - Incorrect wallet
-    WhitelistWalletChanged(wallet);
+    // BK Ok
+    WhitelistWalletChanged(whitelistWallet);
   }
   
   /* Change ICO dates before ICO start */
