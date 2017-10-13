@@ -303,8 +303,8 @@ contract GizerToken is ERC20Token {
 
   /* ICO parameters (ICO dates can be modified by owner after deployment) */
 
-  uint public DATE_ICO_START = 1510754400; // 15-Nov-2017 14:00 UTC
-  uint public DATE_ICO_END   = 1513346400; // 15-Dec-2017 14:00 UTC
+  uint public dateIcoStart = 1510754400; // 15-Nov-2017 14:00 UTC
+  uint public dateIcoEnd   = 1513346400; // 15-Dec-2017 14:00 UTC
 
   uint public constant TOKETH_ICO_ONE = 1050 * E6; // ICO wave 1 (1-500)
   uint public constant TOKETH_ICO_TWO = 1000 * E6; // ICO - others
@@ -328,8 +328,8 @@ contract GizerToken is ERC20Token {
   
   uint public tokensIssuedPrivate = 0; // is part of tokensIssuedCrowd
 
-  uint public lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // changes if ICO ends early
-                                                   // and resets if DATE_ICO_END changes
+  uint public lockupEndDate = dateIcoEnd + LOCKUP_PERIOD; // changes if ICO ends early
+                                                   // and resets if dateIcoEnd changes
 
   bool public icoFinished = false;
   bool public tradeable = false;
@@ -478,16 +478,20 @@ contract GizerToken is ERC20Token {
   
   function reclaimFunds()
   {
-    require( atNow() > DATE_ICO_END && !icoThresholdReached() );
+    require( atNow() > dateIcoEnd && !icoThresholdReached() );
     require( balanceEth[msg.sender] > 0 );
     
     // set balances to 0 before sending, to avoid re-entrancy
     uint amt = balanceEth[msg.sender];
     balanceEth[msg.sender] = 0;
-    balances[msg.sender] = balancesPrivate[msg.sender];
     
     // send Ether balance
     msg.sender.transfer(amt);
+    
+    // destruction of crowdsale tokens (excluding private sale tokens)
+    uint tokensDestroyed = balances[msg.sender] - balancesPrivate[msg.sender];
+    balances[msg.sender] = balancesPrivate[msg.sender];
+    Transfer(msg.sender, 0x0, tokensDestroyed)
   }
   
   // Whitelist manager functions ------
@@ -547,12 +551,12 @@ contract GizerToken is ERC20Token {
   
   function updateIcoDates(uint _start, uint _end) onlyOwner
   {
-    require( atNow() < DATE_ICO_START );
+    require( atNow() < dateIcoStart );
     require( _start < _end );
     require( _end < DATE_PRESALE_END + 180 days ); // sanity check
-    DATE_ICO_START = _start;
-    DATE_ICO_END = _end;
-    lockupEndDate = DATE_ICO_END + LOCKUP_PERIOD; // lockup is linked to ICO end date
+    dateIcoStart = _start;
+    dateIcoEnd = _end;
+    lockupEndDate = dateIcoEnd + LOCKUP_PERIOD; // lockup is linked to ICO end date
     IcoDatesUpdated(_start, _end);
   }
 
@@ -627,11 +631,11 @@ contract GizerToken is ERC20Token {
     require( icoThresholdReached() );
     
     // only after ICO end date, or when cap almost reached
-    require( atNow() > DATE_ICO_END || TOKEN_SUPPLY_CROWD.sub(tokensIssuedCrowd) <= ICO_TRIGGER );
+    require( atNow() > dateIcoEnd || TOKEN_SUPPLY_CROWD.sub(tokensIssuedCrowd) <= ICO_TRIGGER );
 
     // ICO is declared finished, end of lockup period moved back if necessary
     icoFinished = true;
-    if (atNow() < DATE_ICO_END) lockupEndDate = atNow() + LOCKUP_PERIOD; // only once!
+    if (atNow() < dateIcoEnd) lockupEndDate = atNow() + LOCKUP_PERIOD; // only once!
   }
 
   /* Make tokens tradeable */
@@ -647,7 +651,7 @@ contract GizerToken is ERC20Token {
   /* Owner clawback of remaining funds after clawback period */
   
   function ownerClawback() external onlyOwner {
-    require( atNow() > DATE_ICO_END + CLAWBACK_PERIOD );
+    require( atNow() > dateIcoEnd + CLAWBACK_PERIOD );
     wallet.transfer(this.balance);
   }
 
@@ -677,7 +681,7 @@ contract GizerToken is ERC20Token {
     // check dates for presale or ICO
     if (ts > DATE_PRESALE_START && ts < DATE_PRESALE_END) {
       isPresale = true;  
-    } else if (ts > DATE_ICO_START && ts < DATE_ICO_END) {
+    } else if (ts > dateIcoStart && ts < dateIcoEnd) {
       isIco = true;  
     }
     require( isPresale || isIco );
