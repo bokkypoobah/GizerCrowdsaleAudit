@@ -489,8 +489,9 @@ contract GizerToken is ERC20Token {
     msg.sender.transfer(amt);
     
     // destruction of crowdsale tokens (excluding private sale tokens)
-    uint tokensDestroyed = balances[msg.sender] - balancesPrivate[msg.sender];
+    uint tokensDestroyed = balances[msg.sender].sub(balancesPrivate[msg.sender]);
     balances[msg.sender] = balancesPrivate[msg.sender];
+    tokensIssuedTotal = tokensIssuedTotal.sub(tokensDestroyed);
     Transfer(msg.sender, 0x0, tokensDestroyed)
   }
   
