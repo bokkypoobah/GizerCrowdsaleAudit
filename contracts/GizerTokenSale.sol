@@ -492,7 +492,7 @@ contract GizerToken is ERC20Token {
     uint tokensDestroyed = balances[msg.sender].sub(balancesPrivate[msg.sender]);
     balances[msg.sender] = balancesPrivate[msg.sender];
     tokensIssuedTotal = tokensIssuedTotal.sub(tokensDestroyed);
-    Transfer(msg.sender, 0x0, tokensDestroyed)
+    Transfer(msg.sender, 0x0, tokensDestroyed);
   }
   
   // Whitelist manager functions ------
