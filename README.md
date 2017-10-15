@@ -4,9 +4,6 @@ Gizer Gaming Tokens (GZR) will be used to obtain profile item that can be attach
 
 For more information, visit https://gizer.io/
 
+## Audit
 
-## Documentation
-
-(work in progress)
-
-## Testing
+https://github.com/bokkypoobah/GizerCrowdsaleAudit/tree/master/audit
