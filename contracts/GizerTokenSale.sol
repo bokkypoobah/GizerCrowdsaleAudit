@@ -348,12 +348,12 @@ contract GizerToken is ERC20Token {
 
   /* Balances subject to lockup period */
   
-  mapping(address => uint) balancesLocked;
+  mapping(address => uint) public balancesLocked;
 
   /* Whitelist */
 
   address public whitelistWallet;
-  mapping(address => bool) whitelist;
+  mapping(address => bool) public whitelist;
   
   /* Variables for pre-deployment testing */
   
