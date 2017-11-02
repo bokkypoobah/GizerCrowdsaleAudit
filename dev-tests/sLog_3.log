@@ -1,0 +1,441 @@
+2017-11-02 23:31:15 UTC
+
+========================================
+== Contract Gizer Gaming Token initialized
+== 
+At address 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd
+
+===============================================================================
+============ Preliminary actions
+===============================================================================
+
+========================================
+== Set wallets
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_wallet("0x000c14a7cAD4d8d41cd1c375083557e05c79f476") - by 0x7Df97252...
+@contract.transact_and_wait.set_redemption_wallet("0x0028C11baffA46f332Ded3e7EaCe745F41b53852") - by 0x7Df97252...
+@contract.transact_and_wait.set_whitelist_wallet("0xDF8f647384Ed63AA931B3C509cC07c658bD45d00") - by 0x7Df97252...
+
+VERIFY
+ok  val [wallet acc]  is 000c14a7cad4d8d41cd1c375083557e05c79f476 as expected
+ok  val [redemption_wallet acc]  is 0028c11baffa46f332ded3e7eace745f41b53852 as expected
+ok  val [whitelist_wallet acc]  is df8f647384ed63aa931b3c509cc07c658bd45d00 as expected
+
+DIFFERENCES
+[:c, :wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "000c14a7cad4d8d41cd1c375083557e05c79f476"]
+[:c, :redemption_wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "0028c11baffa46f332ded3e7eace745f41b53852"]
+[:c, :whitelist_wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "df8f647384ed63aa931b3c509cc07c658bd45d00"]
+
+========================================
+== Add accounts 1-10 to whitelist
+== 
+
+ACTIONS
+@contract.transact_and_wait.add_to_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xF60459Be65C7C2baa20026e46a189e44E7194C78") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x232538F43F1670f217279e630eEc2e29585B30D3") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x9a575dDcdF60053fA0Ad77B546b516A7958Cca59") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xc50D308eEc7a7dcd1D52D4471c5C57fCadB54476") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x56ea6B1064B6B3d006306A3255Ecdd22DFf02E82") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xc568697ef7dF0491a4Cee82A55c06C903e8dCF7C") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xFbC3bd9e8f3c165ea6543C70BF43b14b964c57c0") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x294f6efB477C4018b880c1DB22C7D285E9a7c88F") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x3D3CDab423c7822290Aab4345da50650a485dDad") - by 0xDF8f6473...
+
+VERIFY
+ok  val [whitelist acc1] 1 is true as expected
+ok  val [whitelist acc2] 2 is true as expected
+ok  val [whitelist acc3] 3 is true as expected
+ok  val [whitelist acc4] 4 is true as expected
+ok  val [whitelist acc5] 5 is true as expected
+ok  val [whitelist acc6] 6 is true as expected
+ok  val [whitelist acc7] 7 is true as expected
+ok  val [whitelist acc8] 8 is true as expected
+ok  val [whitelist acc9] 9 is true as expected
+ok  val [whitelist acc10] 10 is true as expected
+
+DIFFERENCES
+[1, :whitelist, false, true]
+[2, :whitelist, false, true]
+[3, :whitelist, false, true]
+[4, :whitelist, false, true]
+[5, :whitelist, false, true]
+[6, :whitelist, false, true]
+[7, :whitelist, false, true]
+[8, :whitelist, false, true]
+[9, :whitelist, false, true]
+[10, :whitelist, false, true]
+
+===============================================================================
+============ Before presale
+===============================================================================
+
+========================================
+== Private sale contributions
+== 
+
+ACTIONS
+@contract.transact_and_wait.private_sale_contribution("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439",10000000000000000000) - by 0x7Df97252...
+@contract.transact_and_wait.private_sale_contribution("0x7921cbAf149b5bebD9f83E915023Cb17998263be",100000000000000000000) - by 0x7Df97252...
+@contract.transact_and_wait.private_sale_contribution("0x232538F43F1670f217279e630eEc2e29585B30D3",1000000000000000000000) - by 0x7Df97252...
+
+VERIFY
+ok  val [balance_of acc1] 1 is 11500000000 as expected
+ok  diff [balance_of acc1] is 11500000000 as expected
+ok  val [balance_of acc11] 11 is 115000000000 as expected
+ok  diff [balance_of acc11] is 115000000000 as expected
+ok  val [balance_of acc3] 3 is 0 as expected
+ok  diff [balance_of acc3] is 0 as expected
+
+DIFFERENCES
+[:c, :ether_received_private, 0.0, 110.0, 110.0]
+[:c, :tokens_issued_total, 0.0, 126500.0, 126500.0]
+[:c, :tokens_issued_crowd, 0.0, 126500.0, 126500.0]
+[:c, :tokens_issued_private, 0.0, 126500.0, 126500.0]
+[1, :balance_of, 0.0, 11500.0, 11500.0]
+[1, :balances_private, 0.0, 11500.0, 11500.0]
+[1, :balance_eth_private, 0.0, 10.0, 10.0]
+[11, :balance_of, 0.0, 115000.0, 115000.0]
+[11, :balances_private, 0.0, 115000.0, 115000.0]
+[11, :balance_eth_private, 0.0, 100.0, 100.0]
+
+========================================
+== Some minting (ok) and an early contribution (throws)
+== 
+
+ACTIONS
+@contract.transact_and_wait.mint_reserve("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439",100000000000) - by 0x7Df97252...
+@contract.transact_and_wait.mint_team("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439",50000000000) - by 0x7Df97252...
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003623858>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 10)
+
+VERIFY
+ok  val [balance_of acc1] 1 is 161500000000 as expected
+ok  diff [balance_of acc1] is 150000000000 as expected
+
+DIFFERENCES
+[:c, :tokens_issued_total, 126500.0, 276500.0, 150000.0]
+[:c, :tokens_issued_team, 0.0, 50000.0, 50000.0]
+[:c, :tokens_issued_reserve, 0.0, 100000.0, 100000.0]
+[1, :get_balance, 1999869.8078874822, 1999869.719887482, -0.088]
+[1, :balance_of, 11500.0, 161500.0, 150000.0]
+[1, :balances_locked, 0.0, 50000.0, 50000.0]
+
+===============================================================================
+============ Presale
+===============================================================================
+
+========================================
+== presale
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1510318801) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1510318801 as expected
+
+DIFFERENCES
+[:c, :at_now, 1, 1510318801, 1510318800]
+
+========================================
+== Some presale contributions
+== 
+
+ACTIONS
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003623858>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 25)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003622e58>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 50)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003621cd8>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 75)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003620a90>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 150)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003620018>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 0.005)
+
+VERIFY
+ok  diff [balance_of acc1] is 28750000000 as expected
+ok  diff [balance_of acc2] is 57500000000 as expected
+ok  diff [balance_of acc3] is 82500000000 as expected
+ok  diff [balance_of acc4] is 165000000000 as expected
+ok  val [balance_of acc5] 5 is 0 as expected
+ok  diff [balance_of acc5] is 0 as expected
+ok  val [get_balance acc]  is 300000000000000000000 as expected
+ok  diff [get_balance acc] is 300000000000000000000 as expected
+ok  val [presale_contributor_count acc]  is 4 as expected
+ok  diff [presale_contributor_count acc] is 4 as expected
+
+DIFFERENCES
+[:c, :eth, 0.0, 300.0, 300.0]
+[:c, :ether_received_crowd, 0.0, 300.0, 300.0]
+[:c, :tokens_issued_total, 276500.0, 610250.0, 333750.0]
+[:c, :tokens_issued_crowd, 126500.0, 460250.0, 333750.0]
+[:c, :presale_contributor_count, 0, 4, 4]
+[1, :get_balance, 1999869.719887482, 1999844.71711601, -25.002771472]
+[1, :balance_of, 161500.0, 190250.0, 28750.0]
+[1, :balances_crowd, 0.0, 28750.0, 28750.0]
+[1, :balance_eth_crowd, 0.0, 25.0, 25.0]
+[2, :get_balance, 1999629.786454976, 1999579.784013504, -50.002441472]
+[2, :balance_of, 0.0, 57500.0, 57500.0]
+[2, :balances_crowd, 0.0, 57500.0, 57500.0]
+[2, :balance_eth_crowd, 0.0, 50.0, 50.0]
+[3, :get_balance, 1999624.899777658, 1999549.897331192, -75.002446466]
+[3, :balance_of, 0.0, 82500.0, 82500.0]
+[3, :balances_crowd, 0.0, 82500.0, 82500.0]
+[3, :balance_eth_crowd, 0.0, 75.0, 75.0]
+[4, :get_balance, 1999249.8997776578, 1999099.897331192, -150.00244646599998]
+[4, :balance_of, 0.0, 165000.0, 165000.0]
+[4, :balances_crowd, 0.0, 165000.0, 165000.0]
+[4, :balance_eth_crowd, 0.0, 150.0, 150.0]
+[5, :get_balance, 1998999.370881818, 1998999.282881818, -0.088]
+
+========================================
+== Presale contribution taking us above the funding threshold
+== 
+
+ACTIONS
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003620018>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 200)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003617508>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 3000)
+
+VERIFY
+ok  diff [balance_of acc5] is 215000000000 as expected
+ok  val [balance_of acc6] 6 is 0 as expected
+ok  diff [balance_of acc6] is 0 as expected
+ok  val [get_balance acc]  is 0 as expected
+ok  diff [get_balance acc] is -300000000000000000000 as expected
+ok  diff [get_balance acc] is 500000000000000000000 as expected
+ok  val [tokens_issued_total acc]  is 825250000000 as expected
+ok  diff [tokens_issued_total acc] is 215000000000 as expected
+ok  val [presale_contributor_count acc]  is 5 as expected
+ok  diff [presale_contributor_count acc] is 1 as expected
+
+DIFFERENCES
+[:c, :eth, 300.0, 0.0, -300.0]
+[:c, :ether_received_crowd, 300.0, 500.0, 200.0]
+[:c, :tokens_issued_total, 610250.0, 825250.0, 215000.0]
+[:c, :tokens_issued_crowd, 460250.0, 675250.0, 215000.0]
+[:c, :presale_contributor_count, 4, 5, 1]
+[5, :get_balance, 1998999.282881818, 1998799.280256272, -200.00262554600002]
+[5, :balance_of, 0.0, 215000.0, 215000.0]
+[5, :balances_crowd, 0.0, 215000.0, 215000.0]
+[5, :balance_eth_crowd, 0.0, 200.0, 200.0]
+[6, :get_balance, 1999899.4690389098, 1999899.38103891, -0.088]
+
+===============================================================================
+============ After presale
+===============================================================================
+
+========================================
+== after presale
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1510923601) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1510923601 as expected
+
+DIFFERENCES
+[:c, :at_now, 1510318801, 1510923601, 604800]
+
+========================================
+== No more contributions accepted after presale end
+== 
+
+ACTIONS
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003617508>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 100)
+
+VERIFY
+ok  val [balance_of acc6] 6 is 0 as expected
+ok  diff [balance_of acc6] is 0 as expected
+
+DIFFERENCES
+[6, :get_balance, 1999899.38103891, 1999899.29303891, -0.088]
+
+===============================================================================
+============ ICO
+===============================================================================
+
+========================================
+== ico
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1511528401) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1511528401 as expected
+
+DIFFERENCES
+[:c, :at_now, 1510923601, 1511528401, 604800]
+
+========================================
+== ICO contributions
+== 
+
+ACTIONS
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003617508>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 100)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003616ab8>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 200)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x00000000036163d8>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 300)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003615d48>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 3334)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x000000000360ff10>, 0x197d4BFce767591b599b4F95Ca0d9E7F8b5e2Cfd, 100)
+
+VERIFY
+ok  diff [balance_of acc6] is 105000000000 as expected
+ok  diff [balance_of acc7] is 210000000000 as expected
+ok  diff [balance_of acc8] is 300000000000 as expected
+ok  val [balance_of acc9] 9 is 0 as expected
+ok  diff [balance_of acc9] is 0 as expected
+ok  val [balance_of acc12] 12 is 0 as expected
+ok  diff [balance_of acc12] is 0 as expected
+ok  val [tokens_issued_total acc]  is 1440250000000 as expected
+ok  diff [tokens_issued_total acc] is 615000000000 as expected
+ok  val [ico_contributor_count acc]  is 3 as expected
+ok  diff [ico_contributor_count acc] is 3 as expected
+
+DIFFERENCES
+[:c, :ether_received_crowd, 500.0, 1100.0, 600.0]
+[:c, :tokens_issued_total, 825250.0, 1440250.0, 615000.0]
+[:c, :tokens_issued_crowd, 675250.0, 1290250.0, 615000.0]
+[:c, :ico_contributor_count, 0, 3, 3]
+[6, :get_balance, 1999899.29303891, 1999799.29007782, -100.00296109]
+[6, :balance_of, 0.0, 105000.0, 105000.0]
+[6, :balances_crowd, 0.0, 105000.0, 105000.0]
+[6, :balance_eth_crowd, 0.0, 100.0, 100.0]
+[7, :get_balance, 1999799.9973689101, 1999599.99473782, -200.00263109]
+[7, :balance_of, 0.0, 210000.0, 210000.0]
+[7, :balances_crowd, 0.0, 210000.0, 210000.0]
+[7, :balance_eth_crowd, 0.0, 200.0, 200.0]
+[8, :get_balance, 1999699.99736913, 1999399.99473826, -300.00263087]
+[8, :balance_of, 0.0, 300000.0, 300000.0]
+[8, :balances_crowd, 0.0, 300000.0, 300000.0]
+[8, :balance_eth_crowd, 0.0, 300.0, 300.0]
+[9, :get_balance, 1999999.912, 1999999.824, -0.088]
+[12, :get_balance, 2000000.0, 1999999.912, -0.088]
+
+===============================================================================
+============ After ICO
+===============================================================================
+
+========================================
+== after ico
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1513947601) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1513947601 as expected
+
+DIFFERENCES
+[:c, :at_now, 1511528401, 1513947601, 2419200]
+
+========================================
+== Declaring ICO finished
+== 
+
+ACTIONS
+@contract.transact_and_wait.declare_ico_finished() - by 0x7Df97252...
+
+VERIFY
+ok  val [ico_finished acc]  is true as expected
+
+DIFFERENCES
+[:c, :ico_finished, false, true]
+
+========================================
+== Transfer - fails (not tradeable)
+== 
+
+ACTIONS
+@contract.transact_and_wait.transfer("0x98Ed1d86923666637EF50EC42BF394e98D063Fc2",100000000000) - by 0xe02d05e0...
+
+VERIFY
+ok  diff [balance_of acc1] is 0 as expected
+ok  val [balance_of acc19] 19 is 0 as expected
+ok  diff [balance_of acc19] is 0 as expected
+
+DIFFERENCES
+[1, :get_balance, 1999844.71711601, 1999844.6291160102, -0.088]
+
+========================================
+== Make tradeable
+== 
+
+ACTIONS
+@contract.transact_and_wait.make_tradeable() - by 0x7Df97252...
+
+VERIFY
+ok  val [tradeable acc]  is true as expected
+
+DIFFERENCES
+[:c, :tradeable, false, true]
+
+========================================
+== Transfer
+== 
+
+ACTIONS
+@contract.transact_and_wait.transfer("0x98Ed1d86923666637EF50EC42BF394e98D063Fc2",100000000000) - by 0xe02d05e0...
+@contract.transact_and_wait.transfer("0x021fF49FD632CdcA19C2ECaE3b728463a3Eb9659",90000000000) - by 0xe02d05e0...
+
+VERIFY
+ok  diff [balance_of acc1] is -100000000000 as expected
+ok  val [balance_of acc19] 19 is 100000000000 as expected
+ok  diff [balance_of acc19] is 100000000000 as expected
+ok  val [balance_of acc20] 20 is 0 as expected
+ok  diff [balance_of acc20] is 0 as expected
+
+DIFFERENCES
+[1, :get_balance, 1999844.6291160102, 1999844.5399231699, -0.08919284]
+[1, :balance_of, 190250.0, 90250.0, -100000.0]
+[19, :balance_of, 0.0, 100000.0, 100000.0]
+
+========================================
+== Reclaim funds - not possible
+== 
+
+ACTIONS
+@contract.transact_and_wait.reclaim_funds() - by 0xe02d05e0...
+
+VERIFY
+ok  diff [balance_of acc1] is 0 as expected
+ok  diff [get_balance acc1] is ≈0 as expected (within 0.1 ether)
+
+DIFFERENCES
+[1, :get_balance, 1999844.5399231699, 1999844.4519231701, -0.088]
+
+===============================================================================
+============ After lockup end date
+===============================================================================
+
+========================================
+== after lockup end
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1529499601) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1529499601 as expected
+
+DIFFERENCES
+[:c, :at_now, 1513947601, 1529499601, 15552000]
+
+========================================
+== Transfer - after lockup period ends (ok)
+== 
+
+ACTIONS
+@contract.transact_and_wait.transfer("0x021fF49FD632CdcA19C2ECaE3b728463a3Eb9659",90000000000) - by 0xe02d05e0...
+
+VERIFY
+ok  diff [balance_of acc1] is -90000000000 as expected
+ok  val [balance_of acc20] 20 is 90000000000 as expected
+ok  diff [balance_of acc20] is 90000000000 as expected
+
+DIFFERENCES
+[1, :get_balance, 1999844.4519231701, 1999844.4507364898, -0.00118668]
+[1, :balance_of, 90250.0, 250.0, -90000.0]
+[20, :balance_of, 0.0, 90000.0, 90000.0]
+
+Errors found: 0
+
+2017-11-02 23:32:07 UTC

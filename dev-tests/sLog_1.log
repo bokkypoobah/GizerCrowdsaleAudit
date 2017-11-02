@@ -1,0 +1,201 @@
+2017-11-02 19:39:45 UTC
+
+========================================
+== Contract Gizer Gaming Token initialized
+== 
+At address 0x94Ff8ECaAFD2f010Bb1Fe148898DE4d7C4694Bf0
+
+===============================================================================
+============ Verify wallet functions
+===============================================================================
+
+========================================
+== Set wallets
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_wallet("000c14a7cAD4d8d41cd1c375083557e05c79f476") - by 0x7Df97252...
+@contract.transact_and_wait.set_redemption_wallet("0028C11baffA46f332Ded3e7EaCe745F41b53852") - by 0x7Df97252...
+@contract.transact_and_wait.set_whitelist_wallet("DF8f647384Ed63AA931B3C509cC07c658bD45d00") - by 0x7Df97252...
+
+VERIFY
+ok  val [wallet acc]  is 000c14a7cad4d8d41cd1c375083557e05c79f476 as expected
+ok  val [redemption_wallet acc]  is 0028c11baffa46f332ded3e7eace745f41b53852 as expected
+ok  val [whitelist_wallet acc]  is df8f647384ed63aa931b3c509cc07c658bd45d00 as expected
+
+DIFFERENCES
+[:c, :wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "000c14a7cad4d8d41cd1c375083557e05c79f476"]
+[:c, :redemption_wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "0028c11baffa46f332ded3e7eace745f41b53852"]
+[:c, :whitelist_wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "df8f647384ed63aa931b3c509cc07c658bd45d00"]
+
+===============================================================================
+============ Verify whitelist functions
+===============================================================================
+
+========================================
+== Add to whitelist
+== 
+
+ACTIONS
+@contract.transact_and_wait.add_to_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xF60459Be65C7C2baa20026e46a189e44E7194C78") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x232538F43F1670f217279e630eEc2e29585B30D3") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x9a575dDcdF60053fA0Ad77B546b516A7958Cca59") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xc50D308eEc7a7dcd1D52D4471c5C57fCadB54476") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0x56ea6B1064B6B3d006306A3255Ecdd22DFf02E82") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xc568697ef7dF0491a4Cee82A55c06C903e8dCF7C") - by 0xDF8f6473...
+@contract.transact_and_wait.add_to_whitelist("0xFbC3bd9e8f3c165ea6543C70BF43b14b964c57c0") - by 0xDF8f6473...
+
+VERIFY
+ok  val [whitelist acc1] 1 is true as expected
+ok  val [whitelist acc2] 2 is true as expected
+ok  val [whitelist acc3] 3 is true as expected
+ok  val [whitelist acc4] 4 is true as expected
+ok  val [whitelist acc5] 5 is true as expected
+ok  val [whitelist acc6] 6 is true as expected
+ok  val [whitelist acc7] 7 is true as expected
+ok  val [whitelist acc8] 8 is true as expected
+
+DIFFERENCES
+[1, :whitelist, false, true]
+[2, :whitelist, false, true]
+[3, :whitelist, false, true]
+[4, :whitelist, false, true]
+[5, :whitelist, false, true]
+[6, :whitelist, false, true]
+[7, :whitelist, false, true]
+[8, :whitelist, false, true]
+
+========================================
+== Remove from whitelist
+== 
+
+ACTIONS
+@contract.transact_and_wait.remove_from_whitelist("0xFbC3bd9e8f3c165ea6543C70BF43b14b964c57c0") - by 0xDF8f6473...
+
+VERIFY
+ok  val [whitelist acc8] 8 is false as expected
+
+DIFFERENCES
+[8, :whitelist, true, false]
+
+========================================
+== Add to / remove from whitelist without whitelist key
+== 
+
+ACTIONS
+@contract.transact_and_wait.add_to_whitelist("0x3D3CDab423c7822290Aab4345da50650a485dDad") - by 0x7Df97252...
+@contract.transact_and_wait.remove_from_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0x7Df97252...
+
+VERIFY
+ok  val [whitelist acc10] 10 is false as expected
+ok  val [whitelist acc1] 1 is true as expected
+
+DIFFERENCES
+(no differences found)
+
+===============================================================================
+============ Verify ICO date change function
+===============================================================================
+
+========================================
+== presale
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1510318801) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1510318801 as expected
+
+DIFFERENCES
+[:c, :at_now, 1, 1510318801, 1510318800]
+
+========================================
+== Modify ICO dates - fail (not owner)
+== 
+
+ACTIONS
+@contract.transact_and_wait.update_ico_dates(1511614800,1514034000) - by 0xDF8f6473...
+
+VERIFY
+ok  diff [date_ico_start acc] is 0 as expected
+ok  diff [date_ico_end acc] is 0 as expected
+
+DIFFERENCES
+(no differences found)
+
+========================================
+== Modify ICO dates - fail (end before start)
+== 
+
+ACTIONS
+@contract.transact_and_wait.update_ico_dates(1514034000,1511614800) - by 0xDF8f6473...
+
+VERIFY
+ok  diff [date_ico_start acc] is 0 as expected
+ok  diff [date_ico_end acc] is 0 as expected
+
+DIFFERENCES
+(no differences found)
+
+========================================
+== Modify ICO dates - fail (start is before now)
+== 
+
+ACTIONS
+@contract.transact_and_wait.update_ico_dates(1510318800,1513947600) - by 0x7Df97252...
+
+VERIFY
+ok  diff [date_ico_start acc] is 0 as expected
+ok  diff [date_ico_end acc] is 0 as expected
+
+DIFFERENCES
+(no differences found)
+
+========================================
+== Modify ICO dates - ok (called by owner)
+== 
+
+ACTIONS
+@contract.transact_and_wait.update_ico_dates(1511614800,1514034000) - by 0x7Df97252...
+
+VERIFY
+ok  diff [date_ico_start acc] is 86400 as expected
+ok  diff [date_ico_end acc] is 86400 as expected
+
+DIFFERENCES
+[:c, :date_ico_start, 1511528400, 1511614800, 86400]
+[:c, :date_ico_end, 1513947600, 1514034000, 86400]
+[:c, :lockup_end_date, 1529499600, 1529586000, 86400]
+
+========================================
+== ico
+== 
+
+ACTIONS
+@contract.transact_and_wait.set_test_time(1511614801) - by 0x7Df97252...
+
+VERIFY
+ok  val [at_now acc]  is 1511614801 as expected
+
+DIFFERENCES
+[:c, :at_now, 1510318801, 1511614801, 1296000]
+
+========================================
+== Modify ICO dates - fail (ico already started)
+== 
+
+ACTIONS
+@contract.transact_and_wait.update_ico_dates(1511615800,1514035000) - by 0x7Df97252...
+
+VERIFY
+ok  diff [date_ico_start acc] is 0 as expected
+ok  diff [date_ico_end acc] is 0 as expected
+
+DIFFERENCES
+(no differences found)
+
+Errors found: 0
+
+2017-11-02 19:40:19 UTC
