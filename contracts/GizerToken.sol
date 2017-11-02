@@ -110,8 +110,6 @@ contract ERC20Interface {
 //
 // ERC Token Standard #20
 //
-// note that totalSupply() is not defined here
-//
 // ----------------------------------------------------------------------------
 
 contract ERC20Token is ERC20Interface, Owned {

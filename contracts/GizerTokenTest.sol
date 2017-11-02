@@ -10,17 +10,13 @@ contract GizerTokenTest is GizerToken {
   
   Overrides function atNow() to return testTime instead of now()
   
-  Overrides constants CUTOFF_PRESALE_ONE, CUTOFF_PRESALE_TWO and 
-  CUTOFF_ICO_ONE for easier testing
+  For testing purposes, the constants CUTOFF_PRESALE_ONE, CUTOFF_PRESALE_TWO 
+  and CUTOFF_ICO_ONE can also be modified in the parent contract
 
   */
 
   uint public testTime = 1;
   
-  uint public constant CUTOFF_PRESALE_ONE = 2;
-  uint public constant CUTOFF_PRESALE_TWO = 4;
-  uint public constant CUTOFF_ICO_ONE     = 2;
-
   // Events ---------------------------
 
   event TestTimeSet(uint _now);
