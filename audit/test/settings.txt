@@ -3,8 +3,8 @@ PASSWORD=testtest
 
 SOURCEDIR=../../contracts
 
-CROWDSALESOL=GizerTokenSale.sol
-CROWDSALEJS=GizerTokenSale.js
+CROWDSALESOL=GizerToken.sol
+CROWDSALEJS=GizerToken.js
 
 DEPLOYMENTDATA=deploymentData.txt
 

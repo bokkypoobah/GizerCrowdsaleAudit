@@ -2,35 +2,37 @@ MODE               = 'test'
 GETHATTACHPOINT    = 'ipc:./testchain/geth.ipc'
 PASSWORD           = 'testtest'
 SOURCEDIR          = '../../contracts'
-CROWDSALESOL       = 'GizerTokenSale.sol'
-CROWDSALEJS        = 'GizerTokenSale.js'
+CROWDSALESOL       = 'GizerToken.sol'
+CROWDSALEJS        = 'GizerToken.js'
 DEPLOYMENTDATA     = 'deploymentData.txt'
 INCLUDEJS          = './include.js'
 TEST1OUTPUT        = 'test1output.txt'
 TEST1RESULTS       = 'test1results.txt'
-CURRENTTIME        = '1507740987' 'Wed 11 Oct 2017 16:56:27 UTC'
-DATE_PRESALE_START = '1507741077' 'Wed 11 Oct 2017 16:57:57 UTC'
-DATE_PRESALE_END   = '1507741137' 'Wed 11 Oct 2017 16:58:57 UTC'
-DATE_ICO_START     = '1507741197' 'Wed 11 Oct 2017 16:59:57 UTC'
-DATE_ICO_END       = '1507741257' 'Wed 11 Oct 2017 17:00:57 UTC'
---- Differences ../../contracts/GizerTokenSale.sol GizerTokenSale.sol ---
-291,292c291,292
-<   uint public constant DATE_PRESALE_START = 1508504400; // 20-Oct-2017 13:00 UTC
-<   uint public constant DATE_PRESALE_END   = 1509368400; // 30-Oct-2017 13:00 UTC
+CURRENTTIME        = '1509997169' 'Mon  6 Nov 2017 19:39:29 UTC'
+DATE_PRESALE_START = '1509997244' 'Mon  6 Nov 2017 19:40:44 UTC'
+DATE_PRESALE_END   = '1509997259' 'Mon  6 Nov 2017 19:40:59 UTC'
+DATE_ICO_START     = '1509997289' 'Mon  6 Nov 2017 19:41:29 UTC'
+DATE_ICO_END       = '1509997319' 'Mon  6 Nov 2017 19:41:59 UTC'
+--- Differences ../../contracts/GizerToken.sol GizerToken.sol ---
+239,240c239,240
+<   uint public constant DATE_PRESALE_START = 1510318800; // 10-Nov-2017 13:00 UTC
+<   uint public constant DATE_PRESALE_END   = 1510923600; // 17-Nov-2017 13:00 UTC
 ---
->   uint public constant DATE_PRESALE_START = 1507741077; // Wed 11 Oct 2017 16:57:57 UTC
->   uint public constant DATE_PRESALE_END   = 1507741137; // Wed 11 Oct 2017 16:58:57 UTC
-306,307c306,307
-<   uint public DATE_ICO_START = 1510754400; // 15-Nov-2017 14:00 UTC
-<   uint public DATE_ICO_END   = 1513346400; // 15-Dec-2017 14:00 UTC
+>   uint public constant DATE_PRESALE_START = 1509997244; // Mon  6 Nov 2017 19:40:44 UTC
+>   uint public constant DATE_PRESALE_END   = 1509997259; // Mon  6 Nov 2017 19:40:59 UTC
+254,255c254,255
+<   uint public dateIcoStart = 1511528400; // 24-Nov-2017 13:00 UTC
+<   uint public dateIcoEnd   = 1513947600; // 22-Dec-2017 13:00 UTC
 ---
->   uint public DATE_ICO_START = 1507741197; // Wed 11 Oct 2017 16:59:57 UTC
->   uint public DATE_ICO_END   = 1507741257; // Wed 11 Oct 2017 17:00:57 UTC
+>   uint public dateIcoStart = 1509997289; // Mon  6 Nov 2017 19:41:29 UTC
+>   uint public dateIcoEnd   = 1509997319; // Mon  6 Nov 2017 19:41:59 UTC
+solc, the solidity compiler commandline interface
+Version: 0.4.16+commit.d7661dd9.Darwin.appleclang
 Welcome to the Geth JavaScript console!
 
-instance: Geth/v1.7.1-stable-05101641/darwin-amd64/go1.9
+instance: Geth/v1.7.2-stable-1db4ecdc/darwin-amd64/go1.9
 coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
-at block: 1368 (Thu, 12 Oct 2017 03:56:23 AEDT)
+at block: 969 (Tue, 07 Nov 2017 06:39:24 AEDT)
  datadir: /Users/bok/Projects/GizerCrowdsaleAudit/audit/test/testchain
  modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
 
@@ -54,12 +56,12 @@ undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange              Token Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.000000000000000000           0.000000 Account #0 - Miner
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        9.000000000000000000           0.000000 Account #0 - Miner
 RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000 Account #1 - Contract Owner
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - Un-whitelisted
 RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
@@ -116,18 +118,18 @@ undefined
 undefined
 > 
 > 
-DATA: tokenAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
-RESULT: tokenAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210 gas=6000000 gasUsed=2991305 costETH=0.05384349 costUSD=16.19967546234 @ ETH/USD=300.866 gasPrice=18000000000 block=1375 txIx=0 txId=0x52d05c72ec89b961efccd9a92ce0af970b427518c93a89f89e5dedc370544745
+DATA: tokenAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
+RESULT: tokenAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf status=0x1 gas=6000000 gasUsed=3030003 costETH=0.054540054 costUSD=16.409247886764 @ ETH/USD=300.866 gasPrice=18000000000 block=974 txIx=0 txId=0x16479627fa5e4b09d8347b6e1597dbdcd2e76484fdb123799f70fdc72e3a2767
 undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange              Token Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       21.053843490000000000           0.000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.053843490000000000           0.000000 Account #1 - Contract Owner
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.054540054000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.054540054000000000           0.000000 Account #1 - Contract Owner
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - Un-whitelisted
 RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
@@ -135,7 +137,7 @@ RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.00000000000000000
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Whitelist Wallet
 RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
-RESULT: 13 0x545b861c70089afcbee7c3e8ff00e1ab9e5be210        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 RESULT:                                                                                     0.000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
@@ -145,7 +147,7 @@ undefined
 RESULT: PASS Deploy Crowdsale/Token Contract
 1
 > 
-RESULT: tokenContractAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
 RESULT: token.name=Gizer Gaming Token
@@ -164,8 +166,8 @@ RESULT: token.MAX_CONTRIBUTION=3333
 RESULT: token.LOCKUP_PERIOD=15552000
 RESULT: token.CLAWBACK_PERIOD=15552000
 RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
-RESULT: token.DATE_PRESALE_START=1507741077 Wed, 11 Oct 2017 16:57:57 UTC
-RESULT: token.DATE_PRESALE_END=1507741137 Wed, 11 Oct 2017 16:58:57 UTC
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
 RESULT: token.TOKETH_PRESALE_ONE=1150000000
 RESULT: token.TOKETH_PRESALE_TWO=1100000000
 RESULT: token.TOKETH_PRESALE_THREE=1075000000
@@ -173,20 +175,20 @@ RESULT: token.CUTOFF_PRESALE_ONE=100
 RESULT: token.CUTOFF_PRESALE_TWO=500
 RESULT: token.FUNDING_PRESALE_MIN=333
 RESULT: token.FUNDING_PRESALE_MAX=3333
-RESULT: token.DATE_ICO_START=1507741197 Wed, 11 Oct 2017 16:59:57 UTC
-RESULT: token.DATE_ICO_END=1507741257 Wed, 11 Oct 2017 17:00:57 UTC
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
 RESULT: token.TOKETH_ICO_ONE=1050000000
 RESULT: token.TOKETH_ICO_TWO=1000000000
 RESULT: token.CUTOFF_ICO_ONE=500
 RESULT: token.ICO_TRIGGER=100000000000
-RESULT: token.privateEtherReceived=0
-RESULT: token.icoEtherReceived=0
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=0
 RESULT: token.tokensIssuedTotal=0
 RESULT: token.tokensIssuedCrowd=0
 RESULT: token.tokensIssuedTeam=0
 RESULT: token.tokensIssuedReserve=0
 RESULT: token.tokensIssuedPrivate=0
-RESULT: token.lockupEndDate=1523293257
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
 RESULT: token.icoFinished=false
 RESULT: token.tradeable=false
 RESULT: token.presaleContributorCount=0
@@ -216,23 +218,23 @@ undefined
 ... 
 undefined
 > 
-RESULT: setup1Tx gas=400000 gasUsed=30743 costETH=0.000553374 costUSD=0.166491421884 @ ETH/USD=300.866 gasPrice=18000000000 block=1378 txIx=0 txId=0x1531cc66944614c38a33acd1795cc388bbc67b8cf3f40f54755717f780b0060f
+RESULT: setup1Tx status=0x1 gas=400000 gasUsed=30634 costETH=0.000551412 costUSD=0.165901122792 @ ETH/USD=300.866 gasPrice=18000000000 block=980 txIx=0 txId=0xf9a6c0a95e384944c828ac5ef5ff5a521f98d6a3423bf81495c8a082aca137bf
 undefined
 > 
-RESULT: setup2Tx gas=400000 gasUsed=29305 costETH=0.00052749 costUSD=0.15870380634 @ ETH/USD=300.866 gasPrice=18000000000 block=1378 txIx=1 txId=0xd1b7ad0632acf2d521f00b1c6eb975522e279077500e2173b48742c2799fbde0
+RESULT: setup2Tx status=0x1 gas=400000 gasUsed=29212 costETH=0.000525816 costUSD=0.158200156656 @ ETH/USD=300.866 gasPrice=18000000000 block=980 txIx=1 txId=0x947f95d4c083146391d3ca1799d80a834c547f6ce44fab1935fd3c2116135a42
 undefined
 > 
-RESULT: setup3Tx gas=400000 gasUsed=30185 costETH=0.00054333 costUSD=0.16346952378 @ ETH/USD=300.866 gasPrice=18000000000 block=1378 txIx=2 txId=0x755448f4779d2d97b817e39ba0849ae9d10a4295def0292a44823fbcdf244d39
+RESULT: setup3Tx status=0x1 gas=400000 gasUsed=30026 costETH=0.000540468 costUSD=0.162608445288 @ ETH/USD=300.866 gasPrice=18000000000 block=980 txIx=2 txId=0x9b85c850f03c1ab7659ca3b52a7f4297c37b4fecd86a1bf3e2336ab65eadbb52
 undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange              Token Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.055467684000000000           0.000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055467684000000000           0.000000 Account #1 - Contract Owner
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       33.056157750000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056157750000000000           0.000000 Account #1 - Contract Owner
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - Un-whitelisted
 RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
@@ -240,7 +242,7 @@ RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.00000000000000000
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Whitelist Wallet
 RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
-RESULT: 13 0x545b861c70089afcbee7c3e8ff00e1ab9e5be210        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 RESULT:                                                                                     0.000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
@@ -256,7 +258,7 @@ RESULT: PASS Setup - setWhitelistWallet(...)
 RESULT: PASS Setup - setRedemptionWallet(...)
 1
 > 
-RESULT: tokenContractAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
 RESULT: token.name=Gizer Gaming Token
@@ -275,8 +277,8 @@ RESULT: token.MAX_CONTRIBUTION=3333
 RESULT: token.LOCKUP_PERIOD=15552000
 RESULT: token.CLAWBACK_PERIOD=15552000
 RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
-RESULT: token.DATE_PRESALE_START=1507741077 Wed, 11 Oct 2017 16:57:57 UTC
-RESULT: token.DATE_PRESALE_END=1507741137 Wed, 11 Oct 2017 16:58:57 UTC
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
 RESULT: token.TOKETH_PRESALE_ONE=1150000000
 RESULT: token.TOKETH_PRESALE_TWO=1100000000
 RESULT: token.TOKETH_PRESALE_THREE=1075000000
@@ -284,27 +286,27 @@ RESULT: token.CUTOFF_PRESALE_ONE=100
 RESULT: token.CUTOFF_PRESALE_TWO=500
 RESULT: token.FUNDING_PRESALE_MIN=333
 RESULT: token.FUNDING_PRESALE_MAX=3333
-RESULT: token.DATE_ICO_START=1507741197 Wed, 11 Oct 2017 16:59:57 UTC
-RESULT: token.DATE_ICO_END=1507741257 Wed, 11 Oct 2017 17:00:57 UTC
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
 RESULT: token.TOKETH_ICO_ONE=1050000000
 RESULT: token.TOKETH_ICO_TWO=1000000000
 RESULT: token.CUTOFF_ICO_ONE=500
 RESULT: token.ICO_TRIGGER=100000000000
-RESULT: token.privateEtherReceived=0
-RESULT: token.icoEtherReceived=0
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=0
 RESULT: token.tokensIssuedTotal=0
 RESULT: token.tokensIssuedCrowd=0
 RESULT: token.tokensIssuedTeam=0
 RESULT: token.tokensIssuedReserve=0
 RESULT: token.tokensIssuedPrivate=0
-RESULT: token.lockupEndDate=1523293257
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
 RESULT: token.icoFinished=false
 RESULT: token.tradeable=false
 RESULT: token.presaleContributorCount=0
 RESULT: token.icoContributorCount=0
-RESULT: WalletUpdated 0 #1378 {"_newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
-RESULT: RedemptionWalletUpdated 0 #1378 {"_newRedemptionWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
-RESULT: WhitelistWalletChanged 0 #1378 {"_newWhitelistWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+RESULT: WalletUpdated 0 #980 {"_newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+RESULT: RedemptionWalletUpdated 0 #980 {"_newRedemptionWallet":"0xacca534c9f62ab495bd986e002ddf0f054caae4f"}
+RESULT: WhitelistWalletUpdated 0 #980 {"_newWhitelistWallet":"0xabba43e7594e3b76afb157989e93c6621497fd4b"}
 undefined
 > 
 RESULT: 
@@ -330,47 +332,47 @@ undefined
 ... 
 undefined
 > 
-RESULT: whitelist1Tx gas=400000 gasUsed=46153 costETH=0.000830754 costUSD=0.249945632964 @ ETH/USD=300.866 gasPrice=18000000000 block=1381 txIx=0 txId=0x8530c9deb62029573f6ac399ed9a6ce4aed1f6c9d3d5bb272c30471d611006bd
+RESULT: whitelist1Tx status=0x1 gas=400000 gasUsed=46154 costETH=0.000830772 costUSD=0.249951048552 @ ETH/USD=300.866 gasPrice=18000000000 block=983 txIx=0 txId=0x18ef91f0673da842bd16e725578a2bbf21174fd6569e3860b598a64d785fee4d
 undefined
 > 
-RESULT: whitelist2Tx gas=400000 gasUsed=46153 costETH=0.000830754 costUSD=0.249945632964 @ ETH/USD=300.866 gasPrice=18000000000 block=1381 txIx=1 txId=0x90283188d8e266821de33f536d66807e9ae75ef504362d9b5226cd1172907ac2
+RESULT: whitelist2Tx status=0x1 gas=400000 gasUsed=46154 costETH=0.000830772 costUSD=0.249951048552 @ ETH/USD=300.866 gasPrice=18000000000 block=983 txIx=1 txId=0x435a47298ad374384db10f4b098b1beec40fd32f16aee7fe553f4fb1280ae249
 undefined
 > 
-RESULT: whitelist3Tx gas=400000 gasUsed=30368 costETH=0.000546624 costUSD=0.164460576384 @ ETH/USD=300.866 gasPrice=18000000000 block=1381 txIx=2 txId=0xbc7dedb8305022de4a0fa3a2a6a6e06851afd1ffa887c747bbb95a0eca08fe8f
+RESULT: whitelist3Tx status=0x1 gas=400000 gasUsed=30303 costETH=0.000545454 costUSD=0.164108563164 @ ETH/USD=300.866 gasPrice=18000000000 block=983 txIx=2 txId=0x1ce2db001b2cc5d924cfa1953fe15821d82b5ff53e8047c77bdc1359a58e6ec5
 undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange              Token Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       39.057675816000000000           0.000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.055467684000000000           0.000000 Account #1 - Contract Owner
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       42.058364748000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056157750000000000           0.000000 Account #1 - Contract Owner
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3 - Whitelisted
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4 - Whitelisted
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - UnWhitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000 Account #5 - Un-whitelisted
 RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
-RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002208132000000000           0.000000 Account #11 - Whitelist Wallet
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002206998000000000           0.000000 Account #11 - Whitelist Wallet
 RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
-RESULT: 13 0x545b861c70089afcbee7c3e8ff00e1ab9e5be210        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 RESULT:                                                                                     0.000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 RESULT: 
 undefined
 > 
-RESULT: PASS Whitelist - ac3 Whitelist Uncapped
+RESULT: PASS Whitelist - ac3 Whitelist
 1
 > 
-RESULT: PASS Whitelist - ac4 Whitelist Capped
+RESULT: PASS Whitelist - ac4 Whitelist
 1
 > 
-RESULT: PASS Whitelist - ac4 Whitelist Capped
+RESULT: PASS Whitelist - ac5 Un-whitelist
 1
 > 
-RESULT: tokenContractAddress=0x545b861c70089afcbee7c3e8ff00e1ab9e5be210
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
 RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 RESULT: token.newOwner=0x0000000000000000000000000000000000000000
 RESULT: token.name=Gizer Gaming Token
@@ -389,8 +391,8 @@ RESULT: token.MAX_CONTRIBUTION=3333
 RESULT: token.LOCKUP_PERIOD=15552000
 RESULT: token.CLAWBACK_PERIOD=15552000
 RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
-RESULT: token.DATE_PRESALE_START=1507741077 Wed, 11 Oct 2017 16:57:57 UTC
-RESULT: token.DATE_PRESALE_END=1507741137 Wed, 11 Oct 2017 16:58:57 UTC
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
 RESULT: token.TOKETH_PRESALE_ONE=1150000000
 RESULT: token.TOKETH_PRESALE_TWO=1100000000
 RESULT: token.TOKETH_PRESALE_THREE=1075000000
@@ -398,27 +400,521 @@ RESULT: token.CUTOFF_PRESALE_ONE=100
 RESULT: token.CUTOFF_PRESALE_TWO=500
 RESULT: token.FUNDING_PRESALE_MIN=333
 RESULT: token.FUNDING_PRESALE_MAX=3333
-RESULT: token.DATE_ICO_START=1507741197 Wed, 11 Oct 2017 16:59:57 UTC
-RESULT: token.DATE_ICO_END=1507741257 Wed, 11 Oct 2017 17:00:57 UTC
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
 RESULT: token.TOKETH_ICO_ONE=1050000000
 RESULT: token.TOKETH_ICO_TWO=1000000000
 RESULT: token.CUTOFF_ICO_ONE=500
 RESULT: token.ICO_TRIGGER=100000000000
-RESULT: token.privateEtherReceived=0
-RESULT: token.icoEtherReceived=0
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=0
 RESULT: token.tokensIssuedTotal=0
 RESULT: token.tokensIssuedCrowd=0
 RESULT: token.tokensIssuedTeam=0
 RESULT: token.tokensIssuedReserve=0
 RESULT: token.tokensIssuedPrivate=0
-RESULT: token.lockupEndDate=1523293257
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
 RESULT: token.icoFinished=false
 RESULT: token.tradeable=false
 RESULT: token.presaleContributorCount=0
 RESULT: token.icoContributorCount=0
-RESULT: WhitelistModify 0 #1381 {"_participant":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","_status":true}
-RESULT: WhitelistModify 1 #1381 {"_participant":"0xa44a08d3f6933c69212114bb66e2df1813651844","_status":true}
-RESULT: WhitelistModify 2 #1381 {"_participant":"0xa55a151eb00fded1634d27d1127b4be4627079ea","_status":false}
+RESULT: WhitelistUpdated 0 #983 {"_participant":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","_status":true}
+RESULT: WhitelistUpdated 1 #983 {"_participant":"0xa44a08d3f6933c69212114bb66e2df1813651844","_status":true}
+RESULT: WhitelistUpdated 2 #983 {"_participant":"0xa55a151eb00fded1634d27d1127b4be4627079ea","_status":false}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Waiting until 'DATE_PRESALE_START' at 1509997244+0s =Tue, 07 Nov 2017 06:40:45 AEDT now=Tue, 07 Nov 2017 06:40:08 AEDT
+RESULT: Waited until 'DATE_PRESALE_START' at at 1509997244+0s =Tue, 07 Nov 2017 06:40:45 AEDT now=Tue, 07 Nov 2017 06:40:45 AEDT
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Contribution In Presale
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: sendContribution1_1Tx status=0x1 gas=400000 gasUsed=168545 costETH=0.00303381 costUSD=0.91277027946 @ ETH/USD=300.866 gasPrice=18000000000 block=995 txIx=0 txId=0x9eff2c8c4bd0f897985fb5a4efa82e1c536642c249614c193ec83de1d2bfbc19
+undefined
+> 
+RESULT: sendContribution1_2Tx status=0x1 gas=400000 gasUsed=108545 costETH=0.00195381 costUSD=0.58783499946 @ ETH/USD=300.866 gasPrice=18000000000 block=995 txIx=2 txId=0x1c9f73763b33e16231a18b8c5bd37dbd0e35483a0bb2728f9437cae6c661e43e
+undefined
+> 
+RESULT: sendContribution1_3Tx status=0x0 gas=400000 gasUsed=21231 costETH=0.000382158 costUSD=0.114978348828 @ ETH/USD=300.866 gasPrice=18000000000 block=995 txIx=1 txId=0xa32170c4e7a0988aeeb037ffe8fe4514b5c0da08273a86d767db7279a7f2e75f
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange              Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       78.063734526000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056157750000000000           0.000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.003033810000000000      115000.000000 Account #3 - Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.001953810000000000      115000.000000 Account #4 - Whitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000382158000000000           0.000000 Account #5 - Un-whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002206998000000000           0.000000 Account #11 - Whitelist Wallet
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf      200.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:                                                                                230000.000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Contribution In Presale - ac3 100 ETH
+1
+> 
+RESULT: PASS Send Contribution In Presale - ac4 100 ETH
+1
+> 
+RESULT: PASS Send Contribution In Presale - ac5 100 ETH - expecting failure
+1
+> 
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.name=Gizer Gaming Token
+RESULT: token.symbol=GZR
+RESULT: token.decimals=6
+RESULT: token.totalSupply=230000
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.redemptionWallet=0xacca534c9f62ab495bd986e002ddf0f054caae4f
+RESULT: token.whitelistWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: token.TOKEN_SUPPLY_TOTAL=100000000
+RESULT: token.TOKEN_SUPPLY_TEAM=15000000
+RESULT: token.TOKEN_SUPPLY_RESERVE=15000000
+RESULT: token.TOKEN_SUPPLY_CROWD=70000000
+RESULT: token.MIN_CONTRIBUTION=0.01
+RESULT: token.MAX_CONTRIBUTION=3333
+RESULT: token.LOCKUP_PERIOD=15552000
+RESULT: token.CLAWBACK_PERIOD=15552000
+RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
+RESULT: token.TOKETH_PRESALE_ONE=1150000000
+RESULT: token.TOKETH_PRESALE_TWO=1100000000
+RESULT: token.TOKETH_PRESALE_THREE=1075000000
+RESULT: token.CUTOFF_PRESALE_ONE=100
+RESULT: token.CUTOFF_PRESALE_TWO=500
+RESULT: token.FUNDING_PRESALE_MIN=333
+RESULT: token.FUNDING_PRESALE_MAX=3333
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
+RESULT: token.TOKETH_ICO_ONE=1050000000
+RESULT: token.TOKETH_ICO_TWO=1000000000
+RESULT: token.CUTOFF_ICO_ONE=500
+RESULT: token.ICO_TRIGGER=100000000000
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=200
+RESULT: token.tokensIssuedTotal=230000
+RESULT: token.tokensIssuedCrowd=230000
+RESULT: token.tokensIssuedTeam=0
+RESULT: token.tokensIssuedReserve=0
+RESULT: token.tokensIssuedPrivate=0
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
+RESULT: token.icoFinished=false
+RESULT: token.tradeable=false
+RESULT: token.presaleContributorCount=2
+RESULT: token.icoContributorCount=0
+RESULT: TokensIssued 0 #995 {"_amount":"100000000000000000000","_balance":"115000000000","_isPrivateSale":false,"_owner":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","_tokens":"115000000000","_tokensIssuedCrowd":"115000000000"}
+RESULT: TokensIssued 1 #995 {"_amount":"100000000000000000000","_balance":"115000000000","_isPrivateSale":false,"_owner":"0xa44a08d3f6933c69212114bb66e2df1813651844","_tokens":"115000000000","_tokensIssuedCrowd":"230000000000"}
+RESULT: Transfer 0 #995: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _value=115000
+RESULT: Transfer 1 #995: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 _value=115000
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Waiting until 'dateIcoStart' at 1509997289+0s =Tue, 07 Nov 2017 06:41:30 AEDT now=Tue, 07 Nov 2017 06:41:00 AEDT
+RESULT: Waited until 'dateIcoStart' at at 1509997289+0s =Tue, 07 Nov 2017 06:41:30 AEDT now=Tue, 07 Nov 2017 06:41:30 AEDT
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Send Contribution In Crowdsale
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: sendContribution2_1Tx status=0x1 gas=400000 gasUsed=85651 costETH=0.001541718 costUSD=0.463850527788 @ ETH/USD=300.866 gasPrice=18000000000 block=1007 txIx=0 txId=0xa51c1f1d20b874cfd4faaee195fa45b3c77f9477a137be3376ab654b84271f46
+undefined
+> 
+RESULT: sendContribution2_2Tx status=0x1 gas=400000 gasUsed=70651 costETH=0.001271718 costUSD=0.382616707788 @ ETH/USD=300.866 gasPrice=18000000000 block=1007 txIx=2 txId=0xca1d31e00e30e6d5361e8e0a1ded47eaeaabb21509caec473a1f5914de0afefd
+undefined
+> 
+RESULT: sendContribution2_3Tx status=0x0 gas=400000 gasUsed=21231 costETH=0.000382158 costUSD=0.114978348828 @ ETH/USD=300.866 gasPrice=18000000000 block=1007 txIx=1 txId=0x9cf67c230c7f8144e2efaa2f3532498989902aea600088c1a5b40369ffd20d3e
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange              Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      114.066930120000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.056157750000000000           0.000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2200.000000000000000000           0.000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1100.004575528000000000     1165000.000000 Account #3 - Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844    -1100.003225528000000000     1165000.000000 Account #4 - Whitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000764316000000000           0.000000 Account #5 - Un-whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002206998000000000           0.000000 Account #11 - Whitelist Wallet
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:                                                                               2330000.000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Send Contribution In Crowdsale - ac3 1000 ETH
+1
+> 
+RESULT: PASS Send Contribution In Crowdsale - ac4 1000 ETH
+1
+> 
+RESULT: PASS Send Contribution In Crowdsale - ac5 1000 ETH - expecting failure
+1
+> 
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.name=Gizer Gaming Token
+RESULT: token.symbol=GZR
+RESULT: token.decimals=6
+RESULT: token.totalSupply=2330000
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.redemptionWallet=0xacca534c9f62ab495bd986e002ddf0f054caae4f
+RESULT: token.whitelistWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: token.TOKEN_SUPPLY_TOTAL=100000000
+RESULT: token.TOKEN_SUPPLY_TEAM=15000000
+RESULT: token.TOKEN_SUPPLY_RESERVE=15000000
+RESULT: token.TOKEN_SUPPLY_CROWD=70000000
+RESULT: token.MIN_CONTRIBUTION=0.01
+RESULT: token.MAX_CONTRIBUTION=3333
+RESULT: token.LOCKUP_PERIOD=15552000
+RESULT: token.CLAWBACK_PERIOD=15552000
+RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
+RESULT: token.TOKETH_PRESALE_ONE=1150000000
+RESULT: token.TOKETH_PRESALE_TWO=1100000000
+RESULT: token.TOKETH_PRESALE_THREE=1075000000
+RESULT: token.CUTOFF_PRESALE_ONE=100
+RESULT: token.CUTOFF_PRESALE_TWO=500
+RESULT: token.FUNDING_PRESALE_MIN=333
+RESULT: token.FUNDING_PRESALE_MAX=3333
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
+RESULT: token.TOKETH_ICO_ONE=1050000000
+RESULT: token.TOKETH_ICO_TWO=1000000000
+RESULT: token.CUTOFF_ICO_ONE=500
+RESULT: token.ICO_TRIGGER=100000000000
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=2200
+RESULT: token.tokensIssuedTotal=2330000
+RESULT: token.tokensIssuedCrowd=2330000
+RESULT: token.tokensIssuedTeam=0
+RESULT: token.tokensIssuedReserve=0
+RESULT: token.tokensIssuedPrivate=0
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
+RESULT: token.icoFinished=false
+RESULT: token.tradeable=false
+RESULT: token.presaleContributorCount=2
+RESULT: token.icoContributorCount=2
+RESULT: TokensIssued 0 #1007 {"_amount":"1e+21","_balance":"1165000000000","_isPrivateSale":false,"_owner":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","_tokens":"1050000000000","_tokensIssuedCrowd":"1280000000000"}
+RESULT: TokensIssued 1 #1007 {"_amount":"1e+21","_balance":"1165000000000","_isPrivateSale":false,"_owner":"0xa44a08d3f6933c69212114bb66e2df1813651844","_tokens":"1050000000000","_tokensIssuedCrowd":"2330000000000"}
+RESULT: Transfer 0 #1007: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _value=1050000
+RESULT: Transfer 1 #1007: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 _value=1050000
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Waiting until 'dateIcoEnd' at 1509997319+0s =Tue, 07 Nov 2017 06:42:00 AEDT now=Tue, 07 Nov 2017 06:41:52 AEDT
+RESULT: Waited until 'dateIcoEnd' at at 1509997319+0s =Tue, 07 Nov 2017 06:42:00 AEDT now=Tue, 07 Nov 2017 06:42:00 AEDT
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Close Crowdsale
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: closeCrowdsale_1Tx status=0x1 gas=400000 gasUsed=27703 costETH=0.000498654 costUSD=0.150028034364 @ ETH/USD=300.866 gasPrice=18000000000 block=1017 txIx=0 txId=0x909b02a977df2ba91e222aeb18968ef470f5c45b5767f4a3300a047e500f1071
+undefined
+> 
+ReferenceError: 'closeCrowdsale_2Tx' is not defined
+    at <anonymous>:1:35
+
+> 
+RESULT:  # Account                                             EtherBalanceChange              Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      144.068196888000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057424518000000000           0.000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2200.000000000000000000           0.000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1100.004575528000000000     1165000.000000 Account #3 - Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844    -1100.003225528000000000     1165000.000000 Account #4 - Whitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000764316000000000           0.000000 Account #5 - Un-whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000 Account #6
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002206998000000000           0.000000 Account #11 - Whitelist Wallet
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:                                                                               2330000.000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Close Crowdsale - close crowdsale
+1
+> 
+ReferenceError: 'closeCrowdsale_2Tx' is not defined
+    at <anonymous>:1:21
+
+> 
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.name=Gizer Gaming Token
+RESULT: token.symbol=GZR
+RESULT: token.decimals=6
+RESULT: token.totalSupply=2330000
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.redemptionWallet=0xacca534c9f62ab495bd986e002ddf0f054caae4f
+RESULT: token.whitelistWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: token.TOKEN_SUPPLY_TOTAL=100000000
+RESULT: token.TOKEN_SUPPLY_TEAM=15000000
+RESULT: token.TOKEN_SUPPLY_RESERVE=15000000
+RESULT: token.TOKEN_SUPPLY_CROWD=70000000
+RESULT: token.MIN_CONTRIBUTION=0.01
+RESULT: token.MAX_CONTRIBUTION=3333
+RESULT: token.LOCKUP_PERIOD=15552000
+RESULT: token.CLAWBACK_PERIOD=15552000
+RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
+RESULT: token.TOKETH_PRESALE_ONE=1150000000
+RESULT: token.TOKETH_PRESALE_TWO=1100000000
+RESULT: token.TOKETH_PRESALE_THREE=1075000000
+RESULT: token.CUTOFF_PRESALE_ONE=100
+RESULT: token.CUTOFF_PRESALE_TWO=500
+RESULT: token.FUNDING_PRESALE_MIN=333
+RESULT: token.FUNDING_PRESALE_MAX=3333
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
+RESULT: token.TOKETH_ICO_ONE=1050000000
+RESULT: token.TOKETH_ICO_TWO=1000000000
+RESULT: token.CUTOFF_ICO_ONE=500
+RESULT: token.ICO_TRIGGER=100000000000
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=2200
+RESULT: token.tokensIssuedTotal=2330000
+RESULT: token.tokensIssuedCrowd=2330000
+RESULT: token.tokensIssuedTeam=0
+RESULT: token.tokensIssuedReserve=0
+RESULT: token.tokensIssuedPrivate=0
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
+RESULT: token.icoFinished=true
+RESULT: token.tradeable=true
+RESULT: token.presaleContributorCount=2
+RESULT: token.icoContributorCount=2
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Move Tokens After Transfers Allowed
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: moveToken1Tx status=0x1 gas=100000 gasUsed=52773 costETH=0.000949914 costUSD=0.285796825524 @ ETH/USD=300.866 gasPrice=18000000000 block=1019 txIx=0 txId=0x64d837e23d7410b7015cce5569aec7c1ba0672e16c4f516fc8e9a19f4b10c9c4
+undefined
+> 
+RESULT: moveToken2Tx status=0x1 gas=100000 gasUsed=45576 costETH=0.000820368 costUSD=0.246820838688 @ ETH/USD=300.866 gasPrice=18000000000 block=1019 txIx=1 txId=0xba92333e95ade8286c60af0abf790feeaf95a62c2c2b575c0770b361335cad26
+undefined
+> 
+RESULT: moveToken3Tx status=0x1 gas=100000 gasUsed=44044 costETH=0.000792792 costUSD=0.238524157872 @ ETH/USD=300.866 gasPrice=18000000000 block=1021 txIx=0 txId=0x9991822908c3cf50b076227e784a8c324f5c8ff5d88b56873f05efe5b6f52300
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange              Token Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      156.070759962000000000           0.000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.057424518000000000           0.000000 Account #1 - Contract Owner
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     2200.000000000000000000           0.000000 Account #2 - Wallet
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0    -1100.005525442000000000     1164999.000000 Account #3 - Whitelisted
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844    -1100.004045896000000000     1164970.000000 Account #4 - Whitelisted
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000764316000000000           1.000000 Account #5 - Un-whitelisted
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000792792000000000           0.000000 Account #6
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000          30.000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b       -0.002206998000000000           0.000000 Account #11 - Whitelist Wallet
+RESULT: 12 0xacca534c9f62ab495bd986e002ddf0f054caae4f        0.000000000000000000           0.000000 Account #12 - Redemption Wallet
+RESULT: 13 0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf        0.000000000000000000           0.000000 Token 'GZR' 'Gizer Gaming Token'
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT:                                                                               2330000.000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Move Tokens After Transfers Allowed - transfer 1 token ac3 -> ac5. CHECK for movement
+1
+> 
+RESULT: PASS Move Tokens After Transfers Allowed - approve 30 tokens ac4 -> ac6
+1
+> 
+RESULT: PASS Move Tokens After Transfers Allowed - transferFrom 30 tokens ac4 -> ac7 by ac6. CHECK for movement
+1
+> 
+RESULT: tokenContractAddress=0x1d7961dd2bee2c9bd13a9bd8e8b6405ef79e22bf
+RESULT: token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: token.newOwner=0x0000000000000000000000000000000000000000
+RESULT: token.name=Gizer Gaming Token
+RESULT: token.symbol=GZR
+RESULT: token.decimals=6
+RESULT: token.totalSupply=2330000
+RESULT: token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+RESULT: token.redemptionWallet=0xacca534c9f62ab495bd986e002ddf0f054caae4f
+RESULT: token.whitelistWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+RESULT: token.TOKEN_SUPPLY_TOTAL=100000000
+RESULT: token.TOKEN_SUPPLY_TEAM=15000000
+RESULT: token.TOKEN_SUPPLY_RESERVE=15000000
+RESULT: token.TOKEN_SUPPLY_CROWD=70000000
+RESULT: token.MIN_CONTRIBUTION=0.01
+RESULT: token.MAX_CONTRIBUTION=3333
+RESULT: token.LOCKUP_PERIOD=15552000
+RESULT: token.CLAWBACK_PERIOD=15552000
+RESULT: token.PRIVATE_SALE_MAX_ETHER=1000
+RESULT: token.DATE_PRESALE_START=1509997244 Mon, 06 Nov 2017 19:40:44 UTC
+RESULT: token.DATE_PRESALE_END=1509997259 Mon, 06 Nov 2017 19:40:59 UTC
+RESULT: token.TOKETH_PRESALE_ONE=1150000000
+RESULT: token.TOKETH_PRESALE_TWO=1100000000
+RESULT: token.TOKETH_PRESALE_THREE=1075000000
+RESULT: token.CUTOFF_PRESALE_ONE=100
+RESULT: token.CUTOFF_PRESALE_TWO=500
+RESULT: token.FUNDING_PRESALE_MIN=333
+RESULT: token.FUNDING_PRESALE_MAX=3333
+RESULT: token.dateIcoStart=1509997289 Mon, 06 Nov 2017 19:41:29 UTC
+RESULT: token.dateIcoEnd=1509997319 Mon, 06 Nov 2017 19:41:59 UTC
+RESULT: token.TOKETH_ICO_ONE=1050000000
+RESULT: token.TOKETH_ICO_TWO=1000000000
+RESULT: token.CUTOFF_ICO_ONE=500
+RESULT: token.ICO_TRIGGER=100000000000
+RESULT: token.etherReceivedPrivate=0
+RESULT: token.etherReceivedCrowd=2200
+RESULT: token.tokensIssuedTotal=2330000
+RESULT: token.tokensIssuedCrowd=2330000
+RESULT: token.tokensIssuedTeam=0
+RESULT: token.tokensIssuedReserve=0
+RESULT: token.tokensIssuedPrivate=0
+RESULT: token.lockupEndDate=1525549319 Sat, 05 May 2018 19:41:59 UTC
+RESULT: token.icoFinished=true
+RESULT: token.tradeable=true
+RESULT: token.presaleContributorCount=2
+RESULT: token.icoContributorCount=2
+RESULT: Approval 0 #1019 _owner=0xa44a08d3f6933c69212114bb66e2df1813651844 _spender=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 _value=30
+RESULT: Transfer 0 #1019: _from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _to=0xa55a151eb00fded1634d27d1127b4be4627079ea _value=1
+RESULT: Transfer 1 #1021: _from=0xa44a08d3f6933c69212114bb66e2df1813651844 _to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec _value=30
 undefined
 > 
 RESULT: 

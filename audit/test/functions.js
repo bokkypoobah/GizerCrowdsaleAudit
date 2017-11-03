@@ -12,7 +12,7 @@ addAccount(eth.accounts[1], "Account #1 - Contract Owner");
 addAccount(eth.accounts[2], "Account #2 - Wallet");
 addAccount(eth.accounts[3], "Account #3 - Whitelisted");
 addAccount(eth.accounts[4], "Account #4 - Whitelisted");
-addAccount(eth.accounts[5], "Account #5 - UnWhitelisted");
+addAccount(eth.accounts[5], "Account #5 - Un-whitelisted");
 addAccount(eth.accounts[6], "Account #6");
 addAccount(eth.accounts[7], "Account #7");
 addAccount(eth.accounts[8], "Account #8");
@@ -121,9 +121,10 @@ function printTxData(name, txId) {
   var gasPrice = tx.gasPrice;
   var gasCostETH = tx.gasPrice.mul(txReceipt.gasUsed).div(1e18);
   var gasCostUSD = gasCostETH.mul(ethPriceUSD);
-  console.log("RESULT: " + name + " gas=" + tx.gas + " gasUsed=" + txReceipt.gasUsed + " costETH=" + gasCostETH +
-    " costUSD=" + gasCostUSD + " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + gasPrice + " block=" + 
-    txReceipt.blockNumber + " txIx=" + tx.transactionIndex + " txId=" + txId);
+  console.log("RESULT: " + name + " status=" + txReceipt.status + " gas=" + tx.gas +
+      " gasUsed=" + txReceipt.gasUsed + " costETH=" + gasCostETH + " costUSD=" + gasCostUSD +
+      " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + gasPrice + " block=" + 
+      txReceipt.blockNumber + " txIx=" + tx.transactionIndex + " txId=" + txId);
 }
 
 function assertEtherBalance(account, expectedBalance) {
@@ -206,6 +207,20 @@ function failIfGasEqualsGasUsedOrContractAddressNull(contractAddress, tx, msg) {
 
 
 //-----------------------------------------------------------------------------
+//Wait until some unixTime + additional seconds
+//-----------------------------------------------------------------------------
+function waitUntil(message, unixTime, addSeconds) {
+  var t = parseInt(unixTime) + parseInt(addSeconds) + parseInt(1);
+  var time = new Date(t * 1000);
+  console.log("RESULT: Waiting until '" + message + "' at " + unixTime + "+" + addSeconds + "s =" + time + " now=" + new Date());
+  while ((new Date()).getTime() <= time.getTime()) {
+  }
+  console.log("RESULT: Waited until '" + message + "' at at " + unixTime + "+" + addSeconds + "s =" + time + " now=" + new Date());
+  console.log("RESULT: ");
+}
+
+
+//-----------------------------------------------------------------------------
 // Token Contract
 //-----------------------------------------------------------------------------
 var tokenFromBlock = 0;
@@ -246,15 +261,15 @@ function printTokenContractDetails() {
     console.log("RESULT: token.FUNDING_PRESALE_MIN=" + contract.FUNDING_PRESALE_MIN().shift(-18));
     console.log("RESULT: token.FUNDING_PRESALE_MAX=" + contract.FUNDING_PRESALE_MAX().shift(-18));
     
-    console.log("RESULT: token.DATE_ICO_START=" + contract.DATE_ICO_START() + " " + new Date(contract.DATE_ICO_START() * 1000).toUTCString());
-    console.log("RESULT: token.DATE_ICO_END=" + contract.DATE_ICO_END() + " " + new Date(contract.DATE_ICO_END() * 1000).toUTCString());
+    console.log("RESULT: token.dateIcoStart=" + contract.dateIcoStart() + " " + new Date(contract.dateIcoStart() * 1000).toUTCString());
+    console.log("RESULT: token.dateIcoEnd=" + contract.dateIcoEnd() + " " + new Date(contract.dateIcoEnd() * 1000).toUTCString());
     console.log("RESULT: token.TOKETH_ICO_ONE=" + contract.TOKETH_ICO_ONE());
     console.log("RESULT: token.TOKETH_ICO_TWO=" + contract.TOKETH_ICO_TWO());
     console.log("RESULT: token.CUTOFF_ICO_ONE=" + contract.CUTOFF_ICO_ONE());
     console.log("RESULT: token.ICO_TRIGGER=" + contract.ICO_TRIGGER());
 
-    console.log("RESULT: token.privateEtherReceived=" + contract.privateEtherReceived().shift(-18));
-    console.log("RESULT: token.icoEtherReceived=" + contract.icoEtherReceived().shift(-18));
+    console.log("RESULT: token.etherReceivedPrivate=" + contract.etherReceivedPrivate().shift(-18));
+    console.log("RESULT: token.etherReceivedCrowd=" + contract.etherReceivedCrowd().shift(-18));
 
     console.log("RESULT: token.tokensIssuedTotal=" + contract.tokensIssuedTotal().shift(-decimals));
     console.log("RESULT: token.tokensIssuedCrowd=" + contract.tokensIssuedCrowd().shift(-decimals));
@@ -262,7 +277,7 @@ function printTokenContractDetails() {
     console.log("RESULT: token.tokensIssuedReserve=" + contract.tokensIssuedReserve().shift(-decimals));
     console.log("RESULT: token.tokensIssuedPrivate=" + contract.tokensIssuedPrivate().shift(-decimals));
 
-    console.log("RESULT: token.lockupEndDate=" + contract.lockupEndDate());
+    console.log("RESULT: token.lockupEndDate=" + contract.lockupEndDate() + " " + new Date(contract.lockupEndDate() * 1000).toUTCString());
     console.log("RESULT: token.icoFinished=" + contract.icoFinished());
     console.log("RESULT: token.tradeable=" + contract.tradeable());
     console.log("RESULT: token.presaleContributorCount=" + contract.presaleContributorCount());
@@ -299,6 +314,13 @@ function printTokenContractDetails() {
     });
     redemptionWalletUpdatedEvents.stopWatching();
 
+    var whitelistWalletUpdatedEvents = contract.WhitelistWalletUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
+    i = 0;
+    whitelistWalletUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: WhitelistWalletUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    whitelistWalletUpdatedEvents.stopWatching();
+
     var icoDatesUpdatedEvents = contract.IcoDatesUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;
     icoDatesUpdatedEvents.watch(function (error, result) {
@@ -327,19 +349,12 @@ function printTokenContractDetails() {
     });
     tokensMintedReserveEvents.stopWatching();
 
-    var whitelistModifyEvents = contract.WhitelistModify({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
+    var whitelistUpdatedEvents = contract.WhitelistUpdated({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;
-    whitelistModifyEvents.watch(function (error, result) {
-      console.log("RESULT: WhitelistModify " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    whitelistUpdatedEvents.watch(function (error, result) {
+      console.log("RESULT: WhitelistUpdated " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
     });
-    whitelistModifyEvents.stopWatching();
-
-    var whitelistWalletChangedEvents = contract.WhitelistWalletChanged({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
-    i = 0;
-    whitelistWalletChangedEvents.watch(function (error, result) {
-      console.log("RESULT: WhitelistWalletChanged " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
-    });
-    whitelistWalletChangedEvents.stopWatching();
+    whitelistUpdatedEvents.stopWatching();
 
     var approvalEvents = contract.Approval({}, { fromBlock: tokenFromBlock, toBlock: latestBlock });
     i = 0;

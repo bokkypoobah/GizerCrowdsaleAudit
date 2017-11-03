@@ -236,8 +236,8 @@ contract GizerToken is ERC20Token {
   
   /* Presale parameters */
   
-  uint public constant DATE_PRESALE_START = 1510318800; // 10-Nov-2017 13:00 UTC
-  uint public constant DATE_PRESALE_END   = 1510923600; // 17-Nov-2017 13:00 UTC
+  uint public constant DATE_PRESALE_START = 1509997244; // Mon  6 Nov 2017 19:40:44 UTC
+  uint public constant DATE_PRESALE_END   = 1509997259; // Mon  6 Nov 2017 19:40:59 UTC
   
   uint public constant TOKETH_PRESALE_ONE   = 1150 * E6; // presale wave 1 (  1-100)
   uint public constant TOKETH_PRESALE_TWO   = 1100 * E6; // presale wave 2 (101-500)
@@ -251,8 +251,8 @@ contract GizerToken is ERC20Token {
 
   /* ICO parameters (ICO dates can be modified by owner after deployment) */
 
-  uint public dateIcoStart = 1511528400; // 24-Nov-2017 13:00 UTC
-  uint public dateIcoEnd   = 1513947600; // 22-Dec-2017 13:00 UTC
+  uint public dateIcoStart = 1509997289; // Mon  6 Nov 2017 19:41:29 UTC
+  uint public dateIcoEnd   = 1509997319; // Mon  6 Nov 2017 19:41:59 UTC
 
   uint public constant TOKETH_ICO_ONE = 1050 * E6; // ICO wave 1 (1-500)
   uint public constant TOKETH_ICO_TWO = 1000 * E6; // ICO - others

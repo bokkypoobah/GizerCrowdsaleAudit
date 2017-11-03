@@ -5,8 +5,9 @@
 Commits
 [3198d0e](https://github.com/GizerInc/crowdsale/commit/3198d0e0c38a9103554e56734c1c9e63f941dc57),
 [c1e4255](https://github.com/GizerInc/crowdsale/commit/c1e4255f8de001f5eb271a9f6598bd3f12e57fe6),
-[43b4d51](https://github.com/GizerInc/crowdsale/commit/43b4d51b0ca1268e72b69ad66cc3b6f612e31fdb) and
-[9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a).
+[43b4d51](https://github.com/GizerInc/crowdsale/commit/43b4d51b0ca1268e72b69ad66cc3b6f612e31fdb),
+[9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a) and
+[50cfcec](https://github.com/GizerInc/crowdsale/commit/50cfcec87a17a7a67012b72c89973aa78e1924c6).
 
 <br />
 
@@ -100,9 +101,19 @@ Commits
 
 ## Code Review
 
+### Old
 * [ ] [code-review/GizerTokenSale.md](code-review/GizerTokenSale.md)
   * [x] library SafeMath3
   * [x] contract Owned
   * [x] contract ERC20Interface
   * [x] contract ERC20Token is ERC20Interface, Owned
   * [ ] contract GizerToken is ERC20Token
+
+### New
+
+* [ ] [code-review/GizerToken.md](code-review/GizerToken.md)
+  * [x] library SafeMath
+  * [x] contract Owned 
+  * [x] contract ERC20Interface 
+  * [x] contract ERC20Token is ERC20Interface, Owned 
+  * [ ] contract GizerToken is ERC20Token 
