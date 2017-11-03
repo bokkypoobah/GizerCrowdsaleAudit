@@ -348,13 +348,13 @@ contract GizerToken is ERC20Token {
   /* Manage whitelist */
 
   function addToWhitelist(address _participant) {
-    require( msg.sender == whitelistWallet );
+    require( msg.sender == whitelistWallet || msg.sender == owner );
     whitelist[_participant] = true;
     WhitelistUpdated(_participant, true);
   }  
 
   function removeFromWhitelist(address _participant) {
-    require( msg.sender == whitelistWallet );
+    require( msg.sender == whitelistWallet || msg.sender == owner );
     whitelist[_participant] = false;
     WhitelistUpdated(_participant, false);
   }
