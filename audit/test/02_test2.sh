@@ -18,8 +18,8 @@ CROWDSALEJS=`grep ^CROWDSALEJS= settings.txt | sed "s/^.*=//"`
 DEPLOYMENTDATA=`grep ^DEPLOYMENTDATA= settings.txt | sed "s/^.*=//"`
 
 INCLUDEJS=`grep ^INCLUDEJS= settings.txt | sed "s/^.*=//"`
-TEST1OUTPUT=`grep ^TEST1OUTPUT= settings.txt | sed "s/^.*=//"`
-TEST1RESULTS=`grep ^TEST1RESULTS= settings.txt | sed "s/^.*=//"`
+TEST2OUTPUT=`grep ^TEST2OUTPUT= settings.txt | sed "s/^.*=//"`
+TEST2RESULTS=`grep ^TEST2RESULTS= settings.txt | sed "s/^.*=//"`
 
 CURRENTTIME=`date +%s`
 CURRENTTIMES=`date -r $CURRENTTIME -u`
@@ -33,21 +33,21 @@ DATE_ICO_START_S=`date -r $DATE_ICO_START -u`
 DATE_ICO_END=`echo "$CURRENTTIME+150" | bc`
 DATE_ICO_END_S=`date -r $DATE_ICO_END -u`
 
-printf "MODE               = '$MODE'\n" | tee $TEST1OUTPUT
-printf "GETHATTACHPOINT    = '$GETHATTACHPOINT'\n" | tee -a $TEST1OUTPUT
-printf "PASSWORD           = '$PASSWORD'\n" | tee -a $TEST1OUTPUT
-printf "SOURCEDIR          = '$SOURCEDIR'\n" | tee -a $TEST1OUTPUT
-printf "CROWDSALESOL       = '$CROWDSALESOL'\n" | tee -a $TEST1OUTPUT
-printf "CROWDSALEJS        = '$CROWDSALEJS'\n" | tee -a $TEST1OUTPUT
-printf "DEPLOYMENTDATA     = '$DEPLOYMENTDATA'\n" | tee -a $TEST1OUTPUT
-printf "INCLUDEJS          = '$INCLUDEJS'\n" | tee -a $TEST1OUTPUT
-printf "TEST1OUTPUT        = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
-printf "TEST1RESULTS       = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
-printf "CURRENTTIME        = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
-printf "DATE_PRESALE_START = '$DATE_PRESALE_START' '$DATE_PRESALE_START_S'\n" | tee -a $TEST1OUTPUT
-printf "DATE_PRESALE_END   = '$DATE_PRESALE_END' '$DATE_PRESALE_END_S'\n" | tee -a $TEST1OUTPUT
-printf "DATE_ICO_START     = '$DATE_ICO_START' '$DATE_ICO_START_S'\n" | tee -a $TEST1OUTPUT
-printf "DATE_ICO_END       = '$DATE_ICO_END' '$DATE_ICO_END_S'\n" | tee -a $TEST1OUTPUT
+printf "MODE               = '$MODE'\n" | tee $TEST2OUTPUT
+printf "GETHATTACHPOINT    = '$GETHATTACHPOINT'\n" | tee -a $TEST2OUTPUT
+printf "PASSWORD           = '$PASSWORD'\n" | tee -a $TEST2OUTPUT
+printf "SOURCEDIR          = '$SOURCEDIR'\n" | tee -a $TEST2OUTPUT
+printf "CROWDSALESOL       = '$CROWDSALESOL'\n" | tee -a $TEST2OUTPUT
+printf "CROWDSALEJS        = '$CROWDSALEJS'\n" | tee -a $TEST2OUTPUT
+printf "DEPLOYMENTDATA     = '$DEPLOYMENTDATA'\n" | tee -a $TEST2OUTPUT
+printf "INCLUDEJS          = '$INCLUDEJS'\n" | tee -a $TEST2OUTPUT
+printf "TEST2OUTPUT        = '$TEST2OUTPUT'\n" | tee -a $TEST2OUTPUT
+printf "TEST2RESULTS       = '$TEST2RESULTS'\n" | tee -a $TEST2OUTPUT
+printf "CURRENTTIME        = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST2OUTPUT
+printf "DATE_PRESALE_START = '$DATE_PRESALE_START' '$DATE_PRESALE_START_S'\n" | tee -a $TEST2OUTPUT
+printf "DATE_PRESALE_END   = '$DATE_PRESALE_END' '$DATE_PRESALE_END_S'\n" | tee -a $TEST2OUTPUT
+printf "DATE_ICO_START     = '$DATE_ICO_START' '$DATE_ICO_START_S'\n" | tee -a $TEST2OUTPUT
+printf "DATE_ICO_END       = '$DATE_ICO_END' '$DATE_ICO_END_S'\n" | tee -a $TEST2OUTPUT
 
 # Make copy of SOL file and modify start and end times ---
 # `cp modifiedContracts/SnipCoin.sol .`
@@ -60,14 +60,14 @@ printf "DATE_ICO_END       = '$DATE_ICO_END' '$DATE_ICO_END_S'\n" | tee -a $TEST
 `perl -pi -e "s/dateIcoEnd   \= 1513947600;.*$/dateIcoEnd   \= $DATE_ICO_END; \/\/ $DATE_ICO_END_S/" $CROWDSALESOL`
 
 DIFFS1=`diff $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL`
-echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST1OUTPUT
-echo "$DIFFS1" | tee -a $TEST1OUTPUT
+echo "--- Differences $SOURCEDIR/$CROWDSALESOL $CROWDSALESOL ---" | tee -a $TEST2OUTPUT
+echo "$DIFFS1" | tee -a $TEST2OUTPUT
 
-solc_0.4.16 --version | tee -a $TEST1OUTPUT
+solc_0.4.16 --version | tee -a $TEST2OUTPUT
 
 echo "var tokenOutput=`solc_0.4.16 --optimize --combined-json abi,bin,interface $CROWDSALESOL`;" > $CROWDSALEJS
 
-geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST1OUTPUT
+geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST2OUTPUT
 loadScript("$CROWDSALEJS");
 loadScript("functions.js");
 
@@ -166,18 +166,18 @@ waitUntil("DATE_PRESALE_START", token.DATE_PRESALE_START(), 0);
 var sendContribution1Message = "Send Contribution In Presale";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + sendContribution1Message);
-var sendContribution1_1Tx = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
-var sendContribution1_2Tx = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
-var sendContribution1_3Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var sendContribution1_1Tx = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("10", "ether")});
+var sendContribution1_2Tx = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("10", "ether")});
+var sendContribution1_3Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("10", "ether")});
 while (txpool.status.pending > 0) {
 }
 printTxData("sendContribution1_1Tx", sendContribution1_1Tx);
 printTxData("sendContribution1_2Tx", sendContribution1_2Tx);
 printTxData("sendContribution1_3Tx", sendContribution1_3Tx);
 printBalances();
-failIfTxStatusError(sendContribution1_1Tx, sendContribution1Message + " - ac3 100 ETH");
-failIfTxStatusError(sendContribution1_2Tx, sendContribution1Message + " - ac4 100 ETH");
-passIfTxStatusError(sendContribution1_3Tx, sendContribution1Message + " - ac5 100 ETH - expecting failure");
+failIfTxStatusError(sendContribution1_1Tx, sendContribution1Message + " - ac3 10 ETH");
+failIfTxStatusError(sendContribution1_2Tx, sendContribution1Message + " - ac4 10 ETH");
+passIfTxStatusError(sendContribution1_3Tx, sendContribution1Message + " - ac5 10 ETH - expecting failure");
 printTokenContractDetails();
 console.log("RESULT: ");
 
@@ -192,18 +192,18 @@ waitUntil("dateIcoStart", token.dateIcoStart(), 0);
 var sendContribution2Message = "Send Contribution In Crowdsale";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + sendContribution2Message);
-var sendContribution2_1Tx = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
-var sendContribution2_2Tx = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
-var sendContribution2_3Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
+var sendContribution2_1Tx = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var sendContribution2_2Tx = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var sendContribution2_3Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
 while (txpool.status.pending > 0) {
 }
 printTxData("sendContribution2_1Tx", sendContribution2_1Tx);
 printTxData("sendContribution2_2Tx", sendContribution2_2Tx);
 printTxData("sendContribution2_3Tx", sendContribution2_3Tx);
 printBalances();
-failIfTxStatusError(sendContribution2_1Tx, sendContribution2Message + " - ac3 1000 ETH");
-failIfTxStatusError(sendContribution2_2Tx, sendContribution2Message + " - ac4 1000 ETH");
-passIfTxStatusError(sendContribution2_3Tx, sendContribution2Message + " - ac5 1000 ETH - expecting failure");
+failIfTxStatusError(sendContribution2_1Tx, sendContribution2Message + " - ac3 100 ETH");
+failIfTxStatusError(sendContribution2_2Tx, sendContribution2Message + " - ac4 100 ETH");
+passIfTxStatusError(sendContribution2_3Tx, sendContribution2Message + " - ac5 100 ETH - expecting failure");
 printTokenContractDetails();
 console.log("RESULT: ");
 
@@ -215,48 +215,24 @@ waitUntil("dateIcoEnd", token.dateIcoEnd(), 0);
 
 
 // -----------------------------------------------------------------------------
-var closeCrowdsaleMessage = "Close Crowdsale";
+var claimRefundsMessage = "Claim refunds";
 // -----------------------------------------------------------------------------
-console.log("RESULT: " + closeCrowdsaleMessage);
-var closeCrowdsale_1Tx = token.declareIcoFinished({from: contractOwnerAccount, gas: 400000});
+console.log("RESULT: " + claimRefundsMessage);
+var claimRefunds_1Tx = token.reclaimFunds({from: account3, gas: 400000});
+var claimRefunds_2Tx = token.reclaimFunds({from: account4, gas: 400000});
 while (txpool.status.pending > 0) {
 }
-var closeCrowdsale_2Tx = token.makeTradeable({from: contractOwnerAccount, gas: 400000});
-while (txpool.status.pending > 0) {
-}
-printTxData("closeCrowdsale_1Tx", closeCrowdsale_1Tx);
-printTxData("closeCrowdsale_2Tx", closeCrowdsale_2Tx);
+printTxData("claimRefunds_1Tx", claimRefunds_1Tx);
+printTxData("claimRefunds_2Tx", claimRefunds_2Tx);
 printBalances();
-failIfTxStatusError(closeCrowdsale_1Tx, closeCrowdsaleMessage + " - close crowdsale");
-failIfTxStatusError(closeCrowdsale_2Tx, closeCrowdsaleMessage + " - tradeable");
-printTokenContractDetails();
-console.log("RESULT: ");
-
-
-// -----------------------------------------------------------------------------
-var moveTokenMessage = "Move Tokens After Transfers Allowed";
-// -----------------------------------------------------------------------------
-console.log("RESULT: " + moveTokenMessage);
-var moveToken1Tx = token.transfer(account5, "1000000", {from: account3, gas: 100000});
-var moveToken2Tx = token.approve(account6,  "30000000", {from: account4, gas: 100000});
-while (txpool.status.pending > 0) {
-}
-var moveToken3Tx = token.transferFrom(account4, account7, "30000000", {from: account6, gas: 100000});
-while (txpool.status.pending > 0) {
-}
-printTxData("moveToken1Tx", moveToken1Tx);
-printTxData("moveToken2Tx", moveToken2Tx);
-printTxData("moveToken3Tx", moveToken3Tx);
-printBalances();
-failIfTxStatusError(moveToken1Tx, moveTokenMessage + " - transfer 1 token ac3 -> ac5. CHECK for movement");
-failIfTxStatusError(moveToken2Tx, moveTokenMessage + " - approve 30 tokens ac4 -> ac6");
-failIfTxStatusError(moveToken3Tx, moveTokenMessage + " - transferFrom 30 tokens ac4 -> ac7 by ac6. CHECK for movement");
+failIfTxStatusError(claimRefunds_1Tx, claimRefundsMessage + " - ac3");
+failIfTxStatusError(claimRefunds_2Tx, claimRefundsMessage + " - ac4");
 printTokenContractDetails();
 console.log("RESULT: ");
 
 
 EOF
-grep "DATA: " $TEST1OUTPUT | sed "s/DATA: //" > $DEPLOYMENTDATA
+grep "DATA: " $TEST2OUTPUT | sed "s/DATA: //" > $DEPLOYMENTDATA
 cat $DEPLOYMENTDATA
-grep "RESULT: " $TEST1OUTPUT | sed "s/RESULT: //" > $TEST1RESULTS
-cat $TEST1RESULTS
+grep "RESULT: " $TEST2OUTPUT | sed "s/RESULT: //" > $TEST2RESULTS
+cat $TEST2RESULTS
