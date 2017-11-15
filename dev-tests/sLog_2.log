@@ -1,9 +1,9 @@
-2017-11-02 21:13:16 UTC
+2017-11-14 23:54:00 UTC
 
 ========================================
 == Contract Gizer Gaming Token initialized
 == 
-At address 0xd4d97c0A74276957368e758bF50e31133ab75ec4
+At address 0xE4c7971d367fde2Be952D805cc5BeF44E1aa9B34
 
 ===============================================================================
 ============ Preliminary actions
@@ -29,44 +29,17 @@ DIFFERENCES
 [:c, :whitelist_wallet, "7df97252dba710b75a5364bf4bcddf12c9e4559d", "df8f647384ed63aa931b3c509cc07c658bd45d00"]
 
 ========================================
-== Add accounts 1-10 to whitelist
+== Add account 2 to whitelist
 == 
 
 ACTIONS
-@contract.transact_and_wait.add_to_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0xDF8f6473...
 @contract.transact_and_wait.add_to_whitelist("0xF60459Be65C7C2baa20026e46a189e44E7194C78") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x232538F43F1670f217279e630eEc2e29585B30D3") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x9a575dDcdF60053fA0Ad77B546b516A7958Cca59") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xc50D308eEc7a7dcd1D52D4471c5C57fCadB54476") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x56ea6B1064B6B3d006306A3255Ecdd22DFf02E82") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xc568697ef7dF0491a4Cee82A55c06C903e8dCF7C") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xFbC3bd9e8f3c165ea6543C70BF43b14b964c57c0") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x294f6efB477C4018b880c1DB22C7D285E9a7c88F") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x3D3CDab423c7822290Aab4345da50650a485dDad") - by 0xDF8f6473...
 
 VERIFY
-ok  val [whitelist acc1] 1 is true as expected
 ok  val [whitelist acc2] 2 is true as expected
-ok  val [whitelist acc3] 3 is true as expected
-ok  val [whitelist acc4] 4 is true as expected
-ok  val [whitelist acc5] 5 is true as expected
-ok  val [whitelist acc6] 6 is true as expected
-ok  val [whitelist acc7] 7 is true as expected
-ok  val [whitelist acc8] 8 is true as expected
-ok  val [whitelist acc9] 9 is true as expected
-ok  val [whitelist acc10] 10 is true as expected
 
 DIFFERENCES
-[1, :whitelist, false, true]
 [2, :whitelist, false, true]
-[3, :whitelist, false, true]
-[4, :whitelist, false, true]
-[5, :whitelist, false, true]
-[6, :whitelist, false, true]
-[7, :whitelist, false, true]
-[8, :whitelist, false, true]
-[9, :whitelist, false, true]
-[10, :whitelist, false, true]
 
 ===============================================================================
 ============ Before presale
@@ -108,7 +81,7 @@ DIFFERENCES
 ACTIONS
 @contract.transact_and_wait.mint_reserve("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439",100000000000) - by 0x7Df97252...
 @contract.transact_and_wait.mint_team("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439",50000000000) - by 0x7Df97252...
-CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x000000000376afb8>, 0xd4d97c0A74276957368e758bF50e31133ab75ec4, 10)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003b53f80>, 0xE4c7971d367fde2Be952D805cc5BeF44E1aa9B34, 10)
 
 VERIFY
 ok  val [balance_of acc1] 1 is 161500000000 as expected
@@ -118,9 +91,10 @@ DIFFERENCES
 [:c, :tokens_issued_total, 126500.0, 276500.0, 150000.0]
 [:c, :tokens_issued_team, 0.0, 50000.0, 50000.0]
 [:c, :tokens_issued_reserve, 0.0, 100000.0, 100000.0]
-[1, :get_balance, 1999996.323497468, 1999996.235497468, -0.088]
+[1, :get_balance, 1999842.7323657381, 1999842.6443657381, -0.088]
 [1, :balance_of, 11500.0, 161500.0, 150000.0]
 [1, :balances_locked, 0.0, 50000.0, 50000.0]
+[1, :locked_balance, 0.0, 50000.0, 50000.0]
 
 ===============================================================================
 ============ Presale
@@ -144,14 +118,16 @@ DIFFERENCES
 == 
 
 ACTIONS
-CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x000000000376afb8>, 0xd4d97c0A74276957368e758bF50e31133ab75ec4, 1)
-CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x000000000376a900>, 0xd4d97c0A74276957368e758bF50e31133ab75ec4, 10)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003b53f80>, 0xE4c7971d367fde2Be952D805cc5BeF44E1aa9B34, 1)
+CONTRIBUTE : @client.transfer(acct_#<Eth::Key:0x0000000003b51ff0>, 0xE4c7971d367fde2Be952D805cc5BeF44E1aa9B34, 10)
 
 VERIFY
 ok  diff [balance_of acc1] is 1150000000 as expected
 ok  diff [balance_of acc2] is 11500000000 as expected
 ok  val [presale_contributor_count acc]  is 2 as expected
 ok  diff [presale_contributor_count acc] is 2 as expected
+ok  val [locked_balance acc1] 1 is 51150000000 as expected
+ok  val [locked_balance acc2] 2 is 0 as expected
 
 DIFFERENCES
 [:c, :eth, 0.0, 11.0, 11.0]
@@ -159,11 +135,12 @@ DIFFERENCES
 [:c, :tokens_issued_total, 276500.0, 289150.0, 12650.0]
 [:c, :tokens_issued_crowd, 126500.0, 139150.0, 12650.0]
 [:c, :presale_contributor_count, 0, 2, 2]
-[1, :get_balance, 1999996.235497468, 1999995.232725996, -1.002771472]
+[1, :get_balance, 1999842.6443657381, 1999841.641590812, -1.002774926]
 [1, :balance_of, 161500.0, 162650.0, 1150.0]
 [1, :balances_crowd, 0.0, 1150.0, 1150.0]
 [1, :balance_eth_crowd, 0.0, 1.0, 1.0]
-[2, :get_balance, 1999889.888773808, 1999879.886662336, -10.002111472]
+[1, :locked_balance, 50000.0, 51150.0, 1150.0]
+[2, :get_balance, 1999539.775548828, 1999529.7734339018, -10.002114926]
 [2, :balance_of, 115000.0, 126500.0, 11500.0]
 [2, :balances_crowd, 0.0, 11500.0, 11500.0]
 [2, :balance_eth_crowd, 0.0, 10.0, 10.0]
@@ -213,7 +190,7 @@ VERIFY
 ok  diff [balance_of acc1] is 0 as expected
 
 DIFFERENCES
-[1, :get_balance, 1999995.232725996, 1999995.144725996, -0.088]
+[1, :get_balance, 1999841.641590812, 1999841.553590812, -0.088]
 
 ===============================================================================
 ============ After ICO
@@ -261,10 +238,11 @@ ok  diff [get_balance acc1] is ≈1000000000000000000 as expected (within 0.1 et
 DIFFERENCES
 [:c, :eth, 11.0, 10.0, -1.0]
 [:c, :tokens_issued_total, 289150.0, 288000.0, -1150.0]
-[1, :get_balance, 1999995.144725996, 1999996.1441243622, 0.999398366]
+[1, :get_balance, 1999841.553590812, 1999842.5529854381, 0.999394626]
 [1, :balance_of, 162650.0, 161500.0, -1150.0]
 [1, :balances_crowd, 1150.0, 0.0, -1150.0]
 [1, :balance_eth_crowd, 1.0, 0.0, -1.0]
+[1, :locked_balance, 51150.0, 50000.0, -1150.0]
 
 ========================================
 == owner clawback - not yet
@@ -296,6 +274,7 @@ ok  val [at_now acc]  is 1529499601 as expected
 
 DIFFERENCES
 [:c, :at_now, 1513947601, 1529499601, 15552000]
+[1, :locked_balance, 50000.0, 0.0, -50000.0]
 
 ========================================
 == owner clawback - ok
@@ -311,6 +290,22 @@ ok  diff [get_balance acc] is 10000000000000000000 as expected
 DIFFERENCES
 [:c, :eth, 10.0, 0.0, -10.0]
 
+========================================
+== Transfers - no
+== 
+
+ACTIONS
+@contract.transact_and_wait.transfer("0xF60459Be65C7C2baa20026e46a189e44E7194C78",1000000) - by 0xe02d05e0...
+@contract.transact_and_wait.transfer("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439",10000000) - by 0xF60459Be...
+
+VERIFY
+ok  diff [balance_of acc1] is 0 as expected
+ok  diff [balance_of acc2] is 0 as expected
+
+DIFFERENCES
+[1, :get_balance, 1999842.5529854381, 1999842.464985438, -0.088]
+[2, :get_balance, 1999529.7734339018, 1999529.685433902, -0.088]
+
 Errors found: 0
 
-2017-11-02 21:14:01 UTC
+2017-11-14 23:54:47 UTC

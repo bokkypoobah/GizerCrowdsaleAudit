@@ -1,9 +1,9 @@
-2017-11-02 19:39:45 UTC
+2017-11-14 23:13:52 UTC
 
 ========================================
 == Contract Gizer Gaming Token initialized
 == 
-At address 0x94Ff8ECaAFD2f010Bb1Fe148898DE4d7C4694Bf0
+At address 0x718A6A6a23518CFe982a2f751c4A42202C1bdfda
 
 ===============================================================================
 ============ Verify wallet functions
@@ -14,9 +14,9 @@ At address 0x94Ff8ECaAFD2f010Bb1Fe148898DE4d7C4694Bf0
 == 
 
 ACTIONS
-@contract.transact_and_wait.set_wallet("000c14a7cAD4d8d41cd1c375083557e05c79f476") - by 0x7Df97252...
-@contract.transact_and_wait.set_redemption_wallet("0028C11baffA46f332Ded3e7EaCe745F41b53852") - by 0x7Df97252...
-@contract.transact_and_wait.set_whitelist_wallet("DF8f647384Ed63AA931B3C509cC07c658bD45d00") - by 0x7Df97252...
+@contract.transact_and_wait.set_wallet("0x000c14a7cAD4d8d41cd1c375083557e05c79f476") - by 0x7Df97252...
+@contract.transact_and_wait.set_redemption_wallet("0x0028C11baffA46f332Ded3e7EaCe745F41b53852") - by 0x7Df97252...
+@contract.transact_and_wait.set_whitelist_wallet("0xDF8f647384Ed63AA931B3C509cC07c658bD45d00") - by 0x7Df97252...
 
 VERIFY
 ok  val [wallet acc]  is 000c14a7cad4d8d41cd1c375083557e05c79f476 as expected
@@ -38,16 +38,21 @@ DIFFERENCES
 
 ACTIONS
 @contract.transact_and_wait.add_to_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xF60459Be65C7C2baa20026e46a189e44E7194C78") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x232538F43F1670f217279e630eEc2e29585B30D3") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x9a575dDcdF60053fA0Ad77B546b516A7958Cca59") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xc50D308eEc7a7dcd1D52D4471c5C57fCadB54476") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0x56ea6B1064B6B3d006306A3255Ecdd22DFf02E82") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xc568697ef7dF0491a4Cee82A55c06C903e8dCF7C") - by 0xDF8f6473...
-@contract.transact_and_wait.add_to_whitelist("0xFbC3bd9e8f3c165ea6543C70BF43b14b964c57c0") - by 0xDF8f6473...
 
 VERIFY
 ok  val [whitelist acc1] 1 is true as expected
+
+DIFFERENCES
+[1, :whitelist, false, true]
+
+========================================
+== Add to whitelist multiple
+== 
+
+ACTIONS
+transact_and_wait.add_to_whitelist_multiple @a[2..8]
+
+VERIFY
 ok  val [whitelist acc2] 2 is true as expected
 ok  val [whitelist acc3] 3 is true as expected
 ok  val [whitelist acc4] 4 is true as expected
@@ -57,7 +62,6 @@ ok  val [whitelist acc7] 7 is true as expected
 ok  val [whitelist acc8] 8 is true as expected
 
 DIFFERENCES
-[1, :whitelist, false, true]
 [2, :whitelist, false, true]
 [3, :whitelist, false, true]
 [4, :whitelist, false, true]
@@ -67,32 +71,30 @@ DIFFERENCES
 [8, :whitelist, false, true]
 
 ========================================
-== Remove from whitelist
-== 
-
-ACTIONS
-@contract.transact_and_wait.remove_from_whitelist("0xFbC3bd9e8f3c165ea6543C70BF43b14b964c57c0") - by 0xDF8f6473...
-
-VERIFY
-ok  val [whitelist acc8] 8 is false as expected
-
-DIFFERENCES
-[8, :whitelist, true, false]
-
-========================================
-== Add to / remove from whitelist without whitelist key
+== Add to whitelist as owner (ok)
 == 
 
 ACTIONS
 @contract.transact_and_wait.add_to_whitelist("0x3D3CDab423c7822290Aab4345da50650a485dDad") - by 0x7Df97252...
-@contract.transact_and_wait.remove_from_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0x7Df97252...
 
 VERIFY
-ok  val [whitelist acc10] 10 is false as expected
-ok  val [whitelist acc1] 1 is true as expected
+ok  val [whitelist acc10] 10 is true as expected
 
 DIFFERENCES
-(no differences found)
+[10, :whitelist, false, true]
+
+========================================
+== Add to whitelist with other key (fail)
+== 
+
+ACTIONS
+@contract.transact_and_wait.add_to_whitelist("0xe02d05e0eA7bbC0f01310Cf66d112b48a75AC439") - by 0x9a575dDc...
+
+VERIFY
+ok  val [whitelist acc11] 11 is false as expected
+
+DIFFERENCES
+[4, :get_balance, 1999099.8093311922, 1999099.721331192, -0.088]
 
 ===============================================================================
 ============ Verify ICO date change function
@@ -198,4 +200,4 @@ DIFFERENCES
 
 Errors found: 0
 
-2017-11-02 19:40:19 UTC
+2017-11-14 23:14:27 UTC

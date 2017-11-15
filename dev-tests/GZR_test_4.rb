@@ -153,20 +153,31 @@ jump_to(epoch, 'ico')
 
 @sot.do
 
+###
+
+@sot.txt 'ICO - approaching 70 million tokens'
+22.times do
+  @sot.snd @k[12], 3000
+end
+@sot.snd @k[12], 2700
+@sot.exp :tokens_issued_crowd, 69990250 * @E6, nil
+@sot.do
 
 ###############################################################################
 
-@sl.h1 'After ICO'
-
-epoch = @sot.var :date_ico_end
-jump_to(epoch, 'after ico')
+@sl.h1 'ICO declared finished'
 
 ###
-
-@sot.txt 'Declaring ICO finished'
+@sot.txt 'Declare ICO finished (ok)'
 @sot.own :declare_ico_finished
 @sot.exp :ico_finished, true
 @sot.do
+
+# check lockupEndDate (should be 180 days)
+e1 = @sot.var :date_ico_start
+e2 = @sot.var :lockup_end_date
+diff = e2 - e1
+@sl.p "lockup_end_date - date_ico_start = #{diff} (#{diff/(24*3600)} days)"
 
 ###
 
