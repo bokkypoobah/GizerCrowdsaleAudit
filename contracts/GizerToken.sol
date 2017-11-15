@@ -229,15 +229,16 @@ contract GizerToken is ERC20Token {
   
   uint public constant LOCKUP_PERIOD   = 180 days;
   uint public constant CLAWBACK_PERIOD = 180 days;
-
+  uint public constant FORFEIT_PERIOD  =  30 days;
+  
   /* Private sale */
 
   uint public constant PRIVATE_SALE_MAX_ETHER = 1000 ether;
   
   /* Presale parameters */
   
-  uint public constant DATE_PRESALE_START = 1510318800; // 10-Nov-2017 13:00 UTC
-  uint public constant DATE_PRESALE_END   = 1510923600; // 17-Nov-2017 13:00 UTC
+  uint public constant DATE_PRESALE_START = 1511272800; // 21-Nov-2017 14:00 UTC
+  uint public constant DATE_PRESALE_END   = 1511359200; // 22-Nov-2017 14:00 UTC
   
   uint public constant TOKETH_PRESALE_ONE   = 1150 * E6; // presale wave 1 (  1-100)
   uint public constant TOKETH_PRESALE_TWO   = 1100 * E6; // presale wave 2 (101-500)
@@ -251,8 +252,8 @@ contract GizerToken is ERC20Token {
 
   /* ICO parameters (ICO dates can be modified by owner after deployment) */
 
-  uint public dateIcoStart = 1511528400; // 24-Nov-2017 13:00 UTC
-  uint public dateIcoEnd   = 1513947600; // 22-Dec-2017 13:00 UTC
+  uint public dateIcoStart = 1511532000; // 24-Nov-2017 14:00 UTC
+  uint public dateIcoEnd   = 1514469600; // 28-Dec-2017 14:00 UTC
 
   uint public constant TOKETH_ICO_ONE = 1050 * E6; // ICO wave 1 (1-500)
   uint public constant TOKETH_ICO_TWO = 1000 * E6; // ICO - others
@@ -302,6 +303,7 @@ contract GizerToken is ERC20Token {
   event TokensMintedTeam(address indexed _owner, uint _tokens, uint _balance, uint _tokensIssuedReserve);
   event TokensMintedReserve(address indexed _owner, uint _tokens, uint _balance, uint _tokensIssuedTeam);
   event WhitelistUpdated(address indexed _participant, bool _status);
+  event RetrieveForfeited(address indexed _participant, uint _forfeit);
   
   // Basic Functions ------------------
 
@@ -317,7 +319,6 @@ contract GizerToken is ERC20Token {
   /* Fallback */
   
   function () payable {
-    require( whitelist[msg.sender] == true );
     buyTokens();
   }
 
@@ -331,9 +332,12 @@ contract GizerToken is ERC20Token {
 
   /* Part of the balance that is locked */
   
-  function lockedBalance(address _owner) constant returns (uint balance) {
-    if (atNow() > lockupEndDate) return 0;
-    return balancesLocked[_owner];
+  function lockedBalance(address _owner) constant returns (uint locked) {
+    // team and advisors tokens subject to lockup period
+    if (atNow() < lockupEndDate) locked = balancesLocked[_owner];
+
+    // crowdsale tokens locked because address is not whitelisted
+    if (!whitelist[_owner]) locked = locked.add(balancesCrowd[_owner]);
   }
 
   /* Has the funding threshold been reached? */
@@ -353,12 +357,14 @@ contract GizerToken is ERC20Token {
     WhitelistUpdated(_participant, true);
   }  
 
-  function removeFromWhitelist(address _participant) {
+  function addToWhitelistMultiple(address[] _participants) {
     require( msg.sender == whitelistWallet || msg.sender == owner );
-    whitelist[_participant] = false;
-    WhitelistUpdated(_participant, false);
+    for (uint i = 0; i < _participants.length; i++) {
+      whitelist[_participants[i]] = true;
+      WhitelistUpdated(_participants[i], true);
+    }
   }
-  
+
   // Owner Functions ------------------
   
   /* Change the crowdsale wallet address */
@@ -487,6 +493,24 @@ contract GizerToken is ERC20Token {
   function ownerClawback() external onlyOwner {
     require( atNow() > dateIcoEnd + CLAWBACK_PERIOD );
     wallet.transfer(this.balance);
+  }
+
+  /* Retrieve tokens of crowdsale participant who has not gone through KYC in time */
+  
+  function retrieveForfeitedTokens(address _participant) external onlyOwner {
+    require( icoFinished );
+    require( atNow() > dateIcoEnd + FORFEIT_PERIOD );
+    require( !whitelist[_participant] );
+    
+    // adjusting balances
+    uint forfeit = balancesCrowd[_participant];
+    balancesCrowd[_participant] = 0;
+    balances[_participant] = balances[_participant].sub(forfeit);
+    balances[wallet] = balances[wallet].add(forfeit);
+    
+    // log
+    Transfer(_participant, wallet, forfeit);
+    RetrieveForfeited(_participant, forfeit);
   }
 
   /* Transfer out any accidentally sent ERC20 tokens */
