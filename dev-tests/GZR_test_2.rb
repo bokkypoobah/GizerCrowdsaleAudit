@@ -23,13 +23,9 @@ File.basename(__FILE__) =~ /(\d+)\.rb$/
 
 ###
 
-@sot.txt 'Add accounts 1-10 to whitelist'
-
-(1..10).each do |i|
-  @sot.add :add_to_whitelist, @whitelist_key, @a[i]
-  @sot.exp :whitelist, @a[i], true
-end
-
+@sot.txt 'Add account 2 to whitelist'
+@sot.add :add_to_whitelist, @whitelist_key, @a[2]
+@sot.exp :whitelist, @a[2], true
 @sot.do
  
 
@@ -83,8 +79,10 @@ jump_to(epoch, 'presale')
 @sot.exp :balance_of, @a[2], nil, 11500 * @E6
 @sot.exp :presale_contributor_count, 2, 2
 
-@sot.do
+@sot.exp :locked_balance, @a[1], 51150 * @E6, nil
+@sot.exp :locked_balance, @a[2], 0, nil
 
+@sot.do
 
 ###
 
@@ -161,6 +159,15 @@ jump_to(epoch, 'after lockup end')
 @sot.own :owner_clawback
 @sot.exp :get_balance, @contract_address, 0, nil
 @sot.exp :get_balance, @wallet_account, nil, 10 * @E18
+@sot.do
+
+###
+
+@sot.txt 'Transfers - no'
+@sot.add :transfer, @k[1], @a[2], 1 * @E6
+@sot.add :transfer, @k[2], @a[1], 10 * @E6
+@sot.exp :balance_of,  @a[1], nil, 0
+@sot.exp :balance_of,  @a[2], nil, 0
 @sot.do
 
 ###############################################################################

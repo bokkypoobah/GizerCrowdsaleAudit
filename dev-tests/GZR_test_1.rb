@@ -29,35 +29,39 @@ File.basename(__FILE__) =~ /(\d+)\.rb$/
 ###
 
 @sot.txt 'Add to whitelist'
+@sot.add :add_to_whitelist, @whitelist_key, @a[1]
+@sot.exp :whitelist, @a[1], true
+@sot.do
+ 
+###
 
-(1..8).each do |i|
-  @sot.add :add_to_whitelist, @whitelist_key, @a[i]
+@sot.txt 'Add to whitelist multiple'
+(2..8).each do |i|
   @sot.exp :whitelist, @a[i], true
 end
+@sot.do_begin
 
-@sot.do
+@sot.contract @whitelist_key
+@sot.contract.transact_and_wait.add_to_whitelist_multiple @a[2..8]
+@sl.p "transact_and_wait.add_to_whitelist_multiple @a[2..8]"
+
+@sot.do_end
+
  
 ###
 
-@sot.txt 'Remove from whitelist'
-
-@sot.add :remove_from_whitelist, @whitelist_key, @a[8]
-@sot.exp :whitelist, @a[8], false
-
-
-@sot.do
- 
-###
-
-@sot.txt 'Add to / remove from whitelist without whitelist key'
-
+@sot.txt 'Add to whitelist as owner (ok)'
 @sot.own :add_to_whitelist, @a[10]
-@sot.exp :whitelist, @a[10], false
-
-@sot.own :remove_from_whitelist, @a[1]
-@sot.exp :whitelist, @a[1], true
-
+@sot.exp :whitelist, @a[10], true
 @sot.do
+
+###
+
+@sot.txt 'Add to whitelist with other key (fail)'
+@sot.add :add_to_whitelist, @k[4], @a[1]
+@sot.exp :whitelist, @a[11], false
+@sot.do
+
 
 ###############################################################################
 
@@ -77,11 +81,9 @@ jump_to(epoch, 'presale')
 ###
 
 @sot.txt 'Modify ICO dates - fail (not owner)'
-
 @sot.add :update_ico_dates, @whitelist_key, 1511614800, 1514034000
 @sot.exp :date_ico_start, nil, 0
 @sot.exp :date_ico_end, nil, 0
-
 @sot.do
 
 ###
@@ -91,17 +93,14 @@ jump_to(epoch, 'presale')
 @sot.add :update_ico_dates, @whitelist_key, 1514034000, 1511614800
 @sot.exp :date_ico_start, nil, 0
 @sot.exp :date_ico_end, nil, 0
-
 @sot.do
 
 ###
 
 @sot.txt 'Modify ICO dates - fail (start is before now)'
-
 @sot.own :update_ico_dates, 1510318800, 1513947600
 @sot.exp :date_ico_start, nil, 0
 @sot.exp :date_ico_end, nil, 0
-
 @sot.do
 
 ###
@@ -111,7 +110,6 @@ jump_to(epoch, 'presale')
 @sot.own :update_ico_dates, 1511614800, 1514034000
 @sot.exp :date_ico_start, nil, 86400
 @sot.exp :date_ico_end, nil, 86400
-
 @sot.do
 
 ###
@@ -120,11 +118,9 @@ epoch = @sot.var :date_ico_start
 jump_to(epoch, 'ico')
 
 @sot.txt 'Modify ICO dates - fail (ico already started)'
-
 @sot.own :update_ico_dates, 1511614800 + 1000, 1514034000 + 1000
 @sot.exp :date_ico_start, nil, 0
 @sot.exp :date_ico_end, nil, 0
-
 @sot.do
 
 ###############################################################################
