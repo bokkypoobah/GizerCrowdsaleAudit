@@ -11,9 +11,7 @@ pragma solidity ^0.4.17;
 
 // ----------------------------------------------------------------------------
 //
-// SafeMath
-//
-// (div not needed but kept for completeness' sake)
+// SafeMath (div not needed but kept for completeness' sake)
 //
 // ----------------------------------------------------------------------------
 
@@ -73,14 +71,14 @@ contract Owned {
   function transferOwnership(address _newOwner) public onlyOwner {
     require( _newOwner != owner );
     require( _newOwner != address(0x0) );
-    OwnershipTransferProposed(owner, _newOwner);
     newOwner = _newOwner;
+    OwnershipTransferProposed(owner, _newOwner);
   }
 
   function acceptOwnership() public {
-    require(msg.sender == newOwner);
-    OwnershipTransferred(owner, newOwner);
+    require( msg.sender == newOwner );
     owner = newOwner;
+    OwnershipTransferred(owner, newOwner);
   }
 
 }
@@ -102,12 +100,12 @@ contract ERC20Interface {
 
   // Functions ------------------------
 
-  function totalSupply() public constant returns (uint);
-  function balanceOf(address _owner) public constant returns (uint balance);
+  function totalSupply() public view returns (uint);
+  function balanceOf(address _owner) public view returns (uint balance);
   function transfer(address _to, uint _value) public returns (bool success);
   function transferFrom(address _from, address _to, uint _value) public returns (bool success);
   function approve(address _spender, uint _value) public returns (bool success);
-  function allowance(address _owner, address _spender) public constant returns (uint remaining);
+  function allowance(address _owner, address _spender) public view returns (uint remaining);
 
 }
 
@@ -130,13 +128,13 @@ contract ERC20Token is ERC20Interface, Owned {
 
   /* Total token supply */
 
-  function totalSupply() public constant returns (uint) {
+  function totalSupply() public view returns (uint) {
     return tokensIssuedTotal;
   }
 
   /* Get the account balance for an address */
 
-  function balanceOf(address _owner) public constant returns (uint balance) {
+  function balanceOf(address _owner) public view returns (uint balance) {
     return balances[_owner];
   }
 
@@ -190,7 +188,7 @@ contract ERC20Token is ERC20Interface, Owned {
   /* Returns the amount of tokens approved by the owner */
   /* that can be transferred by spender */
 
-  function allowance(address _owner, address _spender) public constant returns (uint remaining) {
+  function allowance(address _owner, address _spender) public view returns (uint remaining) {
     return allowed[_owner][_spender];
   }
 
@@ -241,7 +239,7 @@ contract GizerTokenPresale is ERC20Token {
   uint public constant CUTOFF_PRESALE_ONE = 100; // last contributor wave 1
   uint public constant CUTOFF_PRESALE_TWO = 500; // last contributor wave 2
 
-  uint public constant FUNDING_PRESALE_MAX = 2500 ether;
+  uint public constant FUNDING_PRESALE_MAX = 2250 ether;
 
   /* Presale variables */
 
@@ -290,7 +288,7 @@ contract GizerTokenPresale is ERC20Token {
   
   /* What time is it? */
   
-  function atNow() public constant returns (uint) {
+  function atNow() public view returns (uint) {
     return now;
   }
 
