@@ -13,6 +13,9 @@ This audit has been conducted on Gizer's source code in commits
 [9ed59cc](https://github.com/GizerInc/crowdsale/commit/9ed59cc458a0b1f9c369f51f609c657f199b355a) and
 [50cfcec](https://github.com/GizerInc/crowdsale/commit/50cfcec87a17a7a67012b72c89973aa78e1924c6).
 
+The Presale contract was separated out in commit
+[1bff114](https://github.com/GizerInc/crowdsale/commit/1bff1142c52c416e077a03aa32fe33450e0e842d).
+
 No potential vulnerabilities have been identified in the crowdsale and token contract.
 
 <br />
@@ -38,6 +41,8 @@ No potential vulnerabilities have been identified in the crowdsale and token con
 <hr />
 
 ## Recommendations
+
+### First Review
 
 * **LOW IMPORTANCE** Please reformat the code and comments to make it easier to read the code. Some inconsistencies:
 
@@ -116,6 +121,22 @@ No potential vulnerabilities have been identified in the crowdsale and token con
   > THOUGH The contract itself shouldn't enforce it, ...
 
   * [x] Fixed in [50cfcec](https://github.com/GizerInc/crowdsale/commit/50cfcec87a17a7a67012b72c89973aa78e1924c6)
+
+<br />
+
+## New Presale Only Contract
+
+Added in commit [1bff114](https://github.com/GizerInc/crowdsale/commit/1bff1142c52c416e077a03aa32fe33450e0e842d).
+
+* **LOW IMPORTANCE** `Owned.acceptOwnership()` will log the event when `owner` has already been assigned to `newOwner`
+
+* **LOW IMPORTANCE** The `require(...)` statements in `transfer(...)` and `transferFrom(...)` are redundant as the
+  *SafeMath* library function will `REVERT` if the numbers cause a problem. It is your preference whether the `require(...)`
+  statements are used or not
+
+* **LOW IMPORTANCE** `privateSaleContribution(...)` will be called by the owner to add contribution entries without any ethers
+  being sent. This function calls `issueTokens(...)` which executes `wallet.transfer(this.balance);` at the end. Place a check
+  `if (this.balance > 0) { ... }` around the `wallet.transfer(this.balance);` statement
 
 <br />
 
@@ -217,12 +238,25 @@ Details of the testing environment can be found in [test](test).
 
 ## Code Review
 
+### First Review
+
 * [ ] [code-review/GizerToken.md](code-review/GizerToken.md)
   * [x] library SafeMath
   * [x] contract Owned 
   * [x] contract ERC20Interface 
   * [x] contract ERC20Token is ERC20Interface, Owned 
   * [x] contract GizerToken is ERC20Token 
+
+<br />
+
+### Second Review With The Presale Only Contract
+
+* [x] [code-review/GizerTokenPresale.md](code-review/GizerTokenPresale.md)
+  * [x] library SafeMath
+  * [x] contract Owned
+  * [x] contract ERC20Interface
+  * [x] contract ERC20Token is ERC20Interface, Owned
+  * [x] contract GizerTokenPresale is ERC20Token
 
 <br />
 

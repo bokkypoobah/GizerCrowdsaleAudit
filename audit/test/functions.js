@@ -121,10 +121,12 @@ function printTxData(name, txId) {
   var gasPrice = tx.gasPrice;
   var gasCostETH = tx.gasPrice.mul(txReceipt.gasUsed).div(1e18);
   var gasCostUSD = gasCostETH.mul(ethPriceUSD);
-  console.log("RESULT: " + name + " status=" + txReceipt.status + " gas=" + tx.gas +
-      " gasUsed=" + txReceipt.gasUsed + " costETH=" + gasCostETH + " costUSD=" + gasCostUSD +
-      " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + gasPrice + " block=" + 
-      txReceipt.blockNumber + " txIx=" + tx.transactionIndex + " txId=" + txId);
+  var block = eth.getBlock(txReceipt.blockNumber);
+  console.log("RESULT: " + name + " status=" + txReceipt.status + (txReceipt.status == 0 ? " Failure" : " Success") + " gas=" + tx.gas +
+    " gasUsed=" + txReceipt.gasUsed + " costETH=" + gasCostETH + " costUSD=" + gasCostUSD +
+    " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + web3.fromWei(gasPrice, "gwei") + " gwei block=" + 
+    txReceipt.blockNumber + " txIx=" + tx.transactionIndex + " txId=" + txId +
+    " @ " + block.timestamp + " " + new Date(block.timestamp * 1000).toUTCString());
 }
 
 function assertEtherBalance(account, expectedBalance) {
@@ -216,6 +218,19 @@ function waitUntil(message, unixTime, addSeconds) {
   while ((new Date()).getTime() <= time.getTime()) {
   }
   console.log("RESULT: Waited until '" + message + "' at at " + unixTime + "+" + addSeconds + "s =" + time + " now=" + new Date());
+  console.log("RESULT: ");
+}
+
+
+//-----------------------------------------------------------------------------
+//Wait until some block
+//-----------------------------------------------------------------------------
+function waitUntilBlock(message, block, addBlocks) {
+  var b = parseInt(block) + parseInt(addBlocks);
+  console.log("RESULT: Waiting until '" + message + "' #" + block + "+" + addBlocks + " = #" + b + " currentBlock=" + eth.blockNumber);
+  while (eth.blockNumber <= b) {
+  }
+  console.log("RESULT: Waited until '" + message + "' #" + block + "+" + addBlocks + " = #" + b + " currentBlock=" + eth.blockNumber);
   console.log("RESULT: ");
 }
 
