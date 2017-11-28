@@ -1,0 +1,2 @@
+libAddress=0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1
+tokenAddress=0x44c776a7d3eb990be59458a3488066f2dc12492e

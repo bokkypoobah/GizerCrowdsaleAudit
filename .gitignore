@@ -8,4 +8,8 @@ audit/test/testchain/geth
 audit/test/testchain/geth.ipc
 audit/test/testchain/history
 audit/test/contracts
+audit/presaleTest/testchain/geth
+audit/presaleTest/testchain/geth.ipc
+audit/presaleTest/testchain/history
+audit/presaleTest/contracts
 private
