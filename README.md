@@ -1,8 +1,13 @@
 # Gizer Gaming Token
 
-Gizer Gaming Tokens (GZR) will be used to obtain profile item that can be attached to a user's Gizer Global Identity.
+Gizer's Tokens (GZR) are scarce building blocks in the Gizer ecosystem for users to customize and advance their profile and brand while creating better user experience on the network.
 
-For more information, visit https://gizer.io/
+For more information, visit https://tokensale.gizer.io/
+
+# Sale
+
+Gizer's Presale will be held on November 30 at 14:00 UTC.
+This is a separate smart contract from Gizer's public sale offering.
 
 ## Audit
 

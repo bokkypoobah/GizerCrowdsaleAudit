@@ -53,7 +53,7 @@ contract Owned {
   // Events ---------------------------
 
   event OwnershipTransferProposed(address indexed _from, address indexed _to);
-  event OwnershipTransferred(address indexed _from, address indexed _to);
+  event OwnershipTransferred(address indexed _to);
 
   // Modifier -------------------------
 
@@ -78,7 +78,7 @@ contract Owned {
   function acceptOwnership() public {
     require( msg.sender == newOwner );
     owner = newOwner;
-    OwnershipTransferred(owner, newOwner);
+    OwnershipTransferred(owner);
   }
 
 }
@@ -157,7 +157,7 @@ contract ERC20Token is ERC20Interface, Owned {
 
   function approve(address _spender, uint _amount) public returns (bool success) {
     // approval amount cannot exceed the balance
-    require ( balances[msg.sender] >= _amount );
+    require( balances[msg.sender] >= _amount );
       
     // update allowed amount
     allowed[msg.sender][_spender] = _amount;
@@ -225,7 +225,7 @@ contract GizerTokenPresale is ERC20Token {
   
   /* Private sale */
 
-  uint public constant PRIVATE_SALE_MAX_ETHER = 1000 ether;
+  uint public constant PRIVATE_SALE_MAX_ETHER = 2300 ether;
   
   /* Presale parameters */
   
@@ -239,7 +239,7 @@ contract GizerTokenPresale is ERC20Token {
   uint public constant CUTOFF_PRESALE_ONE = 100; // last contributor wave 1
   uint public constant CUTOFF_PRESALE_TWO = 500; // last contributor wave 2
 
-  uint public constant FUNDING_PRESALE_MAX = 2250 ether;
+  uint public constant FUNDING_PRESALE_MAX = 2300 ether;
 
   /* Presale variables */
 
@@ -335,7 +335,6 @@ contract GizerTokenPresale is ERC20Token {
   /* Burn tokens held by owner */
   
   function burnOwnerTokens() public onlyOwner {
-    
     // check if there is anything to burn
     require( balances[owner] > 0 );
     
@@ -362,7 +361,6 @@ contract GizerTokenPresale is ERC20Token {
   /* Accept ETH during presale (called by default function) */
 
   function buyTokens() private {
-
     // initial checks
     require( atNow() > DATE_PRESALE_START && atNow() < DATE_PRESALE_END );
     require( msg.value >= MIN_CONTRIBUTION && msg.value <= MAX_CONTRIBUTION );
@@ -410,7 +408,7 @@ contract GizerTokenPresale is ERC20Token {
     TokensIssued(_account, _tokens, balances[_account], tokensIssuedCrowd, _isPrivateSale, _amount);
 
     // transfer Ether out
-    wallet.transfer(this.balance);
+    if (this.balance > 0) wallet.transfer(this.balance);
 
   }
 
