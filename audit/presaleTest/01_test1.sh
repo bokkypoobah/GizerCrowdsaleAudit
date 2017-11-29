@@ -201,77 +201,100 @@ passIfTxStatusError(sendContribution1_4Tx, sendContribution1Message + " - ac5 10
 printTokenContractDetails();
 console.log("RESULT: ");
 
-exit;
 
-// -----------------------------------------------------------------------------
-// Wait for dateIcoStart start
-// -----------------------------------------------------------------------------
-waitUntil("dateIcoStart", token.dateIcoStart(), 0);
+waitUntil("DATE_PRESALE_END", token.DATE_PRESALE_END(), 0);
 
 
 // -----------------------------------------------------------------------------
-var sendContribution2Message = "Send Contribution In Crowdsale";
+var sendContribution1Message = "Send Contribution After Presale";
 // -----------------------------------------------------------------------------
-console.log("RESULT: " + sendContribution2Message);
-var sendContribution2_1Tx = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
-var sendContribution2_2Tx = eth.sendTransaction({from: account4, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
-var sendContribution2_3Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("1000", "ether")});
+console.log("RESULT: " + sendContribution1Message);
+var sendContribution1_1Tx = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("1", "ether")});
 while (txpool.status.pending > 0) {
 }
-printTxData("sendContribution2_1Tx", sendContribution2_1Tx);
-printTxData("sendContribution2_2Tx", sendContribution2_2Tx);
-printTxData("sendContribution2_3Tx", sendContribution2_3Tx);
 printBalances();
-failIfTxStatusError(sendContribution2_1Tx, sendContribution2Message + " - ac3 1000 ETH");
-failIfTxStatusError(sendContribution2_2Tx, sendContribution2Message + " - ac4 1000 ETH");
-passIfTxStatusError(sendContribution2_3Tx, sendContribution2Message + " - ac5 1000 ETH - expecting failure");
+printTxData("sendContribution1_1Tx", sendContribution1_1Tx);
+passIfTxStatusError(sendContribution1_1Tx, sendContribution1Message + " - ac3 1 ETH - Expecting failure as sale over");
 printTokenContractDetails();
 console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-// Wait for dateIcoEnd start
+var moveToken1_Message = "Move Tokens After Presale - To Redemption Wallet";
 // -----------------------------------------------------------------------------
-waitUntil("dateIcoEnd", token.dateIcoEnd(), 0);
-
-
-// -----------------------------------------------------------------------------
-var closeCrowdsaleMessage = "Close Crowdsale";
-// -----------------------------------------------------------------------------
-console.log("RESULT: " + closeCrowdsaleMessage);
-var closeCrowdsale_1Tx = token.declareIcoFinished({from: contractOwnerAccount, gas: 400000});
+console.log("RESULT: " + moveToken1_Message);
+var moveToken1_1Tx = token.transfer(redemptionWallet, "1000000", {from: account3, gas: 100000});
+var moveToken1_2Tx = token.approve(account6,  "30000000", {from: account4, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-var closeCrowdsale_2Tx = token.makeTradeable({from: contractOwnerAccount, gas: 400000});
+var moveToken1_3Tx = token.transferFrom(account4, redemptionWallet, "30000000", {from: account6, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-printTxData("closeCrowdsale_1Tx", closeCrowdsale_1Tx);
-printTxData("closeCrowdsale_2Tx", closeCrowdsale_2Tx);
 printBalances();
-failIfTxStatusError(closeCrowdsale_1Tx, closeCrowdsaleMessage + " - close crowdsale");
-failIfTxStatusError(closeCrowdsale_2Tx, closeCrowdsaleMessage + " - tradeable");
+printTxData("moveToken1_1Tx", moveToken1_1Tx);
+printTxData("moveToken1_2Tx", moveToken1_2Tx);
+printTxData("moveToken1_3Tx", moveToken1_3Tx);
+failIfTxStatusError(moveToken1_1Tx, moveToken1_Message + " - transfer 1 token ac3 -> redemptionWallet. CHECK for movement");
+failIfTxStatusError(moveToken1_2Tx, moveToken1_Message + " - approve 30 tokens ac4 -> ac6");
+failIfTxStatusError(moveToken1_3Tx, moveToken1_Message + " - transferFrom 30 tokens ac4 -> redemptionWallet by ac6. CHECK for movement");
 printTokenContractDetails();
 console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var moveTokenMessage = "Move Tokens After Transfers Allowed";
+var moveToken2_Message = "Move Tokens After Presale - Not To Redemption Wallet";
 // -----------------------------------------------------------------------------
-console.log("RESULT: " + moveTokenMessage);
-var moveToken1Tx = token.transfer(account5, "1000000", {from: account3, gas: 100000});
-var moveToken2Tx = token.approve(account6,  "30000000", {from: account4, gas: 100000});
+console.log("RESULT: " + moveToken2_Message);
+var moveToken2_1Tx = token.transfer(account5, "1000000", {from: account3, gas: 100000});
+var moveToken2_2Tx = token.approve(account6,  "30000000", {from: account4, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-var moveToken3Tx = token.transferFrom(account4, account7, "30000000", {from: account6, gas: 100000});
+var moveToken2_3Tx = token.transferFrom(account4, account7, "30000000", {from: account6, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-printTxData("moveToken1Tx", moveToken1Tx);
-printTxData("moveToken2Tx", moveToken2Tx);
-printTxData("moveToken3Tx", moveToken3Tx);
 printBalances();
-failIfTxStatusError(moveToken1Tx, moveTokenMessage + " - transfer 1 token ac3 -> ac5. CHECK for movement");
-failIfTxStatusError(moveToken2Tx, moveTokenMessage + " - approve 30 tokens ac4 -> ac6");
-failIfTxStatusError(moveToken3Tx, moveTokenMessage + " - transferFrom 30 tokens ac4 -> ac7 by ac6. CHECK for movement");
+printTxData("moveToken2_1Tx", moveToken2_1Tx);
+printTxData("moveToken2_2Tx", moveToken2_2Tx);
+printTxData("moveToken2_3Tx", moveToken2_3Tx);
+passIfTxStatusError(moveToken2_1Tx, moveToken2_Message + " - transfer 1 token ac3 -> ac5. Expecting failure");
+failIfTxStatusError(moveToken2_2Tx, moveToken2_Message + " - approve 30 tokens ac4 -> ac6");
+passIfTxStatusError(moveToken2_3Tx, moveToken2_Message + " - transferFrom 30 tokens ac4 -> ac7 by ac6. Expecting failure");
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var freezeMessage = "Freeze Tokens";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + freezeMessage);
+var freeze1Tx = token.freezeTokens({from: contractOwnerAccount, gas: 400000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+printTxData("freeze1Tx", freeze1Tx);
+failIfTxStatusError(freeze1Tx, freezeMessage + " - freezeTokens()");
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var moveToken3_Message = "Move Tokens After Presale - To Redemption Wallet";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + moveToken3_Message);
+var moveToken3_1Tx = token.transfer(redemptionWallet, "1000000", {from: account3, gas: 100000});
+var moveToken3_2Tx = token.approve(account6,  "30000000", {from: account4, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+var moveToken3_3Tx = token.transferFrom(account4, redemptionWallet, "30000000", {from: account6, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+printTxData("moveToken3_1Tx", moveToken3_1Tx);
+printTxData("moveToken3_2Tx", moveToken3_2Tx);
+printTxData("moveToken3_3Tx", moveToken3_3Tx);
+passIfTxStatusError(moveToken3_1Tx, moveToken3_Message + " - transfer 1 token ac3 -> redemptionWallet. Expecting failure as tokens frozen");
+failIfTxStatusError(moveToken3_2Tx, moveToken3_Message + " - approve 30 tokens ac4 -> ac6");
+passIfTxStatusError(moveToken3_3Tx, moveToken3_Message + " - transferFrom 30 tokens ac4 -> redemptionWallet by ac6. Expecting failure as tokens frozen");
 printTokenContractDetails();
 console.log("RESULT: ");
 

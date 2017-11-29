@@ -1,6 +1,6 @@
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        6.000000000000000000           0.000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        3.000000000000000000           0.000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
@@ -20,7 +20,7 @@
 Deploy SafeMath Library
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       12.000137340000000000           0.000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        9.000137340000000000           0.000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.000137340000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
@@ -32,19 +32,19 @@ Deploy SafeMath Library
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Redemption Wallet
-12 0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1        0.000000000000000000           0.000000 Lib SafeMath
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                     0.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 
-libAddress=0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1 status=0x1 Success gas=6000000 gasUsed=137340 costETH=0.00013734 costUSD=0.0645250788 @ ETH/USD=469.82 gasPrice=1 gwei block=1715 txIx=0 txId=0x4821b0e883d4f1bd3d17eb13ac4c15a223dad9a1d0aa7229cdd469905f5d71a6 @ 1511887717 Tue, 28 Nov 2017 16:48:37 UTC
+libAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 status=0x1 Success gas=6000000 gasUsed=137340 costETH=0.00013734 costUSD=0.0645250788 @ ETH/USD=469.82 gasPrice=1 gwei block=4 txIx=0 txId=0xfa51fa81cd48e05f192c9f1cd9f77342bea184760db8fb3c2a689b2ec29b2909 @ 1511956184 Wed, 29 Nov 2017 11:49:44 UTC
 PASS Deploy SafeMath Library
 
 Deploy Crowdsale/Token Contract
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       18.002375141000000000           0.000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002375141000000000           0.000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.002370917000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002370917000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4
@@ -55,15 +55,15 @@ Deploy Crowdsale/Token Contract
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Redemption Wallet
-12 0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1        0.000000000000000000           0.000000 Lib SafeMath
-13 0x44c776a7d3eb990be59458a3488066f2dc12492e        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                     0.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 
-tokenAddress=0x44c776a7d3eb990be59458a3488066f2dc12492e status=0x1 Success gas=6000000 gasUsed=2237801 costETH=0.002237801 costUSD=1.05136366582 @ ETH/USD=469.82 gasPrice=1 gwei block=1717 txIx=0 txId=0x6d2ffec74447333dd402528d66722e4e8b596f583355f31b0ebcd7a9dfdb5579 @ 1511887720 Tue, 28 Nov 2017 16:48:40 UTC
+tokenAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d status=0x1 Success gas=6000000 gasUsed=2233577 costETH=0.002233577 costUSD=1.04937914614 @ ETH/USD=469.82 gasPrice=1 gwei block=6 txIx=0 txId=0x28312b27cf8003ed0f5004e38aef1ecd5c452f7d0cc8027a3c48b080e06a00d1 @ 1511956186 Wed, 29 Nov 2017 11:49:46 UTC
 PASS Deploy Crowdsale/Token Contract
-tokenContractAddress=0x44c776a7d3eb990be59458a3488066f2dc12492e
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.name=Gizer Gaming Presale Token
@@ -74,15 +74,15 @@ token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.redemptionWallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.MIN_CONTRIBUTION=0.1
 token.MAX_CONTRIBUTION=100
-token.PRIVATE_SALE_MAX_ETHER=1000
-token.DATE_PRESALE_START=1511887761 Tue, 28 Nov 2017 16:49:21 UTC
-token.DATE_PRESALE_END=1511887776 Tue, 28 Nov 2017 16:49:36 UTC
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
 token.TOKETH_PRESALE_ONE=1150000000
 token.TOKETH_PRESALE_TWO=1100000000
 token.TOKETH_PRESALE_THREE=1075000000
 token.CUTOFF_PRESALE_ONE=100
 token.CUTOFF_PRESALE_TWO=500
-token.FUNDING_PRESALE_MAX=2250
+token.FUNDING_PRESALE_MAX=2300
 token.etherReceivedPrivate=0
 token.etherReceivedCrowd=0
 token.tokensIssuedPrivate=0
@@ -94,8 +94,8 @@ token.tokensFrozen=false
 Setup
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       24.002435033000000000           0.000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002435033000000000           0.000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       21.002430809000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002430809000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000 Account #3
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000 Account #4
@@ -106,17 +106,17 @@ Setup
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Redemption Wallet
-12 0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1        0.000000000000000000           0.000000 Lib SafeMath
-13 0x44c776a7d3eb990be59458a3488066f2dc12492e        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                     0.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 
-setup1Tx status=0x1 Success gas=400000 gasUsed=30085 costETH=0.000030085 costUSD=0.0141345347 @ ETH/USD=469.82 gasPrice=1 gwei block=1719 txIx=0 txId=0xd5fb6de0a2fbd9c3b1d85cca701e257a8622c974a1b1c48efb0bd33ed205af1c @ 1511887742 Tue, 28 Nov 2017 16:49:02 UTC
-setup2Tx status=0x1 Success gas=400000 gasUsed=29807 costETH=0.000029807 costUSD=0.01400392474 @ ETH/USD=469.82 gasPrice=1 gwei block=1719 txIx=1 txId=0xa28736f2e21309683e675f6144b9971b975a2616bddbc914639ecbd935bdbf25 @ 1511887742 Tue, 28 Nov 2017 16:49:02 UTC
+setup1Tx status=0x1 Success gas=400000 gasUsed=30085 costETH=0.000030085 costUSD=0.0141345347 @ ETH/USD=469.82 gasPrice=1 gwei block=8 txIx=0 txId=0x7e801f4c3f4a07378f3ba4a679e082d500038626d3d8ab7cd7d9c40838b7e47c @ 1511956198 Wed, 29 Nov 2017 11:49:58 UTC
+setup2Tx status=0x1 Success gas=400000 gasUsed=29807 costETH=0.000029807 costUSD=0.01400392474 @ ETH/USD=469.82 gasPrice=1 gwei block=8 txIx=1 txId=0x1df72184d864189192710693dd06e6988f28037a080227d26e5f3b9f51052419 @ 1511956198 Wed, 29 Nov 2017 11:49:58 UTC
 PASS Setup - setWallet(...)
 PASS Setup - setRedemptionWallet(...)
-tokenContractAddress=0x44c776a7d3eb990be59458a3488066f2dc12492e
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.name=Gizer Gaming Presale Token
@@ -127,15 +127,15 @@ token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
 token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
 token.MIN_CONTRIBUTION=0.1
 token.MAX_CONTRIBUTION=100
-token.PRIVATE_SALE_MAX_ETHER=1000
-token.DATE_PRESALE_START=1511887761 Tue, 28 Nov 2017 16:49:21 UTC
-token.DATE_PRESALE_END=1511887776 Tue, 28 Nov 2017 16:49:36 UTC
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
 token.TOKETH_PRESALE_ONE=1150000000
 token.TOKETH_PRESALE_TWO=1100000000
 token.TOKETH_PRESALE_THREE=1075000000
 token.CUTOFF_PRESALE_ONE=100
 token.CUTOFF_PRESALE_TWO=500
-token.FUNDING_PRESALE_MAX=2250
+token.FUNDING_PRESALE_MAX=2300
 token.etherReceivedPrivate=0
 token.etherReceivedCrowd=0
 token.tokensIssuedPrivate=0
@@ -143,14 +143,14 @@ token.tokensIssuedCrowd=0
 token.tokensBurnedTotal=0
 token.presaleContributorCount=0
 token.tokensFrozen=false
-WalletUpdated 0 #1719 {"_newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
-RedemptionWalletUpdated 0 #1719 {"_newRedemptionWallet":"0xabba43e7594e3b76afb157989e93c6621497fd4b"}
+WalletUpdated 0 #8 {"_newWallet":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976"}
+RedemptionWalletUpdated 0 #8 {"_newRedemptionWallet":"0xabba43e7594e3b76afb157989e93c6621497fd4b"}
 
 Send Private Sale Contribution
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.002724669000000000           0.000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002724669000000000           0.000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       27.002720113000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002720113000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000      115000.000000 Account #3
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000      230000.000000 Account #4
@@ -161,17 +161,17 @@ Send Private Sale Contribution
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Redemption Wallet
-12 0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1        0.000000000000000000           0.000000 Lib SafeMath
-13 0x44c776a7d3eb990be59458a3488066f2dc12492e        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                345000.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 
-sendPrivateSaleContrib1_1Tx status=0x1 Success gas=400000 gasUsed=174818 costETH=0.000174818 costUSD=0.08213299276 @ ETH/USD=469.82 gasPrice=1 gwei block=1721 txIx=0 txId=0x817a95df3efaf1ad5bcf5e45ddafd0dc18bf52f47cc32942ac40e9139211a400 @ 1511887770 Tue, 28 Nov 2017 16:49:30 UTC
-sendPrivateSaleContrib1_2Tx status=0x1 Success gas=400000 gasUsed=114818 costETH=0.000114818 costUSD=0.05394379276 @ ETH/USD=469.82 gasPrice=1 gwei block=1721 txIx=1 txId=0x6bad0c71e629c473fa77b4a708916252362a123c5882aa6859ca32f66064b3dd @ 1511887770 Tue, 28 Nov 2017 16:49:30 UTC
+sendPrivateSaleContrib1_1Tx status=0x1 Success gas=400000 gasUsed=174652 costETH=0.000174652 costUSD=0.08205500264 @ ETH/USD=469.82 gasPrice=1 gwei block=10 txIx=0 txId=0x41d17c74c89f9ca4449f5077589d986f86122612b7fa71795579b94bc71d19ff @ 1511956207 Wed, 29 Nov 2017 11:50:07 UTC
+sendPrivateSaleContrib1_2Tx status=0x1 Success gas=400000 gasUsed=114652 costETH=0.000114652 costUSD=0.05386580264 @ ETH/USD=469.82 gasPrice=1 gwei block=10 txIx=1 txId=0x408c32feb145ee608139cb6832c5a93665f5c14854cc82f82b3506d794bafb61 @ 1511956207 Wed, 29 Nov 2017 11:50:07 UTC
 PASS Send Private Sale Contribution - ac3 100 ETH
 PASS Send Private Sale Contribution - ac4 200 ETH
-tokenContractAddress=0x44c776a7d3eb990be59458a3488066f2dc12492e
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.name=Gizer Gaming Presale Token
@@ -182,15 +182,15 @@ token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
 token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
 token.MIN_CONTRIBUTION=0.1
 token.MAX_CONTRIBUTION=100
-token.PRIVATE_SALE_MAX_ETHER=1000
-token.DATE_PRESALE_START=1511887761 Tue, 28 Nov 2017 16:49:21 UTC
-token.DATE_PRESALE_END=1511887776 Tue, 28 Nov 2017 16:49:36 UTC
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
 token.TOKETH_PRESALE_ONE=1150000000
 token.TOKETH_PRESALE_TWO=1100000000
 token.TOKETH_PRESALE_THREE=1075000000
 token.CUTOFF_PRESALE_ONE=100
 token.CUTOFF_PRESALE_TWO=500
-token.FUNDING_PRESALE_MAX=2250
+token.FUNDING_PRESALE_MAX=2300
 token.etherReceivedPrivate=300
 token.etherReceivedCrowd=0
 token.tokensIssuedPrivate=345000
@@ -198,42 +198,42 @@ token.tokensIssuedCrowd=345000
 token.tokensBurnedTotal=0
 token.presaleContributorCount=0
 token.tokensFrozen=false
-Transfer 0 #1721: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _value=115000
-Transfer 1 #1721: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 _value=230000
+Transfer 0 #10: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _value=115000
+Transfer 1 #10: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 _value=230000
 
-Waiting until 'DATE_PRESALE_START' at 1511887761+0s =Wed, 29 Nov 2017 03:49:22 AEDT now=Wed, 29 Nov 2017 03:49:33 AEDT
-Waited until 'DATE_PRESALE_START' at at 1511887761+0s =Wed, 29 Nov 2017 03:49:22 AEDT now=Wed, 29 Nov 2017 03:49:33 AEDT
+Waiting until 'DATE_PRESALE_START' at 1511956242+0s =Wed, 29 Nov 2017 22:50:43 AEDT now=Wed, 29 Nov 2017 22:50:13 AEDT
+Waited until 'DATE_PRESALE_START' at at 1511956242+0s =Wed, 29 Nov 2017 22:50:43 AEDT now=Wed, 29 Nov 2017 22:50:43 AEDT
 
 Send Contribution In Presale
  # Account                                             EtherBalanceChange              Token Name
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       36.003100799000000000           0.000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002724669000000000           0.000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       72.003096480000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002720113000000000           0.000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976      300.000000000000000000           0.000000 Account #2 - Wallet
- 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000133297000000000      230000.000000 Account #3
- 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000103297000000000      345000.000000 Account #4
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000118297000000000      115000.000000 Account #5
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000103376000000000      230000.000000 Account #3
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000103376000000000      345000.000000 Account #4
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000148376000000000      115000.000000 Account #5
  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000021239000000000           0.000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Redemption Wallet
-12 0x66f6f1da92a72acaeed79e6a19a5ccb9fb8fe1a1        0.000000000000000000           0.000000 Lib SafeMath
-13 0x44c776a7d3eb990be59458a3488066f2dc12492e        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
                                                                                690000.000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------ ---------------------------
 
-sendContribution1_1Tx status=0x1 Success gas=400000 gasUsed=133297 costETH=0.000133297 costUSD=0.06262559654 @ ETH/USD=469.82 gasPrice=1 gwei block=1723 txIx=0 txId=0x2e9000bfe9c29d2076c83737e2a4c7c7b30501e050a33b2040605e1d1183097d @ 1511887773 Tue, 28 Nov 2017 16:49:33 UTC
-sendContribution1_2Tx status=0x1 Success gas=400000 gasUsed=103297 costETH=0.000103297 costUSD=0.04853099654 @ ETH/USD=469.82 gasPrice=1 gwei block=1723 txIx=3 txId=0xd9e3141d2bb76c0a38b89e648761b233f2f9f3d4bdc079e1a84c6d959bebd35b @ 1511887773 Tue, 28 Nov 2017 16:49:33 UTC
-sendContribution1_3Tx status=0x1 Success gas=400000 gasUsed=118297 costETH=0.000118297 costUSD=0.05557829654 @ ETH/USD=469.82 gasPrice=1 gwei block=1723 txIx=2 txId=0x160f1bbbfa219d8a11eaa89dcfeef4871af08c45cabf6f02cfb3544b2fea00fb @ 1511887773 Tue, 28 Nov 2017 16:49:33 UTC
-sendContribution1_4Tx status=0x0 Failure gas=400000 gasUsed=21239 costETH=0.000021239 costUSD=0.00997850698 @ ETH/USD=469.82 gasPrice=1 gwei block=1723 txIx=1 txId=0x293ca5f0328197e735bee1bea37509e7c69b79798c5f462dbefcbbe113b49528 @ 1511887773 Tue, 28 Nov 2017 16:49:33 UTC
+sendContribution1_1Tx status=0x1 Success gas=400000 gasUsed=103376 costETH=0.000103376 costUSD=0.04856811232 @ ETH/USD=469.82 gasPrice=1 gwei block=25 txIx=2 txId=0xdc2f837b8eab5885247349f3712b308a2972357426aa67a6bf48a269e7568296 @ 1511956243 Wed, 29 Nov 2017 11:50:43 UTC
+sendContribution1_2Tx status=0x1 Success gas=400000 gasUsed=103376 costETH=0.000103376 costUSD=0.04856811232 @ ETH/USD=469.82 gasPrice=1 gwei block=25 txIx=1 txId=0x3b7300475681cacc42aa1e5e11ca7c2154b45738b8860f56eddee4d10a3b2cdd @ 1511956243 Wed, 29 Nov 2017 11:50:43 UTC
+sendContribution1_3Tx status=0x1 Success gas=400000 gasUsed=148376 costETH=0.000148376 costUSD=0.06971001232 @ ETH/USD=469.82 gasPrice=1 gwei block=25 txIx=0 txId=0xa16549c55db82ad979de9c876537fdd514be9b108a302ee11c3786408dfd209c @ 1511956243 Wed, 29 Nov 2017 11:50:43 UTC
+sendContribution1_4Tx status=0x0 Failure gas=400000 gasUsed=21239 costETH=0.000021239 costUSD=0.00997850698 @ ETH/USD=469.82 gasPrice=1 gwei block=25 txIx=3 txId=0x55f1ded8b25c85d8e43ae012687d58d8d9372f07b8ba80f3f1d088c5cc71909d @ 1511956243 Wed, 29 Nov 2017 11:50:43 UTC
 PASS Send Contribution In Presale - ac3 100 ETH
 PASS Send Contribution In Presale - ac4 100 ETH
 PASS Send Contribution In Presale - ac5 100 ETH
 PASS Send Contribution In Presale - ac5 100.01 ETH - Expecting failure as over the contrib limit
-tokenContractAddress=0x44c776a7d3eb990be59458a3488066f2dc12492e
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.name=Gizer Gaming Presale Token
@@ -244,15 +244,15 @@ token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
 token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
 token.MIN_CONTRIBUTION=0.1
 token.MAX_CONTRIBUTION=100
-token.PRIVATE_SALE_MAX_ETHER=1000
-token.DATE_PRESALE_START=1511887761 Tue, 28 Nov 2017 16:49:21 UTC
-token.DATE_PRESALE_END=1511887776 Tue, 28 Nov 2017 16:49:36 UTC
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
 token.TOKETH_PRESALE_ONE=1150000000
 token.TOKETH_PRESALE_TWO=1100000000
 token.TOKETH_PRESALE_THREE=1075000000
 token.CUTOFF_PRESALE_ONE=100
 token.CUTOFF_PRESALE_TWO=500
-token.FUNDING_PRESALE_MAX=2250
+token.FUNDING_PRESALE_MAX=2300
 token.etherReceivedPrivate=300
 token.etherReceivedCrowd=300
 token.tokensIssuedPrivate=345000
@@ -260,7 +260,282 @@ token.tokensIssuedCrowd=690000
 token.tokensBurnedTotal=0
 token.presaleContributorCount=3
 token.tokensFrozen=false
-Transfer 0 #1723: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _value=115000
-Transfer 1 #1723: _from=0x0000000000000000000000000000000000000000 _to=0xa55a151eb00fded1634d27d1127b4be4627079ea _value=115000
-Transfer 2 #1723: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 _value=115000
+Transfer 0 #25: _from=0x0000000000000000000000000000000000000000 _to=0xa55a151eb00fded1634d27d1127b4be4627079ea _value=115000
+Transfer 1 #25: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 _value=115000
+Transfer 2 #25: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _value=115000
+
+Waiting until 'DATE_PRESALE_END' at 1511956257+0s =Wed, 29 Nov 2017 22:50:58 AEDT now=Wed, 29 Nov 2017 22:50:48 AEDT
+Waited until 'DATE_PRESALE_END' at at 1511956257+0s =Wed, 29 Nov 2017 22:50:58 AEDT now=Wed, 29 Nov 2017 22:50:58 AEDT
+
+Send Contribution After Presale
+ # Account                                             EtherBalanceChange              Token Name
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       81.003117655000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002720113000000000           0.000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976      300.000000000000000000           0.000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000124551000000000      230000.000000 Account #3
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000103376000000000      345000.000000 Account #4
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000148376000000000      115000.000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000021239000000000           0.000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000 Account #11 - Redemption Wallet
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+                                                                               690000.000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+
+sendContribution1_1Tx status=0x0 Failure gas=400000 gasUsed=21175 costETH=0.000021175 costUSD=0.0099484385 @ ETH/USD=469.82 gasPrice=1 gwei block=28 txIx=0 txId=0xfe77309edc37a8f0fd8fbed8fcea4fbaa04f6e8828afd302cd7919fb9a90b959 @ 1511956261 Wed, 29 Nov 2017 11:51:01 UTC
+PASS Send Contribution After Presale - ac3 1 ETH - Expecting failure as sale over
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.name=Gizer Gaming Presale Token
+token.symbol=GZRPRE
+token.decimals=6
+token.totalSupply=690000
+token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+token.MIN_CONTRIBUTION=0.1
+token.MAX_CONTRIBUTION=100
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
+token.TOKETH_PRESALE_ONE=1150000000
+token.TOKETH_PRESALE_TWO=1100000000
+token.TOKETH_PRESALE_THREE=1075000000
+token.CUTOFF_PRESALE_ONE=100
+token.CUTOFF_PRESALE_TWO=500
+token.FUNDING_PRESALE_MAX=2300
+token.etherReceivedPrivate=300
+token.etherReceivedCrowd=300
+token.tokensIssuedPrivate=345000
+token.tokensIssuedCrowd=690000
+token.tokensBurnedTotal=0
+token.presaleContributorCount=3
+token.tokensFrozen=false
+
+Move Tokens After Presale - To Redemption Wallet
+ # Account                                             EtherBalanceChange              Token Name
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       93.003245961000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002720113000000000           0.000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976      300.000000000000000000           0.000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000177450000000000      229999.000000 Account #3
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000148933000000000      344970.000000 Account #4
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000148376000000000      115000.000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000051089000000000           0.000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000          31.000000 Account #11 - Redemption Wallet
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+                                                                               690000.000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+
+moveToken1_1Tx status=0x1 Success gas=100000 gasUsed=52899 costETH=0.000052899 costUSD=0.02485300818 @ ETH/USD=469.82 gasPrice=1 gwei block=30 txIx=1 txId=0x0e3620d84bdf027a9ab564efa26f765547d6f0cb7b1f02f660d8bdd8a31b8ae0 @ 1511956271 Wed, 29 Nov 2017 11:51:11 UTC
+moveToken1_2Tx status=0x1 Success gas=100000 gasUsed=45557 costETH=0.000045557 costUSD=0.02140358974 @ ETH/USD=469.82 gasPrice=1 gwei block=30 txIx=0 txId=0x083d58ba760ed682bc8096c3c09964eeaf8ab392a754446809c1113e9762b2ec @ 1511956271 Wed, 29 Nov 2017 11:51:11 UTC
+moveToken1_3Tx status=0x1 Success gas=100000 gasUsed=29850 costETH=0.00002985 costUSD=0.014024127 @ ETH/USD=469.82 gasPrice=1 gwei block=32 txIx=0 txId=0x87bbd879373863b5281b7d1365266a2fecad4f0ecef67457b9fc65554f1ef276 @ 1511956277 Wed, 29 Nov 2017 11:51:17 UTC
+PASS Move Tokens After Presale - To Redemption Wallet - transfer 1 token ac3 -> redemptionWallet. CHECK for movement
+PASS Move Tokens After Presale - To Redemption Wallet - approve 30 tokens ac4 -> ac6
+PASS Move Tokens After Presale - To Redemption Wallet - transferFrom 30 tokens ac4 -> redemptionWallet by ac6. CHECK for movement
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.name=Gizer Gaming Presale Token
+token.symbol=GZRPRE
+token.decimals=6
+token.totalSupply=690000
+token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+token.MIN_CONTRIBUTION=0.1
+token.MAX_CONTRIBUTION=100
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
+token.TOKETH_PRESALE_ONE=1150000000
+token.TOKETH_PRESALE_TWO=1100000000
+token.TOKETH_PRESALE_THREE=1075000000
+token.CUTOFF_PRESALE_ONE=100
+token.CUTOFF_PRESALE_TWO=500
+token.FUNDING_PRESALE_MAX=2300
+token.etherReceivedPrivate=300
+token.etherReceivedCrowd=300
+token.tokensIssuedPrivate=345000
+token.tokensIssuedCrowd=690000
+token.tokensBurnedTotal=0
+token.presaleContributorCount=3
+token.tokensFrozen=false
+Approval 0 #30 _owner=0xa44a08d3f6933c69212114bb66e2df1813651844 _spender=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 _value=30
+Transfer 0 #30: _from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _to=0xabba43e7594e3b76afb157989e93c6621497fd4b _value=1
+Transfer 1 #32: _from=0xa44a08d3f6933c69212114bb66e2df1813651844 _to=0xabba43e7594e3b76afb157989e93c6621497fd4b _value=30
+
+Move Tokens After Presale - Not To Redemption Wallet
+ # Account                                             EtherBalanceChange              Token Name
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      108.003340723000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002720113000000000           0.000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976      300.000000000000000000           0.000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000201676000000000      229999.000000 Account #3
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000194490000000000      344970.000000 Account #4
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000148376000000000      115000.000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000076068000000000           0.000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000          31.000000 Account #11 - Redemption Wallet
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+                                                                               690000.000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+
+moveToken2_1Tx status=0x0 Failure gas=100000 gasUsed=24226 costETH=0.000024226 costUSD=0.01138185932 @ ETH/USD=469.82 gasPrice=1 gwei block=35 txIx=0 txId=0xd2c7e4ac7a11c536f6fde6cdafc67f67bff6f843061871d31675dc797b2bda43 @ 1511956282 Wed, 29 Nov 2017 11:51:22 UTC
+moveToken2_2Tx status=0x1 Success gas=100000 gasUsed=45557 costETH=0.000045557 costUSD=0.02140358974 @ ETH/USD=469.82 gasPrice=1 gwei block=35 txIx=1 txId=0x2be4041f874acaad08a6603ebb01aa80ccd8fdc042186ac156723d508c8b82e3 @ 1511956282 Wed, 29 Nov 2017 11:51:22 UTC
+moveToken2_3Tx status=0x0 Failure gas=100000 gasUsed=24979 costETH=0.000024979 costUSD=0.01173563378 @ ETH/USD=469.82 gasPrice=1 gwei block=37 txIx=0 txId=0x2bab985f22879aa62b946e9e7d5dd5f9fc0f6eecbe109ce59b76fdde7c99d1b9 @ 1511956286 Wed, 29 Nov 2017 11:51:26 UTC
+PASS Move Tokens After Presale - Not To Redemption Wallet - transfer 1 token ac3 -> ac5. Expecting failure
+PASS Move Tokens After Presale - Not To Redemption Wallet - approve 30 tokens ac4 -> ac6
+PASS Move Tokens After Presale - Not To Redemption Wallet - transferFrom 30 tokens ac4 -> ac7 by ac6. Expecting failure
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.name=Gizer Gaming Presale Token
+token.symbol=GZRPRE
+token.decimals=6
+token.totalSupply=690000
+token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+token.MIN_CONTRIBUTION=0.1
+token.MAX_CONTRIBUTION=100
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
+token.TOKETH_PRESALE_ONE=1150000000
+token.TOKETH_PRESALE_TWO=1100000000
+token.TOKETH_PRESALE_THREE=1075000000
+token.CUTOFF_PRESALE_ONE=100
+token.CUTOFF_PRESALE_TWO=500
+token.FUNDING_PRESALE_MAX=2300
+token.etherReceivedPrivate=300
+token.etherReceivedCrowd=300
+token.tokensIssuedPrivate=345000
+token.tokensIssuedCrowd=690000
+token.tokensBurnedTotal=0
+token.presaleContributorCount=3
+token.tokensFrozen=false
+Approval 0 #35 _owner=0xa44a08d3f6933c69212114bb66e2df1813651844 _spender=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 _value=30
+
+Freeze Tokens
+ # Account                                             EtherBalanceChange              Token Name
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      114.003383155000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002762545000000000           0.000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976      300.000000000000000000           0.000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000201676000000000      229999.000000 Account #3
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000194490000000000      344970.000000 Account #4
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000148376000000000      115000.000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000076068000000000           0.000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000          31.000000 Account #11 - Redemption Wallet
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+                                                                               690000.000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+
+freeze1Tx status=0x1 Success gas=400000 gasUsed=42432 costETH=0.000042432 costUSD=0.01993540224 @ ETH/USD=469.82 gasPrice=1 gwei block=39 txIx=0 txId=0xe7337595234eb68a9b193deb2c26baf8ffa0aaa201108ffcdc656a25d3492a42 @ 1511956294 Wed, 29 Nov 2017 11:51:34 UTC
+PASS Freeze Tokens - freezeTokens()
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.name=Gizer Gaming Presale Token
+token.symbol=GZRPRE
+token.decimals=6
+token.totalSupply=690000
+token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+token.MIN_CONTRIBUTION=0.1
+token.MAX_CONTRIBUTION=100
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
+token.TOKETH_PRESALE_ONE=1150000000
+token.TOKETH_PRESALE_TWO=1100000000
+token.TOKETH_PRESALE_THREE=1075000000
+token.CUTOFF_PRESALE_ONE=100
+token.CUTOFF_PRESALE_TWO=500
+token.FUNDING_PRESALE_MAX=2300
+token.etherReceivedPrivate=300
+token.etherReceivedCrowd=300
+token.tokensIssuedPrivate=345000
+token.tokensIssuedCrowd=690000
+token.tokensBurnedTotal=0
+token.presaleContributorCount=3
+token.tokensFrozen=true
+
+Move Tokens After Presale - To Redemption Wallet
+ # Account                                             EtherBalanceChange              Token Name
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      126.003462707000000000           0.000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.002762545000000000           0.000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976      300.000000000000000000           0.000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.000225797000000000      229999.000000 Account #3
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844     -100.000225047000000000      344970.000000 Account #4
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea     -100.000148376000000000      115000.000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000100942000000000           0.000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000          31.000000 Account #11 - Redemption Wallet
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000 Lib SafeMath
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000 Token 'GZRPRE' 'Gizer Gaming Presale Token'
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+                                                                               690000.000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------ ---------------------------
+
+moveToken3_1Tx status=0x0 Failure gas=100000 gasUsed=24121 costETH=0.000024121 costUSD=0.01133252822 @ ETH/USD=469.82 gasPrice=1 gwei block=41 txIx=0 txId=0xa9f61d46adf2014745bde2fabffef79147ec73ec5655efc83dab3e0a12ee46a4 @ 1511956300 Wed, 29 Nov 2017 11:51:40 UTC
+moveToken3_2Tx status=0x1 Success gas=100000 gasUsed=30557 costETH=0.000030557 costUSD=0.01435628974 @ ETH/USD=469.82 gasPrice=1 gwei block=41 txIx=1 txId=0x6c8b95ce0cfa916adbfa252c3d044471d0d47c5ff3985d4a3e77a8344ee7d9de @ 1511956300 Wed, 29 Nov 2017 11:51:40 UTC
+moveToken3_3Tx status=0x0 Failure gas=100000 gasUsed=24874 costETH=0.000024874 costUSD=0.01168630268 @ ETH/USD=469.82 gasPrice=1 gwei block=43 txIx=0 txId=0x83a5d80c94bf8115273fff83d249bf46e613490a445c187de0c744caa0a524b6 @ 1511956311 Wed, 29 Nov 2017 11:51:51 UTC
+PASS Move Tokens After Presale - To Redemption Wallet - transfer 1 token ac3 -> redemptionWallet. Expecting failure as tokens frozen
+PASS Move Tokens After Presale - To Redemption Wallet - approve 30 tokens ac4 -> ac6
+PASS Move Tokens After Presale - To Redemption Wallet - transferFrom 30 tokens ac4 -> redemptionWallet by ac6. Expecting failure as tokens frozen
+tokenContractAddress=0x0e946b999033257976aa5cbe0e3530618ca1582d
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.name=Gizer Gaming Presale Token
+token.symbol=GZRPRE
+token.decimals=6
+token.totalSupply=690000
+token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.redemptionWallet=0xabba43e7594e3b76afb157989e93c6621497fd4b
+token.MIN_CONTRIBUTION=0.1
+token.MAX_CONTRIBUTION=100
+token.PRIVATE_SALE_MAX_ETHER=2300
+token.DATE_PRESALE_START=1511956242 Wed, 29 Nov 2017 11:50:42 UTC
+token.DATE_PRESALE_END=1511956257 Wed, 29 Nov 2017 11:50:57 UTC
+token.TOKETH_PRESALE_ONE=1150000000
+token.TOKETH_PRESALE_TWO=1100000000
+token.TOKETH_PRESALE_THREE=1075000000
+token.CUTOFF_PRESALE_ONE=100
+token.CUTOFF_PRESALE_TWO=500
+token.FUNDING_PRESALE_MAX=2300
+token.etherReceivedPrivate=300
+token.etherReceivedCrowd=300
+token.tokensIssuedPrivate=345000
+token.tokensIssuedCrowd=690000
+token.tokensBurnedTotal=0
+token.presaleContributorCount=3
+token.tokensFrozen=true
+Approval 0 #41 _owner=0xa44a08d3f6933c69212114bb66e2df1813651844 _spender=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 _value=30
 

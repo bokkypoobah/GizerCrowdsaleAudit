@@ -17,10 +17,76 @@ No potential vulnerabilities have been identified in the original crowdsale and 
 
 <br />
 
-**Nov 28 2017** - The presale and token contract was later separated out in commit
-[1bff114](https://github.com/GizerInc/crowdsale/commit/1bff1142c52c416e077a03aa32fe33450e0e842d).
+**Nov 28 2017** - The presale and token contract was later separated out in commits
+[1bff114](https://github.com/GizerInc/crowdsale/commit/1bff1142c52c416e077a03aa32fe33450e0e842d) and
+[0808abc](https://github.com/GizerInc/crowdsale/commit/0808abcc3a112a506aed4dac4b9e5a12e39166bb).
 
 No potential vulnerabilities have been identified in the new presale and token contract.
+
+<br />
+
+### Presale Contract Mainnet Address
+
+The presale contract has been deployed to [0x92683b8A2dbbC02d1C6303d5b4362a06E46f5616](https://etherscan.io/address/0x92683b8A2dbbC02d1C6303d5b4362a06E46f5616#code).
+
+The source code from the deployed contract has been saved to [deployed-contracts/GizerTokenPresale_deployed_at_0x92683b8A2dbbC02d1C6303d5b4362a06E46f5616.sol](deployed-contracts/GizerTokenPresale_deployed_at_0x92683b8A2dbbC02d1C6303d5b4362a06E46f5616.sol)
+and has the following difference to the audited contract:
+
+```diff
+$ diff -w ../../contracts/GizerTokenPresale.sol GizerTokenPresale_deployed_at_0x92683b8A2dbbC02d1C6303d5b4362a06E46f5616.sol 
+14c14
+< // SafeMath (div not needed but kept for completeness' sake)
+---
+> // SafeM (div not needed but kept for completeness' sake)
+18c18
+< library SafeMath {
+---
+> library SafeM {
+121c121
+<   using SafeMath for uint;
+---
+>   using SafeM for uint;
+224c224
+<   uint public constant MAX_CONTRIBUTION = 100 ether;
+---
+>   uint public constant MAX_CONTRIBUTION = 2300 ether;
+228c228
+<   uint public constant PRIVATE_SALE_MAX_ETHER = 2300 ether;
+---
+>   uint public constant PRIVATE_SALE_MAX_ETHER = 1000 ether;
+233c233
+<   uint public constant DATE_PRESALE_END   = 1513260000; // 14-Dec-2017 14:00 UTC
+---
+>   uint public constant DATE_PRESALE_END   = 1512914400; // 10-Dec-2017 14:00 UTC
+```
+
+The SafeM library has been deployed to [0xC7dc19502DB685fBFe3399042d443feF240D513b](https://etherscan.io/address/0xC7dc19502DB685fBFe3399042d443feF240D513b#code)
+and has the following source:
+
+```javascript
+library SafeM {
+
+  function add(uint a, uint b) public pure returns (uint c) {
+    c = a + b;
+    require( c >= a );
+  }
+
+  function sub(uint a, uint b) public pure returns (uint c) {
+    require( b <= a );
+    c = a - b;
+  }
+
+  function mul(uint a, uint b) public pure returns (uint c) {
+    c = a * b;
+    require( a == 0 || c / a == b );
+  }
+
+  function div(uint a, uint b) public pure returns (uint c) {
+    c = a / b;
+  }  
+
+}
+```
 
 <br />
 
@@ -46,15 +112,24 @@ No potential vulnerabilities have been identified in the new presale and token c
   * [Presale Contract](#presale-contract)
   * [Presale Token Contract](#presale-token-contract)
 * [Recommendations](#recommendations)
+  * [First Review](#first-review)
+  * [New Presale Contract Review](#new-presale-contract-review)
 * [Potential Vulnerabilities](#potential-vulnerabilities)
 * [Scope](#scope)
 * [Limitations](#limitations)
 * [Due Diligence](#due-diligence)
 * [Risks](#risks)
+  * [Old Crowdsale Contract](#old-crowdsale-contract)
+  * [New Presale Contract](#new-presale-contract)
 * [Testing](#testing)
-  * [Test 1 Success](#test-1-success)
-  * [Test 2 Refunds](#test-2-refunds)
+  * [Crowdsale Contract Testing](#crowdsale-contract-testing)
+    * [Test 1 Success](#test-1-success)
+    * [Test 2 Refunds](#test-2-refunds)
+  * [Presale Contract Testing](#presale-contract-testing)
+    * [Test 1 Presale](#test-1-presale)
 * [Code Review](#code-review)
+  * [First Review](#first-review)
+  * [Second Review Of The Presale Only Contract](#second-review-of-the-presale-only-contract)
 
 <br />
 
@@ -113,17 +188,20 @@ No potential vulnerabilities have been identified in the new presale and token c
 
 <br />
 
-## New Presale Only Contract
+## New Presale Contract Review
 
 Added in commit [1bff114](https://github.com/GizerInc/crowdsale/commit/1bff1142c52c416e077a03aa32fe33450e0e842d).
 
 * **LOW IMPORTANCE** `Owned.acceptOwnership()` will log the event when `owner` has already been assigned to `newOwner`
+  * [x] Fixed in [0808abc](https://github.com/GizerInc/crowdsale/commit/0808abcc3a112a506aed4dac4b9e5a12e39166bb)
 * **LOW IMPORTANCE** The `require(...)` statements in `transfer(...)` and `transferFrom(...)` are redundant as the
   *SafeMath* library function will `REVERT` if the numbers cause a problem. It is your preference whether the `require(...)`
   statements are used or not
+  * [x] Developer decided to leave the `require(...)` statements in place for clarity
 * **LOW IMPORTANCE** `privateSaleContribution(...)` will be called by the owner to add contribution entries without any ethers
   being sent. This function calls `issueTokens(...)` which executes `wallet.transfer(this.balance);` at the end. Place a check
   `if (this.balance > 0) { ... }` around the `wallet.transfer(this.balance);` statement
+  * [x] Check added in [0808abc](https://github.com/GizerInc/crowdsale/commit/0808abcc3a112a506aed4dac4b9e5a12e39166bb)
 
 <br />
 
@@ -131,7 +209,9 @@ Added in commit [1bff114](https://github.com/GizerInc/crowdsale/commit/1bff1142c
 
 ## Potential Vulnerabilities
 
-No potential vulnerabilities have been identified in the crowdsale and token contract.
+No potential vulnerabilities have been identified in the **crowdsale** and token contract.
+
+No potential vulnerabilities have been identified in the **new presale** and token contract.
 
 <br />
 
@@ -178,9 +258,18 @@ matches the audited source code, and that the deployment parameters are correctl
 
 ## Risks
 
+### Old Crowdsale Contract
+
 * Contributed ethers will accummulate in this crowdsale contract until the minimum funding level is reached. In the case where the minimum
   funding level is not reached, refunds are provided to participants. Once this minimum funding level is reached, all contributed ether is
-  be immediately transferred to an external wallet.
+  be immediately transferred to an external wallet
+
+<br />
+
+### New Presale Contract
+
+* All ethers contributed to the presale contract are immediately transferred to an external wallet, reducing the risk of funds being
+  hacked or stolen from the presale contract
 
 <br />
 
@@ -188,7 +277,9 @@ matches the audited source code, and that the deployment parameters are correctl
 
 ## Testing
 
-### Test 1 Success
+### Crowdsale Contract Testing
+
+#### Test 1 Success
 
 The following functions were tested using the script [test/01_test1.sh](test/01_test1.sh) with the summary results saved
 in [test/test1results.txt](test/test1results.txt) and the detailed output saved in [test/test1output.txt](test/test1output.txt):
@@ -203,7 +294,7 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
 
 <br />
 
-### Test 2 Refunds
+#### Test 2 Refunds
 
 The following functions were tested using the script [test/02_test2.sh](test/02_test2.sh) with the summary results saved
 in [test/test2results.txt](test/test2results.txt) and the detailed output saved in [test/test2output.txt](test/test2output.txt):
@@ -218,6 +309,25 @@ in [test/test2results.txt](test/test2results.txt) and the detailed output saved 
 <br />
 
 Details of the testing environment can be found in [test](test).
+
+### Presale Contract Testing
+
+#### Test 1 Presale
+
+The following functions were tested using the script [presaleTest/01_test1.sh](presaleTest/01_test1.sh) with the summary results saved
+in [presaleTest/test1results.txt](presaleTest/test1results.txt) and the detailed output saved in [presaleTest/test1output.txt](presaleTest/test1output.txt):
+
+* [x] Deploy the crowdsale/token contract
+* [x] Change wallets
+* [x] Send private sale contribution
+* [x] Contribute in the presale period
+* [x] Contribute after the presale period (expecting failure)
+* [x] Transfer tokens to the redemption wallet
+* [x] Transfer tokens to the other wallets (expecting failure)
+* [x] Freeze tokens
+* [x] Transfer tokens to the redemption wallet (expecting failure)
+
+Details of the testing environment can be found in [presaleTest](test).
 
 <br />
 
@@ -236,7 +346,7 @@ Details of the testing environment can be found in [test](test).
 
 <br />
 
-### Second Review With The Presale Only Contract
+### Second Review Of The Presale Only Contract
 
 * [x] [code-review/GizerTokenPresale.md](code-review/GizerTokenPresale.md)
   * [x] library SafeMath
@@ -249,4 +359,4 @@ Details of the testing environment can be found in [test](test).
 
 <br />
 
-(c) BokkyPooBah / Bok Consulting Pty Ltd for Gizer - Nov 7 2017. The MIT Licence.
+(c) BokkyPooBah / Bok Consulting Pty Ltd for Gizer - Nov 29 2017. The MIT Licence.
